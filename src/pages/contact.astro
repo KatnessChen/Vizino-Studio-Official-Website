@@ -1,0 +1,127 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Contact" 
+  description="Get in touch with Vizino Studio - support, feedback, and inquiries"
+>
+  <section class="hero">
+    <h1>Get in Touch</h1>
+    <p>We'd love to hear from you. Questions, feedback, or partnership inquiries?</p>
+  </section>
+
+  <section style="margin-top: 3rem;">
+    <h2>Contact Options</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>📧 Email Support</h3>
+        <p>For general inquiries, issues, or feedback about Vizino Studio</p>
+        <p style="margin-top: 1rem;">
+          <a href="mailto:support@vizino-studio.com" class="button">support@vizino-studio.com</a>
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>💼 Business Inquiries</h3>
+        <p>Interested in partnerships, integrations, or enterprise solutions?</p>
+        <p style="margin-top: 1rem;">
+          <a href="mailto:business@vizino-studio.com" class="button">business@vizino-studio.com</a>
+        </p>
+      </div>
+      <div class="feature-card">
+        <h3>🐛 Bug Reports</h3>
+        <p>Found a bug? Let us know so we can fix it quickly</p>
+        <p style="margin-top: 1rem;">
+          <a href="mailto:bugs@vizino-studio.com" class="button">bugs@vizino-studio.com</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #f9f9f9; padding: 2rem; border-radius: 8px; margin-top: 3rem;">
+    <h2>Contact Form</h2>
+    <form style="max-width: 100%; display: grid; gap: 1rem;">
+      <div>
+        <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Name</label>
+        <input 
+          type="text" 
+          id="name" 
+          name="name" 
+          placeholder="Your full name" 
+          required
+          style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"
+        />
+      </div>
+      <div>
+        <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="your@email.com" 
+          required
+          style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"
+        />
+      </div>
+      <div>
+        <label for="subject" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Subject</label>
+        <input 
+          type="text" 
+          id="subject" 
+          name="subject" 
+          placeholder="What is this about?" 
+          required
+          style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;"
+        />
+      </div>
+      <div>
+        <label for="message" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Message</label>
+        <textarea 
+          id="message" 
+          name="message" 
+          placeholder="Tell us more..." 
+          rows="5" 
+          required
+          style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; font-family: inherit; resize: vertical;"
+        ></textarea>
+      </div>
+      <button 
+        type="submit" 
+        class="button"
+        style="width: 100%;"
+      >
+        Send Message
+      </button>
+    </form>
+    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+      <em>Note: This is a static website. To send messages, please use the email addresses provided above. We'll respond within 24 hours.</em>
+    </p>
+  </section>
+
+  <section style="margin-top: 3rem;">
+    <h2>Support Resources</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+      <div style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px;">
+        <h3>❓ FAQ</h3>
+        <p>Check our frequently asked questions for quick answers to common issues</p>
+        <a href="/access#faq" style="color: #667eea; font-weight: 600;">View FAQ →</a>
+      </div>
+      <div style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px;">
+        <h3>📚 Documentation</h3>
+        <p>Learn how to use Vizino Studio with our comprehensive guides and tutorials</p>
+        <a href="https://docs.vizino-studio.com" target="_blank" style="color: #667eea; font-weight: 600;">Read Docs →</a>
+      </div>
+      <div style="padding: 1.5rem; border: 1px solid #ddd; border-radius: 8px;">
+        <h3>🎓 Tutorials</h3>
+        <p>Watch video tutorials and walkthroughs to master Vizino Studio</p>
+        <a href="https://youtube.com/vizino-studio" target="_blank" style="color: #667eea; font-weight: 600;">View Videos →</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; border-radius: 8px; margin-top: 3rem; text-align: center;">
+    <h2 style="color: white; border-bottom-color: white;">Response Time</h2>
+    <p>We aim to respond to all inquiries within 24 business hours</p>
+    <p style="margin-top: 1rem; font-size: 0.95rem;">For urgent technical support, please use the bug report email</p>
+  </section>
+</Layout>

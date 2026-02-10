@@ -1,0 +1,747 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Vizino AI - Transform Your Interior Design Vision into Reality" 
+  description="AI-powered interior design visualization. Upload your room, preview paint colors, textures, and furnishings with precision. No design background needed."
+>
+  <!-- Introduction Section -->
+  <section class="intro-section">
+    <div class="container">
+      <div class="intro-content">
+        <h1>Transform Your Interior Design Vision into Reality</h1>
+        <p>Upload your room photo and instantly preview how different paint colors, textures, and furnishings look. No design background needed—AI does the heavy lifting.</p>
+        <div class="cta-buttons">
+          <a href="#cta" class="btn btn-primary">Join Beta Program</a>
+          <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+        </div>
+      </div>
+      <div class="intro-visual">
+        <div class="preview-mockup">
+          <div class="mockup-header">Room Preview</div>
+          <div class="mockup-content">
+            <div class="color-preview"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Why Choose Vizino AI</h2>
+        <p>Designed for interior designers, architects, and homeowners who value precision and efficiency</p>
+      </div>
+      <div class="features-grid">
+        <!-- Feature 1: Custom Material Library -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round">
+                <path d="M13 14h14M13 20h14M13 26h10"/>
+                <rect x="13" y="12" width="14" height="16" rx="2"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Custom Material Library</h3>
+          <p>Organize your design projects and spaces like never before. Keep all your materials, references, and inspirations in one place—no more getting lost in chat history.</p>
+          <ul class="feature-list">
+            <li>Create and manage multiple projects</li>
+            <li>Organize spaces within each project</li>
+            <li>Store custom colors, textures & assets</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2: Custom Prompts & AI -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round">
+                <path d="M11 18c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6h-2l-4 3v-3h-2c-3.314 0-6-2.686-6-6z"/>
+                <path d="M20 15h4M20 18h6M20 21h4"/>
+              </g>
+            </svg>
+          </div>
+          <h3>AI-Powered Prompts</h3>
+          <p>Craft custom prompts with AI-assisted writing. Leverage the cutting-edge Nano Banana model for the most accurate and stunning visualizations.</p>
+          <ul class="feature-list">
+            <li>Smart prompt suggestions</li>
+            <li>Advanced AI image generation</li>
+            <li>Iterative refinement tools</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3: Design Precision -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="20" cy="20" r="8"/>
+                <path d="M20 11v-2M20 31v2M29 20h2M9 20h2M27.07 12.93l1.41-1.41M11.52 28.48l1.41-1.41M27.07 27.07l1.41 1.41M11.52 11.52l1.41 1.41"/>
+              </g>
+            </svg>
+          </div>
+          <h3>No Design Background Required</h3>
+          <p>Turn imagination into pixel-perfect reality. Instantly generate professional preview images with precision—making it easier to communicate with contractors, designers, and clients.</p>
+          <ul class="feature-list">
+            <li>Instant preview generation</li>
+            <li>Professional-quality output</li>
+            <li>Easy collaboration & communication</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4: Time & Cost Savings -->
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 13v14M16 17h8M16 23h8"/>
+                <circle cx="20" cy="20" r="9"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Save Time & Money</h3>
+          <p>Make confident design decisions before buying materials. Eliminate costly mistakes, reduce multiple paint tests, and accelerate your project timeline.</p>
+          <ul class="feature-list">
+            <li>Reduce design iterations</li>
+            <li>Minimize material waste</li>
+            <li>Speed up decision-making</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Uses Vizino Studio Section -->
+  <section class="who-uses-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Who Uses Vizino Studio?</h2>
+        <p>Trusted by design professionals and homeowners alike</p>
+      </div>
+      <div class="who-uses-grid">
+        <div class="who-card">
+          <div class="who-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 28h16M12 24h16M12 20h16M15 12h10v8H15z"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Interior Designers</h3>
+          <p>Showcase concepts and variations to clients instantly with professional visualizations.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 10l-8 8v12h16V18l-8-8z"/>
+                <path d="M17 28v-8h6v8"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Architects</h3>
+          <p>Explore design alternatives and material combinations quickly during project planning.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="20" cy="15" r="4"/>
+                <path d="M12 28c0-4.418 3.582-8 8-8s8 3.582 8 8"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Homeowners & DIY Enthusiasts</h3>
+          <p>Get inspiration and visualize home improvement projects before making decisions.</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <rect width="40" height="40" rx="8" fill="#e0e7ff"/>
+              <g stroke="#4f46e5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="12" y="13" width="16" height="14" rx="2"/>
+                <path d="M12 18h16M20 13v5"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Real Estate Professionals</h3>
+          <p>Enhance property listings with stunning AI-generated interior visualizations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-it-works-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>How It Works</h2>
+        <p>Simple, intuitive workflow for beautiful results</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step">
+          <div class="step-number">01</div>
+          <h3>Upload & Organize</h3>
+          <p>Take a photo of your room or upload from your device. Create a new project and space to keep everything organized.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <h3>Customize & Generate</h3>
+          <p>Choose paint colors, textures, furniture, or write a custom prompt. AI instantly generates a preview of your design concept.</p>
+        </div>
+        <div class="step-arrow">→</div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <h3>Compare & Refine</h3>
+          <p>View before/after comparisons. Iterate and experiment until you achieve the perfect design—then save or share with others.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Examples Section -->
+  <section class="examples-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Real Design Transformations</h2>
+        <p>See how Vizino AI helps bring design visions to life</p>
+      </div>
+      <div class="examples-grid">
+        <div class="example-card">
+          <div class="example-before-after">
+            <div class="example-image original" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);">
+              <span class="label">Before</span>
+            </div>
+            <div class="example-image transformed" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);">
+              <span class="label">After</span>
+            </div>
+          </div>
+          <h4>Modern Minimalist</h4>
+          <p>Cream walls transformed to soft blue with contemporary furniture styling</p>
+        </div>
+
+        <div class="example-card">
+          <div class="example-before-after">
+            <div class="example-image original" style="background: linear-gradient(135deg, #f3e8ff 0%, #fae8ff 100%);">
+              <span class="label">Before</span>
+            </div>
+            <div class="example-image transformed" style="background: linear-gradient(135deg, #dbeafe 0%, #bae6fd 100%);">
+              <span class="label">After</span>
+            </div>
+          </div>
+          <h4>Scandinavian Elegance</h4>
+          <p>Neutral palette enhanced with cool tones and minimalist décor</p>
+        </div>
+
+        <div class="example-card">
+          <div class="example-before-after">
+            <div class="example-image original" style="background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);">
+              <span class="label">Before</span>
+            </div>
+            <div class="example-image transformed" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);">
+              <span class="label">After</span>
+            </div>
+          </div>
+          <h4>Warm & Inviting</h4>
+          <p>Soft green tones create a calming, nature-inspired atmosphere</p>
+        </div>
+
+        <div class="example-card">
+          <div class="example-before-after">
+            <div class="example-image original" style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);">
+              <span class="label">Before</span>
+            </div>
+            <div class="example-image transformed" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+              <span class="label">After</span>
+            </div>
+          </div>
+          <h4>Modern Drama</h4>
+          <p>Bold dark tones for a sophisticated, contemporary look</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beta Program Section -->
+  <section id="beta" class="beta-section">
+    <div class="container">
+      <div class="beta-content">
+        <h2>Join Our Beta Program</h2>
+        <p>Be among the first to experience the future of interior design visualization</p>
+        
+        <div class="beta-benefits">
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>Invitation-Only Access</strong> — Curated community of design professionals</span>
+          </div>
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>V Points Credits</strong> — Complimentary credits for all beta participants</span>
+          </div>
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>Direct Feedback Channel</strong> — Your input shapes the product</span>
+          </div>
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>Priority Support</strong> — Dedicated assistance during beta phase</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Transform Your Design Process?</h2>
+        <p>Join the beta program and start creating stunning interior design previews today</p>
+        <a href="https://app.vizino.ai/auth" class="btn btn-primary btn-large">Get Access Now</a>
+        <p class="cta-note">Sign up with your email to receive your invitation and V Points credits</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Introduction Section */
+  .intro-section {
+    padding: var(--spacing-4xl) 0;
+    background: linear-gradient(135deg, var(--brand-violet-light) 0%, var(--color-gray-50) 100%);
+  }
+
+  .intro-section .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-4xl);
+    align-items: center;
+  }
+
+  .intro-content h1 {
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--line-height-tight);
+  }
+
+  .intro-content > p {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+  }
+
+  /* Preview Mockup */
+  .preview-mockup {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+  }
+
+  .mockup-header {
+    background-color: var(--color-gray-100);
+    padding: var(--spacing-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-700);
+    font-size: var(--font-size-sm);
+  }
+
+  .mockup-content {
+    aspect-ratio: 1;
+    background-color: var(--color-gray-50);
+  }
+
+  .color-preview {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .feature-card {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+  }
+
+  .feature-card:hover {
+    border-color: var(--brand-indigo);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+  }
+
+  .feature-card h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .feature-card > p {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .feature-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .feature-list li {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    padding-left: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+  }
+
+  .feature-list li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--brand-indigo);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Who Uses Section */
+  .who-uses-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-gray-50);
+  }
+
+  .who-uses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .who-card {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+  }
+
+  .who-card:hover {
+    border-color: var(--brand-indigo);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .who-icon {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+  }
+
+  .who-card h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .who-card p {
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-sm);
+  }
+
+  /* How It Works Section */
+  .how-it-works-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-2xl);
+    align-items: start;
+    position: relative;
+  }
+
+  .step {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gray-200);
+    text-align: center;
+  }
+
+  .step-number {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .step h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .step p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .step-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    color: var(--brand-indigo);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Examples Section */
+  .examples-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-gray-50);
+  }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .example-card {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-base);
+    background-color: var(--color-white);
+  }
+
+  .example-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .example-before-after {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    height: 250px;
+  }
+
+  .example-image {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .example-image .label {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--color-white);
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .example-card h4 {
+    padding: var(--spacing-lg);
+    padding-bottom: var(--spacing-sm);
+  }
+
+  .example-card p {
+    padding: var(--spacing-lg);
+    padding-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  /* Beta Section */
+  .beta-section {
+    padding: var(--spacing-4xl) 0;
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+  }
+
+  .beta-content h2,
+  .beta-content > p {
+    color: var(--color-white);
+  }
+
+  .beta-content {
+    text-align: center;
+  }
+
+  .beta-content h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .beta-content > p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .beta-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--spacing-2xl);
+    margin-top: var(--spacing-2xl);
+  }
+
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-lg);
+    text-align: left;
+    padding: var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .benefit svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .benefit span {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-white);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .cta-content {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .cta-content h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .cta-content > p:first-of-type {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .cta-note {
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .intro-section .container {
+      grid-template-columns: 1fr;
+    }
+
+    .intro-content h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .step-arrow {
+      display: none;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .features-grid,
+    .who-uses-grid,
+    .examples-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .intro-section,
+    .features-section,
+    .who-uses-section,
+    .how-it-works-section,
+    .examples-section,
+    .beta-section,
+    .cta-section {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .section-header {
+      margin-bottom: var(--spacing-2xl);
+    }
+  }
+</style>
