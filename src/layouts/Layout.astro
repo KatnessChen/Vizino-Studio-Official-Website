@@ -224,6 +224,12 @@ const { title, description = '' } = Astro.props;
         font-size: var(--font-size-xl);
         font-weight: var(--font-weight-bold);
         color: var(--color-gray-800);
+        text-decoration: none;
+        transition: color var(--transition-fast);
+      }
+
+      .logo:hover {
+        color: var(--brand-indigo);
       }
 
       .nav-links {
@@ -245,6 +251,7 @@ const { title, description = '' } = Astro.props;
 
       .nav-links .btn {
         margin-left: var(--spacing-lg);
+        color: var(--color-white);
       }
 
       /* Footer */
@@ -342,18 +349,18 @@ const { title, description = '' } = Astro.props;
     <nav class="navbar">
       <div class="container">
         <div class="nav-content">
-          <div class="logo">
+          <a href="/" class="logo">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <rect width="32" height="32" rx="8" fill="#4f46e5"/>
               <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
             <span>Vizino AI</span>
-          </div>
+          </a>
           <ul class="nav-links">
             <li><a href="/#features">Features</a></li>
             <li><a href="/#how-it-works">How It Works</a></li>
             <li><a href="/#beta">Beta Program</a></li>
-            <li><a href="#cta" class="btn btn-primary">Get Access</a></li>
+            <li><a href="/#beta-request" class="btn btn-primary">Get Access</a></li>
           </ul>
         </div>
       </div>

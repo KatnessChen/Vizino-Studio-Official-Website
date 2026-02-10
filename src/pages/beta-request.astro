@@ -1,0 +1,384 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID}`;
+---
+
+<Layout 
+  title="Beta Access Request - Vizino AI" 
+  description="Request beta access to Vizino AI and join our exclusive program for interior design professionals."
+>
+  <section class="beta-request-section">
+    <div class="container">
+      <div class="request-header">
+        <h1>Request Beta Access</h1>
+        <p>Join our exclusive beta program and help shape the future of AI-powered interior design</p>
+      </div>
+
+      <div class="request-content">
+        <div class="form-container">
+          <form id="betaForm" class="beta-form">
+            <input type="hidden" name="_subject" value="New Beta Access Request" />
+            <input type="hidden" name="_language" value="en" />
+            <!-- Name Field -->
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                placeholder="Enter your full name"
+              />
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                placeholder="your@email.com"
+              />
+            </div>
+
+            <!-- Role Selection (Multiple Choice) -->
+            <div class="form-group">
+              <label>What best describes your role? (Select all that apply) *</label>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Design My Space (Homeowner/DIY)" />
+                  <span>Design My Space (Homeowner/DIY)</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Professional Designer" />
+                  <span>Professional Designer</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Architect" />
+                  <span>Architect</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Contractor/Handyman" />
+                  <span>Contractor/Handyman</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Real Estate Professional" />
+                  <span>Real Estate Professional</span>
+                </label>
+                <label class="checkbox-label">
+                  <input type="checkbox" name="roles" value="Explore AI Capability" />
+                  <span>Explore AI Capability</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Use Case Field -->
+            <div class="form-group">
+              <label for="useCase">What will you use Vizino AI for? *</label>
+              <textarea 
+                id="useCase" 
+                name="useCase" 
+                required 
+                rows="4"
+                placeholder="Describe your interior design projects or goals..."
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-large">
+                Submit Beta Access Request
+              </button>
+            </div>
+
+            <!-- Success Message -->
+            <div class="success-message" id="successMessage" style="display: none;">
+              <p>✓ Thank you for your interest! We've received your request and will contact you at the provided email within 48 hours.</p>
+            </div>
+
+            <!-- Error Message -->
+            <div class="error-message-box" id="errorMessage" style="display: none;">
+              <p id="errorText"></p>
+            </div>
+          </form>
+
+          <!-- Info Panel -->
+          <div class="info-panel">
+            <div class="info-card">
+              <h3>What's Included</h3>
+              <ul>
+                <li>~$50 CAD in V Points credits</li>
+                <li>Early access to the platform</li>
+                <li>Priority email support</li>
+                <li>Direct input on product development</li>
+              </ul>
+            </div>
+
+            <div class="info-card">
+              <h3>Next Steps</h3>
+              <ol>
+                <li>Fill out the form</li>
+                <li>We'll review your application</li>
+                <li>Receive beta access invite within 48 hours</li>
+                <li>Get your V Points credits</li>
+                <li>Start creating precise designs</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .beta-request-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .request-header {
+    text-align: center;
+    margin-bottom: var(--spacing-4xl);
+  }
+
+  .request-header h1 {
+    margin-bottom: var(--spacing-md);
+    color: var(--color-gray-800);
+  }
+
+  .request-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .request-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .form-container {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: var(--spacing-3xl);
+  }
+
+  .beta-form {
+    background-color: var(--color-gray-50);
+    padding: var(--spacing-3xl);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .form-group:last-of-type {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .form-group label {
+    margin-bottom: var(--spacing-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-800);
+    font-size: var(--font-size-sm);
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea {
+    width: 100%;
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-gray-300);
+    border-radius: var(--radius-lg);
+    font-size: var(--font-size-base);
+    font-family: inherit;
+    transition: border-color var(--transition-base);
+  }
+
+  .form-group input[type="text"]:focus,
+  .form-group input[type="email"]:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--brand-indigo);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md)
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    cursor: pointer;
+    font-weight: var(--font-weight-normal);
+    color: var(--color-gray-700);
+    font-size: var(--font-size-sm);
+  }
+
+  .checkbox-label input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--brand-indigo);
+  }
+
+  .checkbox-label:hover {
+    color: var(--color-gray-800);
+  }
+
+  .error-message {
+    color: #dc2626;
+    font-size: var(--font-size-sm);
+    margin-top: var(--spacing-sm);
+  }
+
+  .success-message {
+    padding: var(--spacing-2xl);
+    background-color: #ecfdf5;
+    border: 1px solid #86efac;
+    border-radius: var(--radius-lg);
+    color: #065f46;
+    text-align: center;
+    margin-top: var(--spacing-2xl);
+  }
+
+  .success-message p {
+    margin: 0;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .error-message-box {
+    padding: var(--spacing-2xl);
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    border-radius: var(--radius-lg);
+    color: #991b1b;
+    margin-top: var(--spacing-2xl);
+  }
+
+  .error-message-box p {
+    margin: 0;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2xl);
+  }
+
+  .info-card {
+    padding: var(--spacing-2xl);
+    background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 100%);
+    border: 2px solid var(--brand-indigo);
+    border-radius: var(--radius-xl);
+  }
+
+  .info-card h3 {
+    margin-bottom: var(--spacing-md);
+    color: var(--brand-indigo);
+    font-size: var(--font-size-lg);
+  }
+
+  .info-card ul,
+  .info-card ol {
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0;
+  }
+
+  .info-card li {
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-gray-700);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .info-card li:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .beta-request-section {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .request-header {
+      margin-bottom: var(--spacing-2xl);
+    }
+
+    .request-header h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .form-container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+
+    .beta-form {
+      padding: var(--spacing-2xl);
+    }
+
+    .checkbox-group {
+      gap: var(--spacing-sm);
+    }
+</style>
+
+<script define:vars={{ formAction }}>
+  const form = document.getElementById('betaForm');
+  const successMessage = document.getElementById('successMessage');
+  const errorMessage = document.getElementById('errorMessage');
+  const errorText = document.getElementById('errorText');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Reset messages
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+
+    try {
+      // Submit form data to Formspree
+      const formData = new FormData(form);
+      const response = await fetch(formAction, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        // Success
+        successMessage.style.display = 'block';
+        form.reset();
+        // Scroll to message
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (err) {
+      // Error
+      errorText.textContent = 'Failed to submit. Please try again or email contact@vizino.ai directly.';
+      errorMessage.style.display = 'block';
+      errorMessage.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+</script>
+
