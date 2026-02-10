@@ -88,15 +88,15 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
             </div>
 
             <!-- Submit Button -->
-            <div class="form-group">
+            <div class="form-group text-center">
               <button type="submit" class="btn btn-primary btn-large">
-                Submit Beta Access Request
+                Submit
               </button>
             </div>
 
             <!-- Success Message -->
             <div class="success-message" id="successMessage" style="display: none;">
-              <p>✓ Thank you for your interest! We've received your request and will contact you at the provided email within 48 hours.</p>
+              <p>Thank you for your interest! We've received your request and will contact you asap.</p>
             </div>
 
             <!-- Error Message -->
@@ -315,6 +315,10 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
     margin-bottom: 0;
   }
 
+  .text-center {
+    text-align: center;
+  }
+
   /* Responsive Design */
   @media (max-width: 768px) {
     .beta-request-section {
@@ -357,21 +361,26 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
     errorMessage.style.display = 'none';
 
     try {
-      // Submit form data to Formspree
+      // Collect form data
       const formData = new FormData(form);
+      
+      // Submit to Formspree
       const response = await fetch(formAction, {
         method: 'POST',
         body: formData,
+        headers: {
+          'Accept': 'application/json',
+        },
       });
 
       if (response.ok) {
         // Success
         successMessage.style.display = 'block';
         form.reset();
-        // Scroll to message
         successMessage.scrollIntoView({ behavior: 'smooth' });
       } else {
-        throw new Error('Form submission failed');
+        const data = await response.json();
+        throw new Error(data.error || 'Form submission failed');
       }
     } catch (err) {
       // Error

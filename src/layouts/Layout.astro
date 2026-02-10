@@ -360,7 +360,7 @@ const { title, description = '' } = Astro.props;
             <li><a href="/#features">Features</a></li>
             <li><a href="/#how-it-works">How It Works</a></li>
             <li><a href="/#beta">Beta Program</a></li>
-            <li><a href="/#beta-request" class="btn btn-primary">Get Access</a></li>
+            <li><a href="/beta-request" class="btn btn-primary">Get Access</a></li>
           </ul>
         </div>
       </div>
@@ -407,16 +407,18 @@ const { title, description = '' } = Astro.props;
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
           const href = this.getAttribute('href');
-          if (href !== '#' && document.querySelector(href)) {
-            e.preventDefault();
+          if (href !== '#') {
             const target = document.querySelector(href);
-            const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
-            const targetPosition = target.offsetTop - navHeight;
-            
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            });
+            if (target) {
+              e.preventDefault();
+              const navHeight = document.querySelector('.navbar')?.offsetHeight || 0;
+              const targetPosition = target.offsetTop - navHeight;
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              });
+            }
           }
         });
       });
