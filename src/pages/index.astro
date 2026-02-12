@@ -42,10 +42,15 @@ const BETA_CREDITS_VALUE = 50;
           <div class="mockup-content">
             <div class="carousel" aria-roledescription="carousel">
               <div class="carousel-track">
-                <div class="carousel-item" style="background: linear-gradient(135deg, #f3e8ff 0%, #faf5ff 100%);"></div>
-                <div class="carousel-item" style="background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);"></div>
-                <div class="carousel-item" style="background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);"></div>
-                <div class="carousel-item" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);"></div>
+                <div class="carousel-item">
+                  <img src="/images/recolor-wall-marketing.png" alt="Recolor Wall feature" />
+                </div>
+                <div class="carousel-item">
+                  <img src="/images/add-texture-marketing.png" alt="Add Texture feature" />
+                </div>
+                <div class="carousel-item">
+                  <img src="/images/add-furniture-marketing.png" alt="Add Furniture feature" />
+                </div>
               </div>
 
               <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
@@ -478,6 +483,14 @@ const BETA_CREDITS_VALUE = 50;
     box-shadow: var(--shadow-sm);
     background-size: cover;
     background-position: center;
+    overflow: hidden;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   .carousel-btn {
