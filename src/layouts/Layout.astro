@@ -1,10 +1,15 @@
 ---
+import { languages, ui } from '../i18n/translations';
+import { useTranslations } from '../i18n/utils';
+
 interface Props {
   title: string;
   description?: string;
+  lang?: string;
 }
 
-const { title, description = '' } = Astro.props;
+const { title, description = '', lang = 'en' } = Astro.props;
+const t = useTranslations(lang as keyof typeof languages);
 ---
 
 <!DOCTYPE html>
@@ -254,6 +259,80 @@ const { title, description = '' } = Astro.props;
         color: var(--color-white);
       }
 
+      /* Language Switcher */
+      .nav-lang-switch {
+        margin-left: auto;
+      }
+
+      .lang-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+
+      .lang-button {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-sm);
+        padding: var(--spacing-sm) var(--spacing-md);
+        background: transparent;
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-lg);
+        color: var(--color-gray-700);
+        font-weight: var(--font-weight-medium);
+        cursor: pointer;
+        transition: all var(--transition-fast);
+      }
+
+      .lang-button:hover {
+        border-color: var(--brand-indigo);
+        color: var(--brand-indigo);
+      }
+
+      .lang-menu {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: var(--spacing-sm);
+        background: var(--color-white);
+        border: 1px solid var(--color-gray-200);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        z-index: 1000;
+        min-width: 150px;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all var(--transition-fast);
+      }
+
+      .lang-dropdown:hover .lang-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .lang-menu a {
+        display: block;
+        padding: var(--spacing-md) var(--spacing-lg);
+        color: var(--color-gray-700);
+        text-decoration: none;
+        transition: all var(--transition-fast);
+        border-left: 3px solid transparent;
+      }
+
+      .lang-menu a:hover {
+        background-color: var(--color-gray-50);
+        color: var(--brand-indigo);
+      }
+
+      .lang-menu a.active {
+        background-color: var(--brand-indigo-light);
+        color: var(--brand-indigo);
+        border-left-color: var(--brand-indigo);
+        font-weight: var(--font-weight-semibold);
+      }
+
       /* Footer */
       .footer {
         background-color: var(--color-gray-800);
@@ -341,6 +420,25 @@ const { title, description = '' } = Astro.props;
         .nav-links {
           display: none;
         }
+
+        .nav-lang-switch {
+          display: inline-block !important;
+          margin-left: auto;
+        }
+
+        .lang-button {
+          padding: var(--spacing-xs) var(--spacing-sm);
+          font-size: var(--font-size-sm);
+        }
+
+        .lang-button span {
+          display: none;
+        }
+
+        .lang-menu {
+          right: 0;
+          left: auto;
+        }
       }
     </style>
   </head>
@@ -349,7 +447,7 @@ const { title, description = '' } = Astro.props;
     <nav class="navbar">
       <div class="container">
         <div class="nav-content">
-          <a href="/" class="logo">
+          <a href={`/${lang}`} class="logo">
             <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
               <rect width="32" height="32" rx="8" fill="#4f46e5"/>
               <path d="M10 16L14 20L22 12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -357,10 +455,26 @@ const { title, description = '' } = Astro.props;
             <span>Vizino AI</span>
           </a>
           <ul class="nav-links">
-            <li><a href="/#features">Features</a></li>
-            <li><a href="/#how-it-works">How It Works</a></li>
-            <li><a href="/#beta">Beta Program</a></li>
-            <li><a href="/beta-request" class="btn btn-primary">Get Access</a></li>
+            <li><a href={`/${lang}#features`}>{t('nav.features')}</a></li>
+            <li><a href={`/${lang}#how-it-works`}>{t('nav.howItWorks')}</a></li>
+            <li><a href={`/${lang}#beta`}>{t('nav.beta')}</a></li>
+            <li><a href={`/${lang}/beta-request`} class="btn btn-primary">{t('nav.getAccess')}</a></li>
+            <li class="nav-lang-switch">
+              <div class="lang-dropdown">
+                <button class="lang-button" aria-label={t('lang.switchLanguage')}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M2 12h20"></path>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  <span>{lang === 'en' ? 'EN' : '繁'}</span>
+                </button>
+                <div class="lang-menu">
+                  <a href="/en" class={lang === 'en' ? 'active' : ''}>{t('lang.english')}</a>
+                  <a href="/zh-tw" class={lang === 'zh-tw' ? 'active' : ''}>{t('lang.chineseTraditional')}</a>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
@@ -376,28 +490,28 @@ const { title, description = '' } = Astro.props;
       <div class="container">
         <div class="footer-content">
           <div class="footer-section">
-            <h4>Vizino AI</h4>
-            <p>AI-powered interior design visualization for professionals and homeowners.</p>
+            <h4>{t('footer.brandName')}</h4>
+            <p>{t('footer.description')}</p>
           </div>
           <div class="footer-section">
-            <h4>Quick Links</h4>
+            <h4>{t('footer.quickLinks')}</h4>
             <ul>
-              <li><a href="/#features">Features</a></li>
-              <li><a href="/#how-it-works">How It Works</a></li>
-              <li><a href="/#beta">Beta Program</a></li>
+              <li><a href={`/${lang}#features`}>{t('nav.features')}</a></li>
+              <li><a href={`/${lang}#how-it-works`}>{t('nav.howItWorks')}</a></li>
+              <li><a href={`/${lang}#beta`}>{t('nav.beta')}</a></li>
             </ul>
           </div>
           <div class="footer-section">
-            <h4>Legal</h4>
+            <h4>{t('footer.legal')}</h4>
             <ul>
-              <li><a href="/privacy">Privacy Policy</a></li>
-              <li><a href="/terms">Terms of Service</a></li>
-              <li><a href="/contact">Contact Us</a></li>
+              <li><a href={`/${lang}/privacy`}>{t('common.footer.privacy')}</a></li>
+              <li><a href={`/${lang}/terms`}>{t('common.footer.terms')}</a></li>
+              <li><a href={`/${lang}/contact`}>{t('contact.title')}</a></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <p>&copy; 2026 Vizino AI. All rights reserved.</p>
+          <p>{t('footer.copyright')}</p>
         </div>
       </div>
     </footer>

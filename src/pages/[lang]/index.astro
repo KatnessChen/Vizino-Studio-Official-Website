@@ -1,0 +1,1116 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import PaletteSharpIcon from '@mui/icons-material/PaletteSharp';
+import DescriptionIcon from '@mui/icons-material/Description';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import AutoAwesomeSharpIcon from '@mui/icons-material/AutoAwesomeSharp';
+import SavingsIcon from '@mui/icons-material/Savings';
+import DesignServicesIcon from '@mui/icons-material/DesignServices';
+import HomeIcon from '@mui/icons-material/Home';
+import EmojiObjectsSharpIcon from '@mui/icons-material/EmojiObjectsSharp';
+import ArchitectureSharpIcon from '@mui/icons-material/ArchitectureSharp';
+import { languages } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh-tw' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
+
+const BETA_CREDITS_VALUE = 50;
+---
+
+<Layout 
+  title={t('index.hero.title')}
+  description={t('index.hero.subtitle')}
+  lang={lang}
+>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">{t('index.hero.badge')}</div>
+        <h1>{t('index.hero.title')}</h1>
+        <p class="hero-subtitle" set:html={t('index.hero.subtitle')}></p>
+        <div class="cta-buttons">
+          <a href={`/${lang}/beta-request`} class="btn btn-primary">{t('index.hero.cta.beta').replace('${value}', BETA_CREDITS_VALUE.toString())}</a>
+          <a href="#how-it-works" class="btn btn-secondary">{t('index.hero.cta.works')}</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="preview-mockup">
+          <div class="mockup-header">
+            <div class="mockup-tabs">
+              <span class="tab active" data-tab="0">Recolor Wall</span>
+              <span class="tab" data-tab="1">Add Texture</span>
+              <span class="tab" data-tab="2">Add Furniture</span>
+            </div>
+          </div>
+          <div class="mockup-content">
+            <div class="carousel" aria-roledescription="carousel">
+              <div class="carousel-track">
+                <div class="carousel-item">
+                  <img src="/images/recolor-wall-marketing.png" alt="Recolor Wall feature" />
+                </div>
+                <div class="carousel-item">
+                  <img src="/images/add-texture-marketing.png" alt="Add Texture feature" />
+                </div>
+                <div class="carousel-item">
+                  <img src="/images/add-furniture-marketing.png" alt="Add Furniture feature" />
+                </div>
+              </div>
+
+              <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+              <button class="carousel-btn next" aria-label="Next slide">›</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Comparison Section -->
+  <section class="comparison-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t('comparison.title')}</h2>
+        <p>{t('comparison.subtitle')}</p>
+      </div>
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <div class="comparison-feature"></div>
+          <div class="comparison-column">
+            <div class="column-label generic">Generic AI Chat</div>
+          </div>
+          <div class="comparison-column">
+            <div class="column-label vizino">Vizino AI</div>
+          </div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.projectOrganization')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.lost')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.structured')}</span>
+          </div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.customMaterials')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.scattered')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.library')}</span>
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.writingPrompt')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.figureOut')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.helpWrite')}</span>
+          </div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.promptManagement')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.scratch')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.reuse')}</span>
+          </div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.versionHistory')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.undo')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.history')}</span>
+          </div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-feature">{t('comparison.resultsComparison')}</div>
+          <div class="comparison-column">
+            <span class="no">❌ {t('comparison.generic.manual')}</span>
+          </div>
+          <div class="comparison-column">
+            <span class="yes">✓ {t('comparison.vizino.sharing')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="solution-section">
+    <div class="container">
+      <div class="solution-intro">
+        <div class="solution-badge">{t('solution.badge')}</div>
+        <h2>{t('solution.title')}</h2>
+        <p>{t('solution.description')}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="how-it-works-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t('howItWorks.title')}</h2>
+        <p>{t('howItWorks.subtitle')}</p>
+      </div>
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <h3>{t('step1.title')}</h3>
+            <p>{t('step1.description')}</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <h3>{t('step2.title')}</h3>
+            <p>{t('step2.description')}</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <h3>{t('step3.title')}</h3>
+            <p>{t('step3.description')}</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <h3>{t('step4.title')}</h3>
+            <p>{t('step4.description')}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t('features.title')}</h2>
+        <p>{t('features.subtitle')}</p>
+      </div>
+      <div class="features-grid">
+        <!-- Feature 1: Project-Based Management -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><DashboardIcon /></span>
+          </div>
+          <h3>{t('feature.projectManagement.title')}</h3>
+          <p>{t('feature.projectManagement.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.projectManagement.point1')}</li>
+            <li>{t('feature.projectManagement.point2')}</li>
+            <li>{t('feature.projectManagement.point3')}</li>
+            <li>{t('feature.projectManagement.point4')}</li>
+          </ul>
+        </div>
+
+        <!-- Feature 2: Custom Materials Upload -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><PaletteSharpIcon /></span>
+          </div>
+          <h3>{t('feature.customMaterials.title')}</h3>
+          <p>{t('feature.customMaterials.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.customMaterials.point1')}</li>
+            <li>{t('feature.customMaterials.point2')}</li>
+            <li>{t('feature.customMaterials.point3')}</li>
+            <li>{t('feature.customMaterials.point4')}</li>
+          </ul>
+        </div>
+
+        <!-- Feature 3: Prompt Library -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><DescriptionIcon /></span>
+          </div>
+          <h3>{t('feature.promptLibrary.title')}</h3>
+          <p>{t('feature.promptLibrary.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.promptLibrary.point1')}</li>
+            <li>{t('feature.promptLibrary.point2')}</li>
+            <li>{t('feature.promptLibrary.point3')}</li>
+            <li>{t('feature.promptLibrary.point4')}</li>
+          </ul>
+        </div>
+
+        <!-- Feature 4: AI-Powered "Help Me Write" -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><AutoFixHighIcon /></span>
+          </div>
+          <h3>{t('feature.helpMeWrite.title')}</h3>
+          <p>{t('feature.helpMeWrite.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.helpMeWrite.point1')}</li>
+            <li>{t('feature.helpMeWrite.point2')}</li>
+            <li>{t('feature.helpMeWrite.point3')}</li>
+            <li>{t('feature.helpMeWrite.point4')}</li>
+          </ul>
+        </div>
+
+        <!-- Feature 5: Nano Banana Model -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><AutoAwesomeSharpIcon /></span>
+          </div>
+          <h3>{t('feature.nanoBanana.title')}</h3>
+          <p>{t('feature.nanoBanana.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.nanoBanana.point1')}</li>
+            <li>{t('feature.nanoBanana.point2')}</li>
+            <li>{t('feature.nanoBanana.point3')}</li>
+            <li>{t('feature.nanoBanana.point4')}</li>
+          </ul>
+        </div>
+
+        <!-- Feature 6: Save Time & Money -->
+        <div class="feature-card highlight">
+          <div class="feature-icon">
+            <span class="icon-bg"><SavingsIcon /></span>
+          </div>
+          <h3>{t('feature.saveTime.title')}</h3>
+          <p>{t('feature.saveTime.description')}</p>
+          <ul class="feature-list">
+            <li>{t('feature.saveTime.point1')}</li>
+            <li>{t('feature.saveTime.point2')}</li>
+            <li>{t('feature.saveTime.point3')}</li>
+            <li>{t('feature.saveTime.point4')}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Who Uses Vizino Studio Section -->
+  <section class="who-uses-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{t('whoUses.title')}</h2>
+        <p>{t('whoUses.subtitle')}</p>
+      </div>
+      <div class="who-uses-grid">
+        <div class="who-card">
+          <div class="who-icon">
+            <span class="icon-container"><DesignServicesIcon /></span>
+          </div>
+          <h3>{t('whoUses.designer.title')}</h3>
+          <p>{t('whoUses.designer.description')}</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <span class="icon-container"><ArchitectureSharpIcon /></span>
+          </div>
+          <h3>{t('whoUses.architect.title')}</h3>
+          <p>{t('whoUses.architect.description')}</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <span class="icon-container"><EmojiObjectsSharpIcon /></span>
+          </div>
+          <h3>{t('whoUses.homeowner.title')}</h3>
+          <p>{t('whoUses.homeowner.description')}</p>
+        </div>
+
+        <div class="who-card">
+          <div class="who-icon">
+            <span class="icon-container"><HomeIcon /></span>
+          </div>
+          <h3>{t('whoUses.realEstate.title')}</h3>
+          <p>{t('whoUses.realEstate.description')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Beta Program Section -->
+  <section id="beta" class="beta-section">
+    <div class="container">
+      <div class="beta-content">
+        <div class="beta-badge">{t('beta.badge')}</div>
+        <h2>{t('beta.title')}</h2>
+        <p>{t('beta.description')}</p>
+        
+        <div class="beta-benefits">
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>~${BETA_CREDITS_VALUE} CAD in V Points</strong> — {t('beta.credits')}</span>
+          </div>
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>{t('common.directInput', 'Direct Input')}</strong> — {t('beta.feedback')}</span>
+          </div>
+          <div class="benefit">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17Z" fill="#ffffff"/>
+            </svg>
+            <span><strong>{t('common.prioritySupport', 'Priority Support')}</strong> — {t('beta.support')}</span>
+          </div>
+        </div>
+        <a href={`/${lang}/beta-request`} class="btn btn-primary btn-large">{t('beta.cta')}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    padding: var(--spacing-4xl) 0;
+    background: linear-gradient(135deg, var(--brand-violet-light) 0%, var(--color-gray-50) 100%);
+  }
+
+  .hero-section .container {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--spacing-4xl);
+    align-items: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .hero-content h1 {
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--line-height-tight);
+  }
+
+  .hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--color-gray-700);
+    margin-bottom: var(--spacing-2xl);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .hero-note {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+  }
+
+  /* Preview Mockup */
+  .preview-mockup {
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+  }
+
+  .mockup-header {
+    background-color: var(--color-gray-100);
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .mockup-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+  }
+
+  .tab {
+    padding: var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-white);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xs);
+    color: var(--color-gray-600);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .tab.active {
+    background-color: var(--brand-indigo);
+    color: var(--color-white);
+  }
+
+  .mockup-content {
+    padding: var(--spacing-md);
+    background-color: var(--color-gray-50);
+  }
+
+  .carousel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 400ms cubic-bezier(0.4,0,0.2,1);
+    will-change: transform;
+  }
+
+  .carousel-item {
+    min-width: 100%;
+    aspect-ratio: 1;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+
+  .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.95);
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--brand-indigo);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .carousel-btn.prev { left: 8px; }
+  .carousel-btn.next { right: 8px; }
+
+  .carousel-dots {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: var(--spacing-md);
+  }
+
+  .carousel-dots .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.45);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .carousel-dots .dot.active {
+    background: var(--color-white);
+    box-shadow: 0 0 0 4px rgba(255,255,255,0.08);
+  }
+
+  /* Problem Section */
+  .problem-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .problem-card {
+    padding: var(--spacing-2xl);
+    background-color: #fef2f2;
+    border-radius: var(--radius-xl);
+    border: 2px solid #fca5a5;
+  }
+
+  .problem-icon {
+    font-size: var(--font-size-4xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .problem-card h3 {
+    margin-bottom: var(--spacing-md);
+    color: #991b1b;
+  }
+
+  .problem-card p {
+    color: #7f1d1d;
+    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-sm);
+  }
+
+  /* Solution Section */
+  .solution-section {
+    padding: var(--spacing-3xl) 0;
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+  }
+
+  .solution-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .solution-badge {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .solution-intro h2 {
+    color: var(--color-white);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .solution-intro p {
+    font-size: var(--font-size-xl);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Section Header */
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+  }
+
+  .section-header h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .section-header p {
+    font-size: var(--font-size-lg);
+    color: var(--color-gray-600);
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* Features Section */
+  .features-section {
+    padding: var(--spacing-xl) 0 var(--spacing-4xl) 0;
+    background-color: var(--color-gray-50);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .feature-card {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+  }
+
+  .feature-card.highlight {
+    border-color: var(--brand-indigo);
+    background: linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%);
+  }
+
+  .feature-card:hover {
+    border-color: var(--brand-indigo);
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-4px);
+  }
+
+  .feature-icon {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+  }
+
+  .feature-icon .icon-bg {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-indigo);
+  }
+
+  .feature-icon .icon-bg svg {
+  }
+
+  .feature-card h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .feature-card > p {
+    color: var(--color-gray-600);
+    margin-bottom: var(--spacing-lg);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .feature-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .feature-list li {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    padding-left: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
+    position: relative;
+  }
+
+  .feature-list li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--brand-indigo);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* Who Uses Section */
+  .who-uses-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .who-uses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-2xl);
+  }
+
+  .who-card {
+    padding: var(--spacing-2xl);
+    background-color: var(--color-gray-50);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-gray-200);
+    transition: all var(--transition-base);
+  }
+
+  .who-card:hover {
+    border-color: var(--brand-indigo);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+  }
+
+  .who-icon {
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+  }
+
+  .icon-container {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, #f5f3ff 0%, #e0e7ff 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--brand-indigo);
+    font-size: 28px;
+  }
+
+  .who-card h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .who-card p {
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+    font-size: var(--font-size-sm);
+  }
+
+  /* How It Works Section */
+  .how-it-works-section {
+    padding: var(--spacing-4xl) 0 var(--spacing-xl) 0;
+    background-color: var(--color-gray-50);
+  }
+
+  .steps-container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spacing-2xl);
+    margin-bottom: var(--spacing-3xl);
+    position: relative;
+  }
+
+  .step:not(:last-child):after {
+    content: '';
+    position: absolute;
+    left: 32px;
+    top: 70px;
+    bottom: -48px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+  }
+
+  .step-number {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+    border-radius: 50%;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .step-content {
+    padding: var(--spacing-lg);
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    border: 2px solid var(--color-gray-200);
+  }
+
+  .step-content h3 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .step-content p {
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-600);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Comparison Section */
+  .comparison-section {
+    padding: var(--spacing-4xl) 0;
+    background-color: var(--color-white);
+  }
+
+  .comparison-table {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: var(--color-white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .comparison-header,
+  .comparison-row {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .comparison-header {
+    background-color: var(--color-gray-100);
+    padding: var(--spacing-lg);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .column-label {
+    text-align: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .column-label.generic {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+
+  .column-label.vizino {
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+  }
+
+  .comparison-row {
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-gray-200);
+  }
+
+  .comparison-row:last-child {
+    border-bottom: none;
+  }
+
+  .comparison-feature {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-gray-800);
+  }
+
+  .comparison-column {
+    text-align: center;
+    font-size: var(--font-size-sm);
+  }
+
+  .no {
+    color: #991b1b;
+  }
+
+  .yes {
+    color: #065f46;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* Beta Section */
+  .beta-section {
+    padding: var(--spacing-4xl) 0;
+    background: linear-gradient(135deg, var(--brand-indigo) 0%, var(--brand-violet) 100%);
+    color: var(--color-white);
+  }
+
+  .beta-content h2,
+  .beta-content > p {
+    color: var(--color-white);
+  }
+
+  .beta-content {
+    text-align: center;
+  }
+
+  /* Make primary button visible on dark beta background */
+  .beta-content .btn-primary {
+    background: var(--color-white);
+    color: var(--brand-indigo);
+    box-shadow: none;
+    border: 2px solid rgba(255,255,255,0.12);
+    margin-top: var(--spacing-xl);
+  }
+
+  .beta-content .btn-primary:hover {
+    background: #f3f3ff;
+    color: var(--brand-indigo-dark);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .beta-badge {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--color-white);
+    border-radius: var(--radius-xl);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--spacing-lg);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .beta-content h2 {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .beta-content > p {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-lg);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .beta-benefits {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    text-align: left;
+  }
+
+  .benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-base);
+  }
+
+  .benefit:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+  }
+
+  .benefit svg {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .benefit span {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-white);
+  }
+
+  .beta-note {
+    margin-top: var(--spacing-xl);
+    font-size: var(--font-size-sm);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: var(--line-height-relaxed);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-section .container {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-content h1 {
+      font-size: var(--font-size-3xl);
+    }
+
+    .hero-subtitle {
+      font-size: var(--font-size-lg);
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .features-grid,
+    .who-uses-grid,
+    .problems-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .comparison-header,
+    .comparison-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-sm);
+    }
+
+    .comparison-feature {
+      font-weight: var(--font-weight-bold);
+      margin-bottom: var(--spacing-sm);
+    }
+
+    .step {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-lg);
+    }
+
+    .step:not(:last-child):after {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hero-section,
+    .problem-section,
+    .solution-section,
+    .features-section,
+    .who-uses-section,
+    .how-it-works-section,
+    .comparison-section,
+    .beta-section,
+    .cta-section {
+      padding: var(--spacing-2xl) 0;
+    }
+
+    .section-header {
+      margin-bottom: var(--spacing-2xl);
+    }
+  }
+</style>
+
+<script>
+(() => {
+  const trackEl = document.querySelector('.carousel-track');
+  if (!trackEl) return;
+  const track = trackEl as HTMLElement;
+  const items = Array.from(track.children) as HTMLElement[];
+  const prevEl = document.querySelector('.carousel-btn.prev') as HTMLElement | null;
+  const nextEl = document.querySelector('.carousel-btn.next') as HTMLElement | null;
+  const dots = Array.from(document.querySelectorAll('.carousel-dots .dot')) as HTMLElement[];
+  const tabs = Array.from(document.querySelectorAll('.mockup-tabs .tab')) as HTMLElement[];
+  let index = 0;
+
+  function update(i: number) {
+    index = (i + items.length) % items.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === index));
+    tabs.forEach((t, idx) => t.classList.toggle('active', idx === index));
+  }
+
+  prevEl?.addEventListener('click', () => update(index - 1));
+  nextEl?.addEventListener('click', () => update(index + 1));
+  dots.forEach((d, i) => d.addEventListener('click', () => update(i)));
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const tabIndex = parseInt(tab.getAttribute('data-tab') || '0', 10);
+      update(tabIndex);
+    });
+  });
+
+  // autoplay
+  let timer = setInterval(() => update(index + 1), 3500);
+  [prevEl, nextEl, ...dots, ...tabs].filter(Boolean).forEach(el =>
+    (el as HTMLElement).addEventListener('click', () => {
+      clearInterval(timer);
+      timer = setInterval(() => update(index + 1), 3500);
+    })
+  );
+
+  // keyboard
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') update(index - 1);
+    if (e.key === 'ArrowRight') update(index + 1);
+  });
+})();
+</script>

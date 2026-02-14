@@ -1,5 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+import { languages } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh-tw' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
 
 const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID}`;
 ---
@@ -7,34 +19,35 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
 <Layout 
   title="Beta Access Request - Vizino AI" 
   description="Request beta access to Vizino AI and join our exclusive program for interior design professionals."
+  lang={lang}
 >
   <section class="beta-request-section">
     <div class="container">
       <div class="request-header">
-        <h1>Request Beta Access</h1>
-        <p>Join our exclusive beta program and help shape the future of AI-powered interior design</p>
+        <h1>{t('betaRequest.title')}</h1>
+        <p>{t('betaRequest.subtitle')}</p>
       </div>
 
       <div class="request-content">
         <div class="form-container">
           <form id="betaForm" class="beta-form">
             <input type="hidden" name="_subject" value="New Beta Access Request" />
-            <input type="hidden" name="_language" value="en" />
+            <input type="hidden" name="_language" value={lang} />
             <!-- Name Field -->
             <div class="form-group">
-              <label for="name">Full Name *</label>
+              <label for="name">{t('form.fullName')} *</label>
               <input 
                 type="text" 
                 id="name" 
                 name="name" 
                 required 
-                placeholder="Enter your full name"
+                placeholder={t('form.fullName', 'Enter your full name')}
               />
             </div>
 
             <!-- Email Field -->
             <div class="form-group">
-              <label for="email">Email Address *</label>
+              <label for="email">{t('form.email')} *</label>
               <input 
                 type="email" 
                 id="email" 
@@ -46,57 +59,57 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
 
             <!-- Role Selection (Multiple Choice) -->
             <div class="form-group">
-              <label>What best describes your role? (Select all that apply) *</label>
+              <label>{t('form.role')} *</label>
               <div class="checkbox-group">
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Design My Space (Homeowner/DIY)" />
-                  <span>Design My Space (Homeowner/DIY)</span>
+                  <input type="checkbox" name="roles" value={t('form.role.homeowner')} />
+                  <span>{t('form.role.homeowner')}</span>
                 </label>
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Professional Designer" />
-                  <span>Professional Designer</span>
+                  <input type="checkbox" name="roles" value={t('form.role.designer')} />
+                  <span>{t('form.role.designer')}</span>
                 </label>
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Architect" />
-                  <span>Architect</span>
+                  <input type="checkbox" name="roles" value={t('form.role.architect')} />
+                  <span>{t('form.role.architect')}</span>
                 </label>
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Contractor/Handyman" />
-                  <span>Contractor/Handyman</span>
+                  <input type="checkbox" name="roles" value={t('form.role.contractor')} />
+                  <span>{t('form.role.contractor')}</span>
                 </label>
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Real Estate Professional" />
-                  <span>Real Estate Professional</span>
+                  <input type="checkbox" name="roles" value={t('form.role.realEstate')} />
+                  <span>{t('form.role.realEstate')}</span>
                 </label>
                 <label class="checkbox-label">
-                  <input type="checkbox" name="roles" value="Explore AI Capability" />
-                  <span>Explore AI Capability</span>
+                  <input type="checkbox" name="roles" value={t('form.role.explore')} />
+                  <span>{t('form.role.explore')}</span>
                 </label>
               </div>
             </div>
 
             <!-- Use Case Field -->
             <div class="form-group">
-              <label for="useCase">What will you use Vizino AI for? *</label>
+              <label for="useCase">{t('form.useCase')} *</label>
               <textarea 
                 id="useCase" 
                 name="useCase" 
                 required 
                 rows="4"
-                placeholder="Describe your interior design projects or goals..."
+                placeholder={t('form.useCasePlaceholder')}
               ></textarea>
             </div>
 
             <!-- Submit Button -->
             <div class="form-group text-center">
               <button type="submit" class="btn btn-primary btn-large">
-                Submit
+                {t('form.submit')}
               </button>
             </div>
 
             <!-- Success Message -->
             <div class="success-message" id="successMessage" style="display: none;">
-              <p>Thank you for your interest! We've received your request and will contact you asap.</p>
+              <p>{t('form.success')}</p>
             </div>
 
             <!-- Error Message -->
@@ -108,23 +121,23 @@ const formAction = `https://formspree.io/f/${import.meta.env.PUBLIC_FORMSPREE_ID
           <!-- Info Panel -->
           <div class="info-panel">
             <div class="info-card">
-              <h3>What's Included</h3>
+              <h3>{t('form.whatsIncluded')}</h3>
               <ul>
-                <li>~$50 CAD in V Points credits</li>
-                <li>Early access to the platform</li>
-                <li>Priority email support</li>
-                <li>Direct input on product development</li>
+                <li>{t('form.whatsIncluded.credits')}</li>
+                <li>{t('form.whatsIncluded.earlyAccess')}</li>
+                <li>{t('form.whatsIncluded.support')}</li>
+                <li>{t('form.whatsIncluded.input')}</li>
               </ul>
             </div>
 
             <div class="info-card">
-              <h3>Next Steps</h3>
+              <h3>{t('form.nextSteps')}</h3>
               <ol>
-                <li>Fill out the form</li>
-                <li>We'll review your application</li>
-                <li>Receive beta access invite within 48 hours</li>
-                <li>Get your V Points credits</li>
-                <li>Start creating precise designs</li>
+                <li>{t('form.step1')}</li>
+                <li>{t('form.step2')}</li>
+                <li>{t('form.step3')}</li>
+                <li>{t('form.step4')}</li>
+                <li>{t('form.step5')}</li>
               </ol>
             </div>
           </div>

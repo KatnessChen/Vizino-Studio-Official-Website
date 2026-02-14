@@ -1,68 +1,79 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+import { languages } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh-tw' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
 ---
 
 <Layout 
   title="Terms of Service - Vizino AI" 
   description="Read the terms and conditions for using Vizino AI's interior design visualization platform."
+  lang={lang}
 >
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">
-        <h1>Terms of Service</h1>
-        <p class="last-updated">Last Updated: February 9, 2026</p>
+        <h1>{t('terms.title')}</h1>
+        <p class="last-updated">{t('terms.lastUpdated')}</p>
       </div>
 
       <div class="legal-content">
         <p class="intro">
-          By accessing Vizino AI, you agree to these Terms, our <a href="/privacy">Privacy Policy</a>, and future feature-specific terms. If you do not agree, please stop using the platform.
+          {t('terms.intro')} <a href={`/${lang}/privacy`}>{t('common.footer.privacy')}</a>
         </p>
 
         <section class="legal-section">
-          <h2>1. What We Provide</h2>
+          <h2>{t('terms.section1')}</h2>
           <ul>
-            <li>Project-based interior design visualization powered by Nano Banana.</li>
-            <li>Room photo uploads, custom materials, prompt libraries, and the "Help Me Write" assistant.</li>
-            <li>Storage for generated visuals, prompts, and organization tools.</li>
-            <li>Beta experiences that may evolve or be discontinued—credits are promotional.</li>
+            <li>{t('terms.section1.point1')}</li>
+            <li>{t('terms.section1.point2')}</li>
+            <li>{t('terms.section1.point3')}</li>
+            <li>{t('terms.section1.point4')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>2. Accounts & Security</h2>
+          <h2>{t('terms.section2')}</h2>
           <ul>
-            <li>Create an account with a valid email and password; keep credentials private.</li>
-            <li>You are responsible for all activity on your account; report unauthorized access immediately.</li>
-            <li>We may suspend or delete accounts that violate these Terms; unused V Points are forfeited.</li>
-            <li>Before deleting, request data export—allow up to 30 days for delivery.</li>
+            <li>{t('terms.section2.point1')}</li>
+            <li>{t('terms.section2.point2')}</li>
+            <li>{t('terms.section2.point3')}</li>
+            <li>{t('terms.section2.point4')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>3. Acceptable Use</h2>
+          <h2>{t('terms.section3')}</h2>
           <ul>
-            <li>Use Vizino AI only for lawful interior design or personal planning.</li>
-            <li>Do not upload infringing, obscene, harmful, or discriminatory content.</li>
-            <li>Do not abuse the platform (spam, scraping, reverse-engineering, impersonation).</li>
-            <li>Respect copyright—only upload content you own or have permission to use.</li>
+            <li>{t('terms.section3.point1')}</li>
+            <li>{t('terms.section3.point2')}</li>
+            <li>{t('terms.section3.point3')}</li>
+            <li>{t('terms.section3.point4')}</li>
           </ul>
         </section>
 
-
-
         <section class="legal-section">
-          <h2>4. Disclaimers</h2>
+          <h2>{t('terms.section4')}</h2>
           <ul>
-            <li>The platform is provided "as-is"—we do not guarantee uninterrupted uptime or perfect results.</li>
-            <li>AI-generated visuals are for inspiration; verify materials with qualified professionals before acting.</li>
-            <li>We are not liable for lost profits, data, or indirect damages.</li>
-            <li>We may update the service, models, or credits at any time and without notice.</li>
+            <li>{t('terms.section4.point1')}</li>
+            <li>{t('terms.section4.point2')}</li>
+            <li>{t('terms.section4.point3')}</li>
+            <li>{t('terms.section4.point4')}</li>
           </ul>
         </section>
 
         <div class="legal-footer">
-          <p>Effective February 9, 2026.</p>
-          <p><a href="/">Return to Home</a> | <a href="/privacy">Privacy Policy</a></p>
+          <p>{t('terms.footer')}</p>
+          <p><a href={`/${lang}`}>{t('common.returnHome', 'Return to Home')}</a> | <a href={`/${lang}/privacy`}>{t('common.footer.privacy')}</a></p>
         </div>
       </div>
     </div>

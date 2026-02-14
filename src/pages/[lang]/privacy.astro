@@ -1,80 +1,93 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
+import { languages } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'zh-tw' } },
+  ];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof languages);
 ---
 
 <Layout 
   title="Privacy Policy - Vizino AI" 
   description="Learn how Vizino AI collects, uses, and protects your personal information and uploaded content."
+  lang={lang}
 >
   <section class="legal-page">
     <div class="container">
       <div class="legal-header">
-        <h1>Privacy Policy</h1>
-        <p class="last-updated">Last Updated: February 9, 2026</p>
+        <h1>{t('privacy.title')}</h1>
+        <p class="last-updated">{t('privacy.lastUpdated')}</p>
       </div>
 
       <div class="legal-content">
         <p class="intro">
-          Vizino AI respects your privacy. This page summarizes how we handle the data you share while using our interior design visualization platform.
+          {t('privacy.intro')}
         </p>
 
         <section class="legal-section">
-          <h2>1. What We Collect</h2>
+          <h2>{t('privacy.section1')}</h2>
           <ul>
-            <li><strong>Account info:</strong> Name, email handled via secure processors.</li>
-            <li><strong>Uploads:</strong> Room photos, custom materials, prompts, and AI results stored per project.</li>
-            <li><strong>Usage signals:</strong> IP, device/browser, feature usage and errors.</li>
-            <li><strong>Optional beta feedback:</strong> Comments, bug reports, and adoption metrics.</li>
+            <li><strong>{t('common.account', 'Account info:')}</strong> {t('privacy.section1.account')}</li>
+            <li><strong>{t('common.uploads', 'Uploads:')}</strong> {t('privacy.section1.uploads')}</li>
+            <li><strong>{t('common.usage', 'Usage signals:')}</strong> {t('privacy.section1.usage')}</li>
+            <li><strong>{t('common.feedback', 'Optional beta feedback:')}</strong> {t('privacy.section1.feedback')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>2. How We Use It</h2>
+          <h2>{t('privacy.section2')}</h2>
           <ul>
-            <li>Provide the service: organize images and materials, run AI generations, and power "Help Me Write".</li>
-            <li>Improve the product: analyze usage to enhance features (without training on your private uploads).</li>
-            <li>Communicate: reply to support, notify you about updates, and send optional marketing.</li>
+            <li>{t('privacy.section2.service')}</li>
+            <li>{t('privacy.section2.improve')}</li>
+            <li>{t('privacy.section2.communicate')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>3. Sharing & Protection</h2>
+          <h2>{t('privacy.section3')}</h2>
           <ul>
-            <li>Shared only with trusted vendors (cloud hosts, AI infrastructure, analytics, email) under strict contracts.</li>
-            <li>Encryption (TLS in transit, encryption at rest), access controls, monitoring.</li>
-            <li>We do not sell your personal data or expose uploads without permission.</li>
+            <li>{t('privacy.section3.vendors')}</li>
+            <li>{t('privacy.section3.encryption')}</li>
+            <li>{t('privacy.section3.sell')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>4. Retention & Rights</h2>
+          <h2>{t('privacy.section4')}</h2>
           <ul>
-            <li>Account and upload data stays until you delete it.</li>
-            <li>Export projects/prompts/images via the platform or by contacting contact@vizino.ai.</li>
-            <li>Update or delete data anytime; request account removal if desired (brief recovery window may apply).</li>
-            <li>Opt out of marketing anytime; service-critical messages (billing/security) remain active.</li>
+            <li>{t('privacy.section4.retention')}</li>
+            <li>{t('privacy.section4.export')}</li>
+            <li>{t('privacy.section4.update')}</li>
+            <li>{t('privacy.section4.optOut')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>5. Cookies & Tracking</h2>
+          <h2>{t('privacy.section5')}</h2>
           <ul>
-            <li>Essential cache keep the platform functional; analytics data help us improve.</li>
+            <li>{t('privacy.section5.description')}</li>
           </ul>
         </section>
 
         <section class="legal-section">
-          <h2>6. Contact</h2>
+          <h2>{t('privacy.section6')}</h2>
           <div class="contact-info">
             <p><strong>Vizino AI</strong></p>
-            <p>Email: <a href="mailto:contact@vizino.ai">contact@vizino.ai</a></p>
+            <p>{t('privacy.contact.email')}</p>
           </div>
-          <p>We aim to reply within 30 days.</p>
+          <p>{t('privacy.contact.response')}</p>
         </section>
 
         <div class="legal-footer">
-          <p>Effective February 9, 2026.</p>
-          <p><a href="/">Return to Home</a> | <a href="/terms">Terms of Service</a></p>
+          <p>{t('privacy.footer')}</p>
+          <p><a href={`/${lang}`}>{t('common.returnHome', 'Return to Home')}</a> | <a href={`/${lang}/terms`}>{t('common.footer.terms')}</a></p>
         </div>
       </div>
     </div>
