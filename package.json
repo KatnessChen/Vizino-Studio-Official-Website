@@ -1,7 +1,7 @@
 {
-  "name": "vizino-studio-website",
+  "name": "well-maintained-website",
   "version": "1.0.0",
-  "description": "Official website for Vizino Studio - AI-powered interior design platform",
+  "description": "Well Maintained — AI-powered home maintenance platform for newcomers to Canada",
   "type": "module",
   "scripts": {
     "dev": "astro dev --port 4322",

@@ -1,238 +1,67 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { languages } from '../../i18n/translations';
+import { ui } from '../../i18n/translations';
 import { useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'zh-tw' } },
-  ];
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh-tw' } }];
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as keyof typeof languages);
+const t = useTranslations(lang as keyof typeof ui);
 ---
 
-<Layout 
-  title="Privacy Policy - Vizino AI" 
-  description="Learn how Vizino AI collects, uses, and protects your personal information and uploaded content."
-  lang={lang}
->
+<Layout title={t('privacy.title') + ' — Well Maintained'} lang={lang}>
   <section class="legal-page">
-    <div class="container">
-      <div class="legal-header">
-        <h1>{t('privacy.title')}</h1>
-        <p class="last-updated">{t('privacy.lastUpdated')}</p>
-      </div>
+    <div class="legal-container">
+      <h1>{t('privacy.title')}</h1>
+      <p class="legal-intro">{t('privacy.intro')}</p>
 
-      <div class="legal-content">
-        <p class="intro">
-          {t('privacy.intro')}
-        </p>
+      <h2>{t('privacy.collect.title')}</h2>
+      <p>{t('privacy.collect.body')}</p>
 
-        <section class="legal-section">
-          <h2>{t('privacy.section1')}</h2>
-          <ul>
-            <li><strong>{t('common.account', 'Account info:')}</strong> {t('privacy.section1.account')}</li>
-            <li><strong>{t('common.uploads', 'Uploads:')}</strong> {t('privacy.section1.uploads')}</li>
-            <li><strong>{t('common.usage', 'Usage signals:')}</strong> {t('privacy.section1.usage')}</li>
-            <li><strong>{t('common.feedback', 'Optional beta feedback:')}</strong> {t('privacy.section1.feedback')}</li>
-          </ul>
-        </section>
+      <h2>{t('privacy.use.title')}</h2>
+      <p>{t('privacy.use.body')}</p>
 
-        <section class="legal-section">
-          <h2>{t('privacy.section2')}</h2>
-          <ul>
-            <li>{t('privacy.section2.service')}</li>
-            <li>{t('privacy.section2.improve')}</li>
-            <li>{t('privacy.section2.communicate')}</li>
-          </ul>
-        </section>
+      <h2>{t('privacy.security.title')}</h2>
+      <p>{t('privacy.security.body')}</p>
 
-        <section class="legal-section">
-          <h2>{t('privacy.section3')}</h2>
-          <ul>
-            <li>{t('privacy.section3.vendors')}</li>
-            <li>{t('privacy.section3.encryption')}</li>
-            <li>{t('privacy.section3.sell')}</li>
-          </ul>
-        </section>
-
-        <section class="legal-section">
-          <h2>{t('privacy.section4')}</h2>
-          <ul>
-            <li>{t('privacy.section4.retention')}</li>
-            <li>{t('privacy.section4.export')}</li>
-            <li>{t('privacy.section4.update')}</li>
-            <li>{t('privacy.section4.optOut')}</li>
-          </ul>
-        </section>
-
-        <section class="legal-section">
-          <h2>{t('privacy.section5')}</h2>
-          <ul>
-            <li>{t('privacy.section5.description')}</li>
-          </ul>
-        </section>
-
-        <section class="legal-section">
-          <h2>{t('privacy.section6')}</h2>
-          <div class="contact-info">
-            <p><strong>Vizino AI</strong></p>
-            <p>{t('privacy.contact.email')}</p>
-          </div>
-          <p>{t('privacy.contact.response')}</p>
-        </section>
-
-        <div class="legal-footer">
-          <p>{t('privacy.footer')}</p>
-          <p><a href={`/${lang}`}>{t('common.returnHome', 'Return to Home')}</a> | <a href={`/${lang}/terms`}>{t('common.footer.terms')}</a></p>
-        </div>
-      </div>
+      <h2>{t('privacy.contact.title')}</h2>
+      <p>{t('privacy.contact.body')}</p>
     </div>
   </section>
 </Layout>
 
 <style>
   .legal-page {
-    padding: var(--spacing-4xl) 0;
-    background-color: var(--color-white);
+    padding: 120px 24px 80px;
   }
-
-  .legal-header {
-    text-align: center;
-    margin-bottom: var(--spacing-3xl);
-    padding-bottom: var(--spacing-xl);
-    border-bottom: 2px solid var(--color-gray-200);
-  }
-
-  .legal-header h1 {
-    margin-bottom: var(--spacing-md);
-    color: var(--color-gray-800);
-  }
-
-  .last-updated {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    font-style: italic;
-  }
-
-  .legal-content {
-    max-width: 820px;
+  .legal-container {
+    max-width: 720px;
     margin: 0 auto;
-    font-size: 0.95rem;
-    line-height: var(--line-height-snug);
   }
-
-  .intro {
-    font-size: var(--font-size-base);
-    line-height: var(--line-height-snug);
-    color: var(--color-gray-700);
-    margin-bottom: var(--spacing-2xl);
-    padding: var(--spacing-2xl);
-    background-color: var(--color-gray-50);
-    border-left: 4px solid var(--brand-indigo);
-    border-radius: var(--radius-md);
+  .legal-container h1 {
+    font-size: clamp(32px, 5vw, 44px);
+    font-weight: 800;
+    margin-bottom: 16px;
   }
-
-  .legal-section {
-    margin-bottom: var(--spacing-2xl);
+  .legal-intro {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 48px;
+    line-height: 1.7;
   }
-
-  .legal-section h2 {
-    color: var(--brand-indigo);
-    margin-bottom: var(--spacing-md);
-    padding-bottom: var(--spacing-sm);
-    border-bottom: 1px solid var(--brand-indigo-light);
-    font-size: var(--font-size-2xl);
+  .legal-container h2 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 40px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
   }
-
-  .legal-section h3 {
-    color: var(--color-gray-800);
-    margin-top: var(--spacing-2xl);
-    margin-bottom: var(--spacing-md);
-    font-size: var(--font-size-lg);
-  }
-
-  .legal-section p {
-    margin-bottom: var(--spacing-md);
-    line-height: var(--line-height-snug);
-    color: var(--color-gray-700);
-  }
-
-  .legal-section ul {
-    margin-bottom: var(--spacing-md);
-    padding-left: var(--spacing-2xl);
-  }
-
-  .legal-section li {
-    margin-bottom: var(--spacing-sm);
-    line-height: var(--line-height-snug);
-    color: var(--color-gray-700);
-  }
-
-  .legal-section strong {
-    color: var(--color-gray-800);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .legal-section a {
-    color: var(--brand-indigo);
-    text-decoration: underline;
-  }
-
-  .legal-section a:hover {
-    color: var(--brand-indigo-dark);
-  }
-
-  .contact-info {
-    padding: var(--spacing-2xl);
-    background-color: var(--color-gray-50);
-    border-radius: var(--radius-lg);
-    margin: var(--spacing-lg) 0;
-  }
-
-  .contact-info p {
-    margin-bottom: var(--spacing-sm);
-  }
-
-  .legal-footer {
-    margin-top: var(--spacing-4xl);
-    padding-top: var(--spacing-2xl);
-    border-top: 2px solid var(--color-gray-200);
-    text-align: center;
-  }
-
-  .legal-footer p {
-    margin-bottom: var(--spacing-md);
-    color: var(--color-gray-600);
-  }
-
-  .legal-footer a {
-    color: var(--brand-indigo);
-    margin: 0 var(--spacing-md);
-  }
-
-  @media (max-width: 768px) {
-    .legal-page {
-      padding: var(--spacing-2xl) 0;
-    }
-
-    .legal-header {
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .legal-section {
-      margin-bottom: var(--spacing-2xl);
-    }
-
-    .legal-section h2 {
-      font-size: var(--font-size-2xl);
-    }
-
-    .legal-section h3 {
-      font-size: var(--font-size-base);
-    }
+  .legal-container p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 16px;
   }
 </style>

@@ -1,100 +1,28 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { languages } from '../../i18n/translations';
+import { ui } from '../../i18n/translations';
 import { useTranslations } from '../../i18n/utils';
 
 export function getStaticPaths() {
-  return [
-    { params: { lang: 'en' } },
-    { params: { lang: 'zh-tw' } },
-  ];
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh-tw' } }];
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as keyof typeof languages);
+const t = useTranslations(lang as keyof typeof ui);
 ---
 
-<Layout 
-  title={t('contact.title')}
-  description={t('contact.description')}
-  lang={lang}
->
-  <section class="contact-section">
-    <div class="contact-container">
-      <div class="contact-content">
-        <h1>{t('contact.title')}</h1>
-        <p class="contact-description">{t('contact.description')}</p>
-        <p class="email-text">
-          <a href="mailto:contact@vizino.ai" class="email-link">contact@vizino.ai</a>
-        </p>
-      </div>
+<Layout title="Contact — Well Maintained" lang={lang}>
+  <section class="legal-page">
+    <div class="legal-container">
+      <h1>Contact</h1>
+      <p class="legal-intro">Have questions? Reach out to us at <a href="mailto:hello@wellmaintained.ca" style="color: var(--accent);">hello@wellmaintained.ca</a></p>
     </div>
   </section>
 </Layout>
 
 <style>
-  .contact-section {
-    padding: var(--spacing-4xl) var(--spacing-md);
-    background: linear-gradient(135deg, var(--brand-violet-light) 0%, var(--color-gray-50) 100%);
-    min-height: calc(100vh - 200px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .contact-container {
-    max-width: 600px;
-    width: 100%;
-  }
-
-  .contact-content {
-    text-align: center;
-  }
-
-  .contact-content h1 {
-    margin-bottom: var(--spacing-md);
-    color: var(--color-gray-800);
-  }
-
-  .contact-description {
-    font-size: var(--font-size-lg);
-    color: var(--color-gray-600);
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .contact-box {
-    background-color: var(--color-white);
-    border: 2px solid var(--brand-indigo);
-    border-radius: var(--radius-xl);
-    padding: var(--spacing-3xl);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .contact-box h2 {
-    margin-bottom: var(--spacing-2xl);
-    color: var(--color-gray-800);
-  }
-
-  .email-text {
-    margin-bottom: var(--spacing-xl);
-  }
-
-  .email-link {
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-bold);
-    color: var(--brand-indigo);
-    text-decoration: none;
-    transition: color var(--transition-fast);
-  }
-
-  .email-link:hover {
-    color: var(--brand-violet);
-    text-decoration: underline;
-  }
-
-  .response-time {
-    font-size: var(--font-size-sm);
-    color: var(--color-gray-600);
-    margin-top: var(--spacing-lg);
-  }
+  .legal-page { padding: 120px 24px 80px; }
+  .legal-container { max-width: 720px; margin: 0 auto; }
+  .legal-container h1 { font-size: clamp(32px, 5vw, 44px); font-weight: 800; margin-bottom: 16px; }
+  .legal-intro { font-size: 17px; color: var(--text-secondary); line-height: 1.7; }
 </style>

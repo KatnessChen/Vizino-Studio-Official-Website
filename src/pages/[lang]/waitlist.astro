@@ -1,0 +1,452 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ui } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh-tw' } }];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+
+// ── Form backend ──────────────────────────────────────────────
+// Submissions (including the uploaded inspection report) are sent to you by
+// email via Web3Forms (free, supports file attachments, no backend needed).
+// 1. Get a free access key at https://web3forms.com (uses sbxew99@gmail.com)
+// 2. Paste it below. Until then the form runs in DEMO mode (shows success,
+//    sends nothing). Tip: store it in .env as PUBLIC_WEB3FORMS_KEY instead.
+const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+---
+
+<Layout title={t('intake.title') + ' — Well Maintained'} lang={lang}>
+  <section class="intake-page">
+    <div class="intake-container">
+      <h1 class="intake-title">{t('intake.title')}</h1>
+      <p class="intake-desc">{t('intake.description')}</p>
+
+      <!-- Path toggle -->
+      <div class="path-toggle">
+        <button type="button" class="path-btn active" data-path="A" id="pathA">
+          <span class="path-t">{t('intake.path.a.title')}</span>
+          <span class="path-d">{t('intake.path.a.desc')}</span>
+        </button>
+        <button type="button" class="path-btn" data-path="B" id="pathB">
+          <span class="path-t">{t('intake.path.b.title')}</span>
+          <span class="path-d">{t('intake.path.b.desc')}</span>
+        </button>
+      </div>
+
+      <form class="intake-form" id="intakeForm" data-key={WEB3FORMS_KEY}>
+        <!-- Web3Forms config -->
+        <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+        <input type="hidden" name="subject" value="New Well Maintained schedule request" />
+        <input type="hidden" name="from_name" value="Well Maintained intake" />
+        <input type="hidden" name="path" id="pathField" value="questions" />
+
+        <!-- Always required -->
+        <div class="row">
+          <div class="field">
+            <label for="name">{t('intake.name')} <span class="req">*</span></label>
+            <input type="text" id="name" name="name" required />
+          </div>
+          <div class="field">
+            <label for="email">{t('intake.email')} <span class="req">*</span></label>
+            <input type="email" id="email" name="email" required />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="location">{t('intake.location')} <span class="req">*</span></label>
+            <input type="text" id="location" name="location" required placeholder={t('intake.location.placeholder')} />
+            <span class="hint">{t('intake.location.hint')}</span>
+          </div>
+          <div class="field">
+            <label for="replyLang">{t('intake.replyLang')} <span class="req">*</span></label>
+            <select id="replyLang" name="replyLang" required>
+              <option value="">{t('intake.select')}</option>
+              <option value="en">{t('intake.replyLang.en')}</option>
+              <option value="zh">{t('intake.replyLang.zh')}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- PATH A — questions -->
+        <div id="qsA">
+          <div class="row">
+            <div class="field">
+              <label for="age">{t('intake.age')}</label>
+              <select id="age" name="age">
+                <option value="">{t('intake.select')}</option>
+                <option value="0-5">{t('intake.age.new')}</option>
+                <option value="6-15">{t('intake.age.6')}</option>
+                <option value="16-30">{t('intake.age.16')}</option>
+                <option value="31-50">{t('intake.age.31')}</option>
+                <option value="50+">{t('intake.age.50')}</option>
+                <option value="unsure">{t('intake.age.unsure')}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="homeType">{t('intake.type')}</label>
+              <select id="homeType" name="homeType">
+                <option value="">{t('intake.select')}</option>
+                <option value="detached">{t('intake.type.detached')}</option>
+                <option value="semi">{t('intake.type.semi')}</option>
+                <option value="townhouse">{t('intake.type.townhouse')}</option>
+                <option value="condo">{t('intake.type.condo')}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="size">{t('intake.size')}</label>
+              <select id="size" name="size">
+                <option value="">{t('intake.select')}</option>
+                <option value="u1000">{t('intake.size.u1000')}</option>
+                <option value="1000-1500">{t('intake.size.1000')}</option>
+                <option value="1500-2000">{t('intake.size.1500')}</option>
+                <option value="2000-2500">{t('intake.size.2000')}</option>
+                <option value="2500+">{t('intake.size.2500')}</option>
+                <option value="unsure">{t('intake.size.unsure')}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="heating">{t('intake.heating')}</label>
+              <select id="heating" name="heating">
+                <option value="">{t('intake.select')}</option>
+                <option value="gas">{t('intake.heating.gas')}</option>
+                <option value="electric">{t('intake.heating.electric')}</option>
+                <option value="heatpump">{t('intake.heating.heatpump')}</option>
+                <option value="boiler">{t('intake.heating.boiler')}</option>
+                <option value="unsure">{t('intake.heating.unsure')}</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>{t('intake.features')}</label>
+            <div class="checks">
+              <label class="check"><input type="checkbox" name="features" value="gutters" /> {t('intake.features.gutters')}</label>
+              <label class="check"><input type="checkbox" name="features" value="deck" /> {t('intake.features.deck')}</label>
+              <label class="check"><input type="checkbox" name="features" value="fireplace" /> {t('intake.features.fireplace')}</label>
+              <label class="check"><input type="checkbox" name="features" value="sump" /> {t('intake.features.sump')}</label>
+              <label class="check"><input type="checkbox" name="features" value="irrigation" /> {t('intake.features.irrigation')}</label>
+              <label class="check"><input type="checkbox" name="features" value="pool" /> {t('intake.features.pool')}</label>
+              <label class="check"><input type="checkbox" name="features" value="garage" /> {t('intake.features.garage')}</label>
+              <label class="check"><input type="checkbox" name="features" value="trees" /> {t('intake.features.trees')}</label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="diy">{t('intake.diy')}</label>
+            <select id="diy" name="diy">
+              <option value="">{t('intake.select')}</option>
+              <option value="self">{t('intake.diy.self')}</option>
+              <option value="mix">{t('intake.diy.mix')}</option>
+              <option value="pro">{t('intake.diy.pro')}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- PATH B — upload report -->
+        <div id="qsB" class="hidden">
+          <div class="field">
+            <label for="report">{t('intake.report')} <span class="req">*</span></label>
+            <div class="upload" id="uploadBox">
+              <div class="upload-ic">📄</div>
+              <p>{t('intake.report.cta')}</p>
+              <div class="upload-name" id="fileName"></div>
+            </div>
+            <input type="file" id="report" name="report" accept=".pdf,.jpg,.jpeg,.png" class="hidden-input" />
+            <span class="hint">{t('intake.report.hint')}</span>
+          </div>
+        </div>
+
+        <!-- Shared optional -->
+        <div class="field">
+          <label for="worry">{t('intake.worry')}</label>
+          <textarea id="worry" name="worry" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary submit-btn">{t('intake.submit')} &rarr;</button>
+        <p class="privacy">{t('intake.privacy')}</p>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">&#10003;</div>
+        <h2 class="success-title">{t('intake.success.title')}</h2>
+        <p>{t('intake.success.body')}</p>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .intake-page {
+    min-height: 100vh;
+    padding: 140px 24px 80px;
+    display: flex;
+    justify-content: center;
+  }
+  .intake-container {
+    max-width: 640px;
+    width: 100%;
+  }
+  .intake-title {
+    font-size: clamp(30px, 5vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+  .intake-desc {
+    font-size: 17px;
+    color: var(--text-secondary);
+    margin-bottom: 36px;
+    line-height: 1.6;
+  }
+
+  /* Path toggle */
+  .path-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .path-btn {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font);
+    color: var(--text-secondary);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .path-btn .path-t {
+    display: block;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+  }
+  .path-btn .path-d {
+    display: block;
+    font-size: 13px;
+  }
+  .path-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-subtle);
+  }
+
+  /* Form */
+  .intake-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .req { color: var(--accent); }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field select,
+  .field textarea {
+    padding: 14px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+  .field textarea { resize: vertical; }
+  .field select {
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23666666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus { border-color: var(--accent); }
+  .field input::placeholder,
+  .field textarea::placeholder { color: var(--text-tertiary); }
+  .hint {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+
+  /* Checkboxes */
+  .checks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-transform: none;
+    letter-spacing: 0;
+    cursor: pointer;
+  }
+  .check input { accent-color: var(--accent); width: 16px; height: 16px; }
+
+  /* Upload */
+  .upload {
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 30px;
+    text-align: center;
+    background: var(--bg-secondary);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .upload:hover { border-color: var(--accent); }
+  .upload-ic { font-size: 30px; }
+  .upload p { color: var(--text-secondary); font-size: 14px; margin-top: 8px; }
+  .upload-name { color: var(--accent); font-weight: 600; margin-top: 10px; font-size: 14px; }
+  .hidden-input { display: none; }
+  .hidden { display: none; }
+
+  .submit-btn {
+    margin-top: 4px;
+    width: 100%;
+    font-size: 17px;
+    padding: 16px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-family: var(--font);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: var(--accent-hover); }
+  .submit-btn:disabled { opacity: 0.6; cursor: default; }
+  .privacy {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-align: center;
+  }
+
+  /* Success */
+  .success-msg { display: none; text-align: center; padding: 48px 0; }
+  .success-msg.show { display: block; }
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+  }
+  .success-title { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+  .success-msg p { font-size: 17px; color: var(--text-secondary); line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    .row, .checks, .path-toggle { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('intakeForm') as HTMLFormElement;
+  const successMsg = document.getElementById('successMsg');
+  const pathToggle = document.querySelector('.path-toggle') as HTMLElement;
+  const pathField = document.getElementById('pathField') as HTMLInputElement;
+  const qsA = document.getElementById('qsA');
+  const qsB = document.getElementById('qsB');
+  const reportInput = document.getElementById('report') as HTMLInputElement;
+  const uploadBox = document.getElementById('uploadBox');
+  const fileName = document.getElementById('fileName');
+  const submitBtn = form?.querySelector('.submit-btn') as HTMLButtonElement;
+  const accessKey = form?.dataset.key || '';
+
+  // Path toggle
+  document.querySelectorAll('.path-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const path = (btn as HTMLElement).dataset.path;
+      const isA = path === 'A';
+      document.getElementById('pathA')?.classList.toggle('active', isA);
+      document.getElementById('pathB')?.classList.toggle('active', !isA);
+      qsA?.classList.toggle('hidden', !isA);
+      qsB?.classList.toggle('hidden', isA);
+      if (pathField) pathField.value = isA ? 'questions' : 'report';
+      if (reportInput) reportInput.required = !isA;
+    });
+  });
+
+  // File upload UI
+  uploadBox?.addEventListener('click', () => reportInput?.click());
+  reportInput?.addEventListener('change', () => {
+    if (fileName) fileName.textContent = reportInput.files?.[0]?.name || '';
+  });
+
+  // Submit
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // DEMO mode: no access key configured yet → just show success.
+    if (!accessKey) {
+      form.style.display = 'none';
+      pathToggle.style.display = 'none';
+      successMsg?.classList.add('show');
+      return;
+    }
+
+    if (submitBtn) submitBtn.disabled = true;
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: new FormData(form),
+      });
+      const data = await res.json();
+      if (data.success) {
+        form.style.display = 'none';
+        pathToggle.style.display = 'none';
+        successMsg?.classList.add('show');
+      } else {
+        if (submitBtn) submitBtn.disabled = false;
+        alert('Something went wrong. Please email sbxew99@gmail.com directly.');
+      }
+    } catch {
+      if (submitBtn) submitBtn.disabled = false;
+      alert('Something went wrong. Please email sbxew99@gmail.com directly.');
+    }
+  });
+</script>
