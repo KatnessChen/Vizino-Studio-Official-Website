@@ -10,13 +10,6 @@ interface Props {
 
 const { title, description, lang = 'en' } = Astro.props;
 const t = useTranslations(lang as keyof typeof ui);
-const currentPath = Astro.url.pathname;
-
-// Build alternate language URL
-const altLang = lang === 'en' ? 'zh-tw' : 'en';
-const pathSegments = currentPath.split('/').filter(Boolean);
-pathSegments[0] = altLang;
-const altUrl = '/' + pathSegments.join('/') + '/';
 ---
 
 <!DOCTYPE html>
@@ -38,7 +31,6 @@ const altUrl = '/' + pathSegments.join('/') + '/';
       <div class="nav-links">
         <a href={`/${lang}/#how`}>{t('nav.how')}</a>
         <a href={`/${lang}/#inspectors`}>{t('nav.inspectors')}</a>
-        <a href={altUrl} class="nav-lang">{lang === 'en' ? '中文' : 'EN'}</a>
         <a href={`/${lang}/waitlist/`} class="nav-cta">{t('nav.cta')}</a>
       </div>
       <button class="nav-toggle" id="navToggle" aria-label="Menu">
@@ -51,7 +43,6 @@ const altUrl = '/' + pathSegments.join('/') + '/';
   <div class="mobile-menu" id="mobileMenu">
     <a href={`/${lang}/#how`}>{t('nav.how')}</a>
     <a href={`/${lang}/#inspectors`}>{t('nav.inspectors')}</a>
-    <a href={altUrl} class="nav-lang">{lang === 'en' ? '中文' : 'EN'}</a>
     <a href={`/${lang}/waitlist/`} class="nav-cta">{t('nav.cta')}</a>
   </div>
 
@@ -109,16 +100,16 @@ const altUrl = '/' + pathSegments.join('/') + '/';
 
   /* ── Design Tokens ── */
   :root {
-    --bg-primary: #0A0A0A;
-    --bg-secondary: #141414;
-    --bg-tertiary: #1E1E1E;
-    --text-primary: #FFFFFF;
-    --text-secondary: #A0A0A0;
-    --text-tertiary: #666666;
-    --accent: #00D4AA;
-    --accent-hover: #00E8BB;
-    --accent-subtle: rgba(0, 212, 170, 0.1);
-    --accent-glow: rgba(0, 212, 170, 0.15);
+    --bg-primary: #0A0F0D;
+    --bg-secondary: #121815;
+    --bg-tertiary: #1A211D;
+    --text-primary: #F2F5F2;
+    --text-secondary: #8AA39A;
+    --text-tertiary: #607269;
+    --accent: #5CF0A3;
+    --accent-hover: #7DF7B8;
+    --accent-subtle: rgba(92, 240, 163, 0.1);
+    --accent-glow: rgba(92, 240, 163, 0.15);
     --amber: #FFB800;
     --danger: #FF4D4D;
     --border: rgba(255, 255, 255, 0.1);
@@ -133,7 +124,11 @@ const altUrl = '/' + pathSegments.join('/') + '/';
 
   body {
     font-family: var(--font);
-    background: var(--bg-primary);
+    background:
+      radial-gradient(1200px 820px at 88% 6%, rgba(92, 240, 163, 0.08) 0%, transparent 58%),
+      radial-gradient(960px 720px at 2% 102%, rgba(92, 240, 163, 0.05) 0%, transparent 55%),
+      var(--bg-primary);
+    background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -189,17 +184,6 @@ const altUrl = '/' + pathSegments.join('/') + '/';
   }
   .nav-links a:hover {
     color: var(--text-primary);
-  }
-  .nav-lang {
-    font-size: 13px !important;
-    padding: 4px 12px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    transition: border-color 0.2s !important;
-  }
-  .nav-lang:hover {
-    border-color: var(--accent) !important;
-    color: var(--accent) !important;
   }
   .nav-cta {
     background: var(--accent) !important;

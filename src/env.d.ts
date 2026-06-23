@@ -1,6 +1,7 @@
 /// <reference path="../.astro/types.d.ts" />
 
 interface ImportMetaEnv {
+  readonly PUBLIC_WEB3FORMS_KEY?: string;
   readonly PUBLIC_FORMSPREE_ID?: string;
   // add other public env vars here as needed
 }

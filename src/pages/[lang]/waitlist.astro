@@ -13,10 +13,16 @@ const t = useTranslations(lang as keyof typeof ui);
 // ── Form backend ──────────────────────────────────────────────
 // Submissions (including the uploaded inspection report) are sent to you by
 // email via Web3Forms (free, supports file attachments, no backend needed).
-// 1. Get a free access key at https://web3forms.com (uses sbxew99@gmail.com)
+// 1. Get a free access key at https://web3forms.com (uses contact@vizino.ai)
 // 2. Paste it below. Until then the form runs in DEMO mode (shows success,
 //    sends nothing). Tip: store it in .env as PUBLIC_WEB3FORMS_KEY instead.
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
+
+// ── Path B (upload report) ────────────────────────────────────
+// Web3Forms file attachments are a paid feature, so the "upload report"
+// path instead opens the visitor's email app pre-filled, and they attach
+// the report themselves. Change this to whichever inbox you actually read.
+const REPORT_EMAIL = 'contact@vizino.ai';
 ---
 
 <Layout title={t('intake.title') + ' — Well Maintained'} lang={lang}>
@@ -37,7 +43,10 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
         </button>
       </div>
 
-      <form class="intake-form" id="intakeForm" data-key={WEB3FORMS_KEY}>
+      <form class="intake-form" id="intakeForm" data-key={WEB3FORMS_KEY}
+            data-mail-to={REPORT_EMAIL}
+            data-submit-a={t('intake.submit')}
+            data-submit-b={t('intake.submit.email')}>
         <!-- Web3Forms config -->
         <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
         <input type="hidden" name="subject" value="New Well Maintained schedule request" />
@@ -63,11 +72,14 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
           </div>
           <div class="field">
             <label for="replyLang">{t('intake.replyLang')} <span class="req">*</span></label>
-            <select id="replyLang" name="replyLang" required>
-              <option value="">{t('intake.select')}</option>
-              <option value="en">{t('intake.replyLang.en')}</option>
-              <option value="zh">{t('intake.replyLang.zh')}</option>
-            </select>
+            <input type="text" id="replyLang" name="replyLang" list="langOptions" required
+                   placeholder={t('intake.replyLang.placeholder')} autocomplete="off" />
+            <datalist id="langOptions">
+              <option value="English"></option>
+              <option value="Français"></option>
+              <option value="中文"></option>
+            </datalist>
+            <span class="hint">{t('intake.replyLang.hint')}</span>
           </div>
         </div>
 
@@ -146,17 +158,12 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
           </div>
         </div>
 
-        <!-- PATH B — upload report -->
+        <!-- PATH B — email report -->
         <div id="qsB" class="hidden">
-          <div class="field">
-            <label for="report">{t('intake.report')} <span class="req">*</span></label>
-            <div class="upload" id="uploadBox">
-              <div class="upload-ic">📄</div>
-              <p>{t('intake.report.cta')}</p>
-              <div class="upload-name" id="fileName"></div>
-            </div>
-            <input type="file" id="report" name="report" accept=".pdf,.jpg,.jpeg,.png" class="hidden-input" />
-            <span class="hint">{t('intake.report.hint')}</span>
+          <div class="mail-card">
+            <div class="mail-ic">📄</div>
+            <p class="mail-lead">{t('intake.mail.lead')}</p>
+            <p class="mail-note">{t('intake.mail.note')}</p>
           </div>
         </div>
 
@@ -166,14 +173,16 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
           <textarea id="worry" name="worry" rows="3"></textarea>
         </div>
 
-        <button type="submit" class="btn-primary submit-btn">{t('intake.submit')} &rarr;</button>
+        <button type="submit" class="btn-primary submit-btn" id="submitBtn"><span id="submitLabel">{t('intake.submit')}</span> &rarr;</button>
         <p class="privacy">{t('intake.privacy')}</p>
       </form>
 
-      <div class="success-msg" id="successMsg">
+      <div class="success-msg" id="successMsg"
+           data-title-a={t('intake.success.title')} data-body-a={t('intake.success.body')}
+           data-title-b={t('intake.mail.success.title')} data-body-b={t('intake.mail.success.body')}>
         <div class="success-icon">&#10003;</div>
-        <h2 class="success-title">{t('intake.success.title')}</h2>
-        <p>{t('intake.success.body')}</p>
+        <h2 class="success-title" id="successTitle">{t('intake.success.title')}</h2>
+        <p id="successBody">{t('intake.success.body')}</p>
       </div>
     </div>
   </section>
@@ -321,21 +330,17 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
   }
   .check input { accent-color: var(--accent); width: 16px; height: 16px; }
 
-  /* Upload */
-  .upload {
+  /* Email-report card (Path B) */
+  .mail-card {
     border: 1.5px dashed var(--border);
     border-radius: var(--radius);
-    padding: 30px;
+    padding: 28px;
     text-align: center;
     background: var(--bg-secondary);
-    cursor: pointer;
-    transition: border-color 0.2s;
   }
-  .upload:hover { border-color: var(--accent); }
-  .upload-ic { font-size: 30px; }
-  .upload p { color: var(--text-secondary); font-size: 14px; margin-top: 8px; }
-  .upload-name { color: var(--accent); font-weight: 600; margin-top: 10px; font-size: 14px; }
-  .hidden-input { display: none; }
+  .mail-ic { font-size: 30px; }
+  .mail-lead { color: var(--text-primary); font-size: 15px; font-weight: 600; margin-top: 10px; }
+  .mail-note { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-top: 8px; }
   .hidden { display: none; }
 
   .submit-btn {
@@ -386,48 +391,77 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
 
 <script>
   const form = document.getElementById('intakeForm') as HTMLFormElement;
-  const successMsg = document.getElementById('successMsg');
+  const successMsg = document.getElementById('successMsg') as HTMLElement;
+  const successTitle = document.getElementById('successTitle');
+  const successBody = document.getElementById('successBody');
   const pathToggle = document.querySelector('.path-toggle') as HTMLElement;
   const pathField = document.getElementById('pathField') as HTMLInputElement;
   const qsA = document.getElementById('qsA');
   const qsB = document.getElementById('qsB');
-  const reportInput = document.getElementById('report') as HTMLInputElement;
-  const uploadBox = document.getElementById('uploadBox');
-  const fileName = document.getElementById('fileName');
-  const submitBtn = form?.querySelector('.submit-btn') as HTMLButtonElement;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
+  const submitLabel = document.getElementById('submitLabel');
   const accessKey = form?.dataset.key || '';
+  const mailTo = form?.dataset.mailTo || '';
+  const labelA = form?.dataset.submitA || '';
+  const labelB = form?.dataset.submitB || '';
+
+  function showSuccess(isB: boolean) {
+    if (successTitle) successTitle.textContent = (isB ? successMsg.dataset.titleB : successMsg.dataset.titleA) || successTitle.textContent;
+    if (successBody) successBody.textContent = (isB ? successMsg.dataset.bodyB : successMsg.dataset.bodyA) || successBody.textContent;
+    form.style.display = 'none';
+    pathToggle.style.display = 'none';
+    successMsg.classList.add('show');
+  }
 
   // Path toggle
   document.querySelectorAll('.path-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const path = (btn as HTMLElement).dataset.path;
-      const isA = path === 'A';
+      const isA = (btn as HTMLElement).dataset.path === 'A';
       document.getElementById('pathA')?.classList.toggle('active', isA);
       document.getElementById('pathB')?.classList.toggle('active', !isA);
       qsA?.classList.toggle('hidden', !isA);
       qsB?.classList.toggle('hidden', isA);
       if (pathField) pathField.value = isA ? 'questions' : 'report';
-      if (reportInput) reportInput.required = !isA;
+      if (submitLabel) submitLabel.textContent = isA ? labelA : labelB;
     });
   });
 
-  // File upload UI
-  uploadBox?.addEventListener('click', () => reportInput?.click());
-  reportInput?.addEventListener('change', () => {
-    if (fileName) fileName.textContent = reportInput.files?.[0]?.name || '';
-  });
+  const val = (id: string) => {
+    const el = document.getElementById(id) as HTMLInputElement | HTMLTextAreaElement | null;
+    return el ? el.value.trim() : '';
+  };
 
   // Submit
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const isB = pathField?.value === 'report';
 
-    // DEMO mode: no access key configured yet → just show success.
-    if (!accessKey) {
-      form.style.display = 'none';
-      pathToggle.style.display = 'none';
-      successMsg?.classList.add('show');
+    // ── Path B → open the visitor's email app pre-filled; they attach the report ──
+    if (isB) {
+      const lines = [
+        'Hi Well Maintained team,',
+        '',
+        'Please find my home inspection report attached.',
+        '',
+        'Name: ' + val('name'),
+        'Email: ' + val('email'),
+        'City / postal code: ' + val('location'),
+        'Reply language: ' + val('replyLang'),
+      ];
+      const worry = val('worry');
+      if (worry) lines.push('Biggest home worry: ' + worry);
+      lines.push('', '(Please attach your report — PDF, JPG or PNG — before sending.)');
+      const href = 'mailto:' + mailTo
+        + '?subject=' + encodeURIComponent('Well Maintained — my inspection report')
+        + '&body=' + encodeURIComponent(lines.join('\n'));
+      window.location.href = href;
+      showSuccess(true);
       return;
     }
+
+    // ── Path A → Web3Forms ──
+    // DEMO mode: no access key configured yet → just show success.
+    if (!accessKey) { showSuccess(false); return; }
 
     if (submitBtn) submitBtn.disabled = true;
     try {
@@ -437,16 +471,14 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_KEY ?? '';
       });
       const data = await res.json();
       if (data.success) {
-        form.style.display = 'none';
-        pathToggle.style.display = 'none';
-        successMsg?.classList.add('show');
+        showSuccess(false);
       } else {
         if (submitBtn) submitBtn.disabled = false;
-        alert('Something went wrong. Please email sbxew99@gmail.com directly.');
+        alert('Something went wrong. Please email ' + (mailTo || 'contact@vizino.ai') + ' directly.');
       }
     } catch {
       if (submitBtn) submitBtn.disabled = false;
-      alert('Something went wrong. Please email sbxew99@gmail.com directly.');
+      alert('Something went wrong. Please email ' + (mailTo || 'contact@vizino.ai') + ' directly.');
     }
   });
 </script>

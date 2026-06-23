@@ -15,11 +15,12 @@ export const ui = {
     'nav.brand': 'WELL MAINTAINED',
     'nav.how': 'How It Works',
     'nav.pricing': 'Pricing',
-    'nav.inspectors': 'For Inspectors',
+    'nav.inspectors': 'For Pros',
     'nav.cta': 'Get My Free Schedule',
 
     // ── Hero ──
-    'hero.headline': "A well-maintained home shouldn't be a mystery.",
+    'hero.headline.accent': 'Proactive home care',
+    'hero.headline': 'that saves you money and worry.',
     'hero.description': "Answer a few questions about your home — or just upload your inspection report. A real person hand-builds a maintenance schedule tailored to your house and emails it to you. Free.",
     'hero.cta': 'Get My Free Schedule',
     'hero.card.title': 'Your maintenance schedule',
@@ -42,13 +43,15 @@ export const ui = {
     'problem.pain3.desc': "Finding a reliable pro is stressful — especially if you're new to the area.",
 
     // ── How It Works ──
-    'how.headline': 'Get your maintenance schedule in 3 steps.',
-    'how.step1.title': 'Share your home',
-    'how.step1.desc': 'Answer a few quick questions, or upload your home inspection report. About 3 minutes.',
-    'how.step2.title': 'We hand-build your schedule',
-    'how.step2.desc': 'A real person reviews your home and creates a month-by-month maintenance schedule for your specific house — what to do, when, and whether to DIY or hire a pro.',
-    'how.step3.title': 'Get it by email',
-    'how.step3.desc': 'Your personalized schedule lands in your inbox within a few days — in English or 中文. No charge.',
+    'how.headline': 'How Well Maintained works.',
+    'how.step1.title': 'Home Profile',
+    'how.step1.desc': "Tell us about your home — its age, systems, and features. That's the foundation for everything else.",
+    'how.step2.title': 'Smart Schedule',
+    'how.step2.desc': 'We build a month-by-month maintenance plan tailored to your house and local climate.',
+    'how.step3.title': 'DIY or Pro',
+    'how.step3.desc': 'Every task is flagged by difficulty — so you know what to handle yourself and when to call a pro.',
+    'how.step4.title': 'Health Record',
+    'how.step4.desc': "A living record of everything you've maintained — proof your home is well kept.",
 
     // ── What's in Your Schedule ──
     'plan.headline': 'What your maintenance schedule includes:',
@@ -93,20 +96,19 @@ export const ui = {
     'pricing.onsite.f4': 'Pro members: $239 (20% off)',
     'pricing.onsite.cta': 'Learn More',
 
-    // ── For Inspectors ──
-    'inspectors.headline': 'Home Inspectors: a new recurring revenue stream.',
-    'inspectors.description': 'Traditional inspections happen once — at the point of sale. What if homeowners came back every year?',
-    'inspectors.pitch': 'Well Maintained is building a new category: annual home health checks. We bring you qualified homeowners who want proactive inspections — not just during a transaction.',
-    'inspectors.b1': 'Steady stream of pre-qualified bookings',
-    'inspectors.b2': 'Recurring clients, not one-time transactions',
-    'inspectors.b3': 'You inspect — we handle scheduling, reports & client communication',
-    'inspectors.b4': 'Expand your business beyond the real estate cycle',
-    'inspectors.cta': 'Apply to join our inspector network',
+    // ── For Pros ──
+    'inspectors.headline': 'Partner with Well Maintained.',
+    'inspectors.description': "Inspectors, contractors, agents — if you love helping homeowners, let's build this together.",
+    'inspectors.pitch': "We bring you ready homeowners and handle the logistics. You bring the expertise.",
+    'inspectors.b1': 'Homeowners who want proactive care — not one-off jobs',
+    'inspectors.b2': 'Recurring relationships, not one-time transactions',
+    'inspectors.b3': 'We handle scheduling & communication; you do the work',
+    'inspectors.cta': "Let's chat about partnering",
 
     // ── Founder ──
     'founder.headline': 'Why I built this.',
-    'founder.quote': "I moved from Taiwan to Ottawa and bought my first house. After the buyer's inspection, I got a 47-page PDF full of jargon I didn't understand. I had no idea what was urgent, what could wait, or who to call. A year later, a $200 maintenance task I didn't know about became a $4,000 repair. I built Well Maintained so no homeowner has to guess.",
-    'founder.name': '— Katness Chen, Founder',
+    'founder.quote': "I grew up in Taiwan, where most people live in apartments — nothing prepared me to own a house here last year. When I spotted a small gap on my garage roof, two feelings hit at once: shock that I didn't even know to look for it, and fear of what it would cost. I built Well Maintained so no homeowner has to feel that alone.",
+    'founder.name': '— Yu-Wen Chen, Founder',
 
     // ── Final CTA ──
     'cta.headline': 'Your home is worth a few minutes.',
@@ -117,7 +119,7 @@ export const ui = {
     // ── Footer ──
     'footer.how': 'How It Works',
     'footer.pricing': 'Pricing',
-    'footer.inspectors': 'For Inspectors',
+    'footer.inspectors': 'For Pros',
     'footer.privacy': 'Privacy',
     'footer.terms': 'Terms',
     'footer.copy': '© 2026 Well Maintained. Ottawa, Canada.',
@@ -133,7 +135,7 @@ export const ui = {
     'privacy.security.title': 'Data Security',
     'privacy.security.body': 'We use industry-standard security measures to protect your data. Your information is stored securely on encrypted servers.',
     'privacy.contact.title': 'Contact Us',
-    'privacy.contact.body': 'If you have questions about this privacy policy, please contact us at privacy@wellmaintained.ca.',
+    'privacy.contact.body': 'If you have questions about this privacy policy, please contact us at contact@vizino.ai.',
 
     // ── Terms ──
     'terms.title': 'Terms of Service',
@@ -173,7 +175,7 @@ export const ui = {
     'intake.description': "Answer a few quick questions about your home — or just upload your inspection report. A real person will hand-build a maintenance schedule for your house and email it to you. Free.",
     'intake.path.a.title': '✍️ Answer a few questions',
     'intake.path.a.desc': 'Quick guided questions about your home.',
-    'intake.path.b.title': '📄 Upload my inspection report',
+    'intake.path.b.title': '📄 Send my inspection report',
     'intake.path.b.desc': 'Have a report? Skip the questions.',
     'intake.select': 'Select…',
 
@@ -185,6 +187,8 @@ export const ui = {
     'intake.replyLang': 'Reply language',
     'intake.replyLang.en': 'English',
     'intake.replyLang.zh': '中文',
+    'intake.replyLang.placeholder': 'English, Français, 中文…',
+    'intake.replyLang.hint': 'Pick one or type any language.',
 
     'intake.age': 'House age',
     'intake.age.new': '0–5 years (new)',
@@ -230,9 +234,12 @@ export const ui = {
     'intake.diy.mix': 'Simple stuff myself, hire out the rest',
     'intake.diy.pro': "I'd rather hire professionals",
 
-    'intake.report': 'Your home inspection report',
-    'intake.report.cta': 'Click to upload — PDF, JPG or PNG',
-    'intake.report.hint': "We'll read the report so you don't have to fill out the questions.",
+    'intake.mail.title': 'Email your inspection report',
+    'intake.mail.lead': "Already have a report? Skip the questions — email it to us and we'll build your schedule from it.",
+    'intake.mail.note': "Fill in your details above, then click below. Your email app opens with everything pre-filled — just attach your report (PDF, JPG or PNG) and hit send.",
+    'intake.submit.email': 'Email my report',
+    'intake.mail.success.title': 'Almost done!',
+    'intake.mail.success.body': "We've opened your email app with your details filled in. Attach your report and hit send — we'll reply within 5 business days. If nothing opened, email contact@vizino.ai.",
 
     'intake.worry': 'Your biggest home worry right now (optional)',
     'intake.submit': 'Get my free schedule',
@@ -250,11 +257,12 @@ export const ui = {
     'nav.brand': 'WELL MAINTAINED',
     'nav.how': '怎麼運作',
     'nav.pricing': '方案',
-    'nav.inspectors': '檢查員合作',
+    'nav.inspectors': '服務夥伴',
     'nav.cta': '取得免費維護時程',
 
     // ── Hero ──
-    'hero.headline': '維護好一棟房子，不該是個謎。',
+    'hero.headline.accent': '主動式居家照護',
+    'hero.headline': '為你省錢，也省下煩惱。',
     'hero.description': '回答幾個關於你房子的問題——或直接上傳你的驗屋報告。由真人親手為你的房子打造一份維護時程，寄到你的信箱。完全免費。',
     'hero.cta': '取得免費維護時程',
     'hero.card.title': '你的維護時程',
@@ -277,13 +285,15 @@ export const ui = {
     'problem.pain3.desc': '找到靠譜的師傅好難，尤其剛搬到這裡。',
 
     // ── How It Works ──
-    'how.headline': '三步取得你的維護時程。',
-    'how.step1.title': '分享你的房子',
-    'how.step1.desc': '回答幾個簡單問題，或上傳你的驗屋報告。大約 3 分鐘。',
-    'how.step2.title': '我們親手幫你規劃時程',
-    'how.step2.desc': '由真人檢視你的房子，為你打造一份逐月的專屬維護時程——什麼時候做什麼、可以自己來還是該找師傅。',
-    'how.step3.title': '寄到你的信箱',
-    'how.step3.desc': '幾天內，你的專屬維護時程就會寄到信箱——中英文皆可。完全免費。',
+    'how.headline': 'Well Maintained 怎麼運作。',
+    'how.step1.title': '房屋檔案',
+    'how.step1.desc': '告訴我們你的房子——屋齡、系統與設備。這是一切的起點。',
+    'how.step2.title': '智慧時程',
+    'how.step2.desc': '我們依你的房子和當地氣候，打造一份逐月的維護時程。',
+    'how.step3.title': '自己做或找師傅',
+    'how.step3.desc': '每項任務都標註難度——讓你知道哪些可以自己來、哪些該找師傅。',
+    'how.step4.title': '健康紀錄',
+    'how.step4.desc': '完整記錄你做過的每一次維護——證明你的房子保養得宜。',
 
     // ── What's in Your Schedule ──
     'plan.headline': '你的維護時程包含：',
@@ -328,20 +338,19 @@ export const ui = {
     'pricing.onsite.f4': 'Pro 會員只要 $239（8 折）',
     'pricing.onsite.cta': '了解更多',
 
-    // ── For Inspectors ──
-    'inspectors.headline': '房屋檢查員：全新的持續收入來源。',
-    'inspectors.description': '傳統檢查只在買賣時發生一次。如果屋主每年都回來呢？',
-    'inspectors.pitch': 'Well Maintained 正在建立新品類：年度房屋健檢。我們帶來想要主動檢查的屋主——不只是交易時才找你。',
-    'inspectors.b1': '持續的預約客源',
-    'inspectors.b2': '回頭客，不再是一次性生意',
-    'inspectors.b3': '你負責檢查——我們處理排程、報告和客戶溝通',
-    'inspectors.b4': '讓你的生意不再只靠房市景氣',
-    'inspectors.cta': '申請加入檢查員網絡',
+    // ── For Pros ──
+    'inspectors.headline': '與 Well Maintained 攜手合作。',
+    'inspectors.description': '驗屋師、承包商、房仲——只要你樂於幫助屋主，一起來打造。',
+    'inspectors.pitch': '我們帶來準備好的屋主並處理大小事，你只要專注專業。',
+    'inspectors.b1': '想要主動保養的屋主——不是一次性的零工',
+    'inspectors.b2': '長期合作關係，而非一次性交易',
+    'inspectors.b3': '排程與溝通由我們處理，你專心把事做好',
+    'inspectors.cta': '聊聊合作的可能',
 
     // ── Founder ──
     'founder.headline': '為什麼做這個。',
-    'founder.quote': '我從台灣搬到渥太華，買了人生第一棟房子。買房時拿到一份 47 頁的檢查報告，滿是我看不懂的專業術語。我不知道什麼是緊急的、什麼可以等、該打給誰。一年後，一個我不知道的 $200 保養項目變成了 $4,000 的維修帳單。我打造 Well Maintained，是為了讓所有屋主不用再猜。',
-    'founder.name': '— 陳凱涅斯，創辦人',
+    'founder.quote': '我在台灣長大，那裡大多數人住公寓——去年在這裡成為屋主，我毫無準備。當我發現車庫屋頂有道小縫，兩種感受同時湧上：震驚，我根本不知道要注意它；還有恐懼，不知道要花多少錢修。我打造 Well Maintained，是為了讓每位屋主都不必孤單面對。',
+    'founder.name': '— Yu-Wen Chen，創辦人',
 
     // ── Final CTA ──
     'cta.headline': '你的房子值得你花幾分鐘。',
@@ -352,7 +361,7 @@ export const ui = {
     // ── Footer ──
     'footer.how': '怎麼運作',
     'footer.pricing': '方案',
-    'footer.inspectors': '檢查員合作',
+    'footer.inspectors': '服務夥伴',
     'footer.privacy': '隱私權',
     'footer.terms': '使用條款',
     'footer.copy': '© 2026 Well Maintained. 加拿大渥太華。',
@@ -368,7 +377,7 @@ export const ui = {
     'privacy.security.title': '資料安全',
     'privacy.security.body': '我們使用業界標準的安全措施保護您的資料。您的資訊安全存儲在加密伺服器上。',
     'privacy.contact.title': '聯絡我們',
-    'privacy.contact.body': '如果您對本隱私權政策有任何疑問，請聯絡 privacy@wellmaintained.ca。',
+    'privacy.contact.body': '如果您對本隱私權政策有任何疑問，請聯絡 contact@vizino.ai。',
 
     // ── Terms ──
     'terms.title': '服務條款',
@@ -420,6 +429,8 @@ export const ui = {
     'intake.replyLang': '回覆語言',
     'intake.replyLang.en': '英文 English',
     'intake.replyLang.zh': '中文',
+    'intake.replyLang.placeholder': '英文、法文、中文…',
+    'intake.replyLang.hint': '可選擇或自行輸入任何語言。',
 
     'intake.age': '屋齡',
     'intake.age.new': '0–5 年（新屋）',
@@ -465,9 +476,12 @@ export const ui = {
     'intake.diy.mix': '簡單的自己做，複雜的找專業',
     'intake.diy.pro': '幾乎都找專業處理',
 
-    'intake.report': '你的驗屋報告',
-    'intake.report.cta': '點擊上傳——PDF、JPG 或 PNG',
-    'intake.report.hint': '我們會幫你讀報告，這樣你就不用填那些問題了。',
+    'intake.mail.title': '用 Email 寄送你的驗屋報告',
+    'intake.mail.lead': '已經有報告了嗎？跳過問題——直接 email 給我們，我們會依報告幫你規劃時程。',
+    'intake.mail.note': '先填好上面的資料，再點下方按鈕。系統會自動開啟你的郵件 App 並帶入所有資訊——把報告（PDF、JPG 或 PNG）附上後寄出即可。',
+    'intake.submit.email': 'Email 我的報告',
+    'intake.mail.success.title': '就快完成了！',
+    'intake.mail.success.body': '我們已開啟你的郵件 App 並帶入你的資料。附上報告後寄出即可，我們會在 5 個工作天內回覆。如果沒有自動開啟，請寄到 contact@vizino.ai。',
 
     'intake.worry': '你現在最擔心的居家問題（選填）',
     'intake.submit': '取得我的免費維護時程',

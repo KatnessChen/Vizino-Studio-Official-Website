@@ -16,7 +16,7 @@ const t = useTranslations(lang as keyof typeof ui);
   <!-- ═══ HERO ═══ -->
   <section class="hero">
     <div class="hero-content">
-      <h1 class="hero-headline">{t('hero.headline')}</h1>
+      <h1 class="hero-headline"><span class="accent-text">{t('hero.headline.accent')}</span> {t('hero.headline')}</h1>
       <p class="hero-desc">{t('hero.description')}</p>
       <a href={`/${lang}/waitlist/`} class="btn-primary">{t('hero.cta')} &rarr;</a>
     </div>
@@ -94,6 +94,12 @@ const t = useTranslations(lang as keyof typeof ui);
         <h3 class="step-title">{t('how.step3.title')}</h3>
         <p class="step-desc">{t('how.step3.desc')}</p>
       </div>
+      <div class="step-connector"><svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 4"/></svg></div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3 class="step-title">{t('how.step4.title')}</h3>
+        <p class="step-desc">{t('how.step4.desc')}</p>
+      </div>
     </div>
   </section>
 
@@ -122,9 +128,8 @@ const t = useTranslations(lang as keyof typeof ui);
         <li>{t('inspectors.b1')}</li>
         <li>{t('inspectors.b2')}</li>
         <li>{t('inspectors.b3')}</li>
-        <li>{t('inspectors.b4')}</li>
       </ul>
-      <a href="mailto:inspectors@wellmaintained.ca" class="btn-outline">{t('inspectors.cta')} &rarr;</a>
+      <a href="mailto:contact@vizino.ai" class="btn-outline">{t('inspectors.cta')} &rarr;</a>
     </div>
   </section>
 
@@ -450,7 +455,7 @@ const t = useTranslations(lang as keyof typeof ui);
 
   /* ═══ FINAL CTA ═══ */
   .cta-section {
-    background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(0, 212, 170, 0.05) 50%, var(--bg-primary) 100%);
+    background: linear-gradient(180deg, var(--bg-primary) 0%, rgba(92, 240, 163, 0.06) 50%, var(--bg-primary) 100%);
   }
   .cta-inner { text-align: center; }
   .cta-note {
@@ -459,22 +464,46 @@ const t = useTranslations(lang as keyof typeof ui);
     color: var(--text-tertiary);
   }
 
-  /* ═══ Scroll-in ═══ */
-  .pain-card, .step-card, .plan-item, .price-card, .founder-block {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  /* ═══ Scroll-in reveal ═══ */
+  .pain-card, .step-card, .plan-item, .price-card, .founder-block,
+  .section-headline, .section-desc, .inspector-pitch, .inspector-benefits,
+  .founder-quote, .founder-name, .cta-inner, .btn-outline {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    will-change: opacity, transform;
   }
-  .pain-card.visible, .step-card.visible, .plan-item.visible,
-  .price-card.visible, .founder-block.visible {
-    opacity: 1; transform: translateY(0);
+  .reveal-in {
+    opacity: 1 !important; transform: translateY(0) !important;
+  }
+  /* gentle stagger within rows */
+  .steps-row .step-card:nth-child(3) { transition-delay: 0.08s; }
+  .steps-row .step-card:nth-child(5) { transition-delay: 0.16s; }
+  .steps-row .step-card:nth-child(7) { transition-delay: 0.24s; }
+  .pain-row .pain-card:nth-child(2) { transition-delay: 0.1s; }
+  .pain-row .pain-card:nth-child(3) { transition-delay: 0.2s; }
+  .plan-grid .plan-item:nth-child(2), .plan-grid .plan-item:nth-child(5) { transition-delay: 0.08s; }
+  .plan-grid .plan-item:nth-child(3), .plan-grid .plan-item:nth-child(6) { transition-delay: 0.16s; }
+  @media (prefers-reduced-motion: reduce) {
+    .pain-card, .step-card, .plan-item, .price-card, .founder-block,
+    .section-headline, .section-desc, .inspector-pitch, .inspector-benefits,
+    .founder-quote, .founder-name, .cta-inner, .btn-outline {
+      opacity: 1; transform: none; transition: none;
+    }
   }
 </style>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+      if (entry.isIntersecting) {
+        entry.target.classList.add('reveal-in');
+        observer.unobserve(entry.target);
+      }
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.pain-card, .step-card, .plan-item, .price-card, .founder-block').forEach(el => observer.observe(el));
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll(
+    '.pain-card, .step-card, .plan-item, .price-card, .founder-block, ' +
+    '.section-headline, .section-desc, .inspector-pitch, .inspector-benefits, ' +
+    '.founder-quote, .founder-name, .cta-inner, .btn-outline'
+  ).forEach(el => observer.observe(el));
 </script>
