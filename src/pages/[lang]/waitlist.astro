@@ -61,7 +61,8 @@ const REPORT_EMAIL = 'contact@vizino.ai';
         <input type="hidden" name="from_name" value="Well Maintained intake" />
         <input type="hidden" name="path" id="pathField" value="questions" />
 
-        <!-- Always required -->
+        <!-- Always required (Path A only) -->
+        <div id="qsRequired">
         <div class="row">
           <div class="field">
             <label for="name">{t('intake.name')} <span class="req">*</span></label>
@@ -89,6 +90,7 @@ const REPORT_EMAIL = 'contact@vizino.ai';
             </datalist>
             <span class="hint">{t('intake.replyLang.hint')}</span>
           </div>
+        </div>
         </div>
 
         <!-- PATH A — questions -->
@@ -241,6 +243,7 @@ const REPORT_EMAIL = 'contact@vizino.ai';
             <div class="mail-ic">📄</div>
             <p class="mail-lead">{t('intake.mail.lead')}</p>
             <p class="mail-note">{t('intake.mail.note')}</p>
+            <a class="mail-addr" href={"mailto:" + REPORT_EMAIL}>{REPORT_EMAIL}</a>
           </div>
         </div>
 
@@ -251,12 +254,13 @@ const REPORT_EMAIL = 'contact@vizino.ai';
             <p class="mail-lead">{t('intake.visit.lead')}</p>
             <p class="visit-price">{t('intake.visit.price')}</p>
             <p class="mail-note">{t('intake.visit.note')}</p>
+            <a class="mail-addr" href={"mailto:" + REPORT_EMAIL}>{REPORT_EMAIL}</a>
             <p class="visit-fineprint">{t('intake.visit.fineprint')}</p>
           </div>
         </div>
 
         <!-- Shared optional -->
-        <div class="field">
+        <div id="qsWorry" class="field">
           <label for="worry">{t('intake.worry')}</label>
           <textarea id="worry" name="worry" rows="3"></textarea>
         </div>
@@ -455,6 +459,8 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   .mail-lead { color: var(--text-primary); font-size: 15px; font-weight: 600; margin-top: 10px; }
   .visit-price { color: var(--accent); font-size: 16px; font-weight: 700; margin-top: 14px; }
   .mail-note { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-top: 8px; }
+  .mail-addr { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 16px; font-weight: 700; text-decoration: none; }
+  .mail-addr:hover { text-decoration: underline; }
   .visit-fineprint { color: var(--text-tertiary); font-size: 12px; margin-top: 14px; }
   .hidden { display: none !important; }
 
@@ -545,6 +551,12 @@ const REPORT_EMAIL = 'contact@vizino.ai';
       qsC?.classList.toggle('hidden', path !== 'C');
       if (pathField) pathField.value = path === 'A' ? 'questions' : path === 'B' ? 'report' : 'visit';
       if (submitLabel) submitLabel.textContent = path === 'A' ? labelA : path === 'B' ? labelB : labelC;
+      const isA = path === 'A';
+      if (submitBtn) submitBtn.style.display = isA ? '' : 'none';
+      const reqEl = document.getElementById('qsRequired');
+      const worryEl = document.getElementById('qsWorry');
+      if (reqEl) reqEl.style.display = isA ? '' : 'none';
+      if (worryEl) worryEl.style.display = isA ? '' : 'none';
     });
   });
 
@@ -558,37 +570,8 @@ const REPORT_EMAIL = 'contact@vizino.ai';
     e.preventDefault();
     const mode = pathField?.value; // 'questions' | 'report' | 'visit'
 
-    // ── Path B / Path C → open the visitor's email app pre-filled ──
-    if (mode === 'report' || mode === 'visit') {
-      const isVisit = mode === 'visit';
-      const intro = isVisit
-        ? "I'd like to book an in-home visit to set up my smart schedule (early-access $120)."
-        : 'Please find my home inspection report attached.';
-      const lines = [
-        'Hi Well Maintained team,',
-        '',
-        intro,
-        '',
-        'Name: ' + val('name'),
-        'Email: ' + val('email'),
-        'City / postal code: ' + val('location'),
-        'Reply language: ' + val('replyLang'),
-      ];
-      const worry = val('worry');
-      if (worry) lines.push('Biggest home worry: ' + worry);
-      lines.push('', isVisit
-        ? 'Please let me know your available times.'
-        : '(Please attach your report — PDF, JPG or PNG — before sending.)');
-      const subject = isVisit
-        ? 'Well Maintained — request an in-home visit'
-        : 'Well Maintained — my inspection report';
-      const href = 'mailto:' + mailTo
-        + '?subject=' + encodeURIComponent(subject)
-        + '&body=' + encodeURIComponent(lines.join('\n'));
-      window.location.href = href;
-      showSuccess(isVisit ? 'c' : 'b');
-      return;
-    }
+    // Path B / C: submit button is hidden; this branch is a no-op safeguard.
+    if (mode === 'report' || mode === 'visit') return;
 
     // ── Path A → Web3Forms ──
     // DEMO mode: no access key configured yet → just show success.
