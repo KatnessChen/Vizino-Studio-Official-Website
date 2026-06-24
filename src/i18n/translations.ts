@@ -8,22 +8,23 @@ export const defaultLang = 'en';
 export const ui = {
   en: {
     // ── Meta ──
-    'meta.title': 'Well Maintained — Your free home maintenance schedule',
-    'meta.description': 'Answer a few questions about your home, or upload your inspection report. We hand-build a personalized maintenance schedule and email it to you — free.',
+    'meta.title': 'Well Maintained — Your free home smart schedule',
+    'meta.description': 'Answer a few questions about your home, or upload your inspection report. We hand-build a personalized smart schedule and email it to you — free.',
 
     // ── Nav ──
     'nav.brand': 'WELL MAINTAINED',
     'nav.how': 'How It Works',
     'nav.pricing': 'Pricing',
     'nav.inspectors': 'For Pros',
+    'nav.sample': 'Sample Schedule',
     'nav.cta': 'Get My Free Schedule',
 
     // ── Hero ──
     'hero.headline.accent': 'Proactive home care',
     'hero.headline': 'that saves you money and worry.',
-    'hero.description': "Answer a few questions about your home — or just upload your inspection report. A real person hand-builds a maintenance schedule tailored to your house and emails it to you. Free.",
+    'hero.description': "Answer a few questions about your home — or just upload your inspection report. A real person hand-builds a smart schedule tailored to your house and emails it to you. Free.",
     'hero.cta': 'Get My Free Schedule',
-    'hero.card.title': 'Your maintenance schedule',
+    'hero.card.title': 'Your smart schedule',
     'hero.card.m1': 'OCT',
     'hero.card.t1': 'Clean gutters before winter',
     'hero.card.m2': 'NOV',
@@ -54,7 +55,7 @@ export const ui = {
     'how.step4.desc': "A living record of everything you've maintained — proof your home is well kept.",
 
     // ── What's in Your Schedule ──
-    'plan.headline': 'What your maintenance schedule includes:',
+    'plan.headline': 'What smart schedule includes:',
     'plan.score.title': 'Month-by-month plan',
     'plan.score.desc': 'A seasonal calendar — what to do and when, from fall gutters to spring sump-pump checks',
     'plan.schedule.title': 'Prioritized by urgency',
@@ -67,6 +68,15 @@ export const ui = {
     'plan.reminders.desc': "Built from your home's age, systems, and features — not generic advice",
     'plan.book.title': 'In your language',
     'plan.book.desc': 'Delivered in English or 中文, written to be easy to follow',
+    'plan.sampleCta': 'See a live sample →',
+
+    // ── Smart Schedule (interactive sample page) ──
+    'ss.meta.title': 'Smart Maintenance Schedule — Live Sample | Well Maintained',
+    'ss.meta.description': 'See what your house needs, month by month — sorted by urgency, with rough costs and DIY-or-pro flags. Tweak your home details and add it all to Google Calendar in one click.',
+    'ss.eyebrow': 'Smart Maintenance Schedule',
+    'ss.headline': 'See what your house needs.',
+    'ss.intro': 'A live preview of what we build for you: every task sorted by urgency, with a rough cost and whether you can DIY it. Change the home details below and watch the schedule adapt — then send it to Google Calendar in one click.',
+    'ss.demoNote': '✦ Interactive demo — loaded with a sample Ottawa home. Change the details below.',
 
     // ── Pricing ──
     'pricing.headline': 'Start with a free Health Check.',
@@ -112,9 +122,8 @@ export const ui = {
 
     // ── Final CTA ──
     'cta.headline': 'Your home is worth a few minutes.',
-    'cta.description': "Tell us about your home — or upload your inspection report. We'll hand-build your personalized maintenance schedule and email it to you, free.",
+    'cta.description': "Tell us about your home — or upload your inspection report. We'll hand-build your personalized smart schedule and email it to you, free.",
     'cta.button': 'Get My Free Schedule',
-    'cta.note': "Free while we're in early access.",
 
     // ── Footer ──
     'footer.how': 'How It Works',
@@ -122,16 +131,17 @@ export const ui = {
     'footer.inspectors': 'For Pros',
     'footer.privacy': 'Privacy',
     'footer.terms': 'Terms',
+    'footer.sample': 'Sample Schedule',
     'footer.copy': '© 2026 Well Maintained. Ottawa, Canada.',
     'footer.tagline': 'Built by a homeowner who learned the hard way.',
 
     // ── Privacy ──
     'privacy.title': 'Privacy Policy',
-    'privacy.intro': 'Well Maintained is committed to protecting your privacy. This policy explains how we collect, use, and protect your personal information.',
+    'privacy.intro': 'Well Maintained is an early-access service operated by an individual. This policy explains how we collect, use, and protect your personal information.',
     'privacy.collect.title': 'Information We Collect',
     'privacy.collect.body': 'We collect information you provide when creating your Home Profile, including property details, maintenance preferences, and contact information. We also collect usage data to improve our service.',
     'privacy.use.title': 'How We Use Your Information',
-    'privacy.use.body': 'Your information is used to generate personalized Health Scores, maintenance schedules, and relevant recommendations. We do not sell your personal information to third parties.',
+    'privacy.use.body': 'Your information is used to generate personalized Health Scores, smart schedules, and relevant recommendations. We do not sell your personal information to third parties. If you book an in-home visit, we share only the details needed (such as your name, address, and contact) with the partner performing it.',
     'privacy.security.title': 'Data Security',
     'privacy.security.body': 'We use industry-standard security measures to protect your data. Your information is stored securely on encrypted servers.',
     'privacy.contact.title': 'Contact Us',
@@ -139,13 +149,13 @@ export const ui = {
 
     // ── Terms ──
     'terms.title': 'Terms of Service',
-    'terms.intro': 'By using Well Maintained, you agree to these terms of service.',
+    'terms.intro': 'Well Maintained is an early-access pilot operated by an individual (sole proprietor). By using it, you agree to these terms of service.',
     'terms.service.title': 'Service Description',
-    'terms.service.body': 'Well Maintained provides AI-generated home Health Scores, maintenance schedules, and professional matching services. Our recommendations are informational and do not replace professional inspection or advice.',
+    'terms.service.body': 'Well Maintained provides home Health Scores, smart schedules, and optional paid in-home visits. An in-home visit may be carried out by the operator or a qualified partner we arrange. Our scores, schedules, and visits are informational and do not replace a certified home inspection or professional advice.',
     'terms.account.title': 'Your Account',
     'terms.account.body': 'You are responsible for maintaining the confidentiality of your account and for all activities under your account.',
     'terms.liability.title': 'Limitation of Liability',
-    'terms.liability.body': 'Well Maintained provides recommendations based on the information you provide. We are not liable for damages resulting from maintenance decisions. Always consult a qualified professional for critical repairs.',
+    'terms.liability.body': 'Well Maintained provides recommendations based on the information you provide. We are not liable for damages resulting from maintenance decisions. Always consult a qualified professional for critical repairs. Paid early-access visits are provided on a best-effort basis during the pilot.',
     'terms.changes.title': 'Changes to Terms',
     'terms.changes.body': 'We may update these terms from time to time. Continued use of the service constitutes acceptance of updated terms.',
 
@@ -171,12 +181,16 @@ export const ui = {
     'waitlist.success': "You're on the list! We'll email you when it's time.",
 
     // ── Intake (Concierge MVP) ──
-    'intake.title': 'Get your free maintenance schedule',
-    'intake.description': "Answer a few quick questions about your home — or just upload your inspection report. A real person will hand-build a maintenance schedule for your house and email it to you. Free.",
-    'intake.path.a.title': '✍️ Answer a few questions',
+    'intake.title': 'Get your smart schedule',
+    'intake.description': "Answer a few quick questions about your home — or just upload your inspection report. A real person will hand-build a smart schedule for your house and email it to you. Free.",
+    'intake.path.a.title': 'Tell us about your house',
     'intake.path.a.desc': 'Quick guided questions about your home.',
-    'intake.path.b.title': '📄 Send my inspection report',
+    'intake.path.b.title': 'Send your inspection report',
     'intake.path.b.desc': 'Have a report? Skip the questions.',
+    'intake.path.c.title': 'Have a specialist visit',
+    'intake.path.c.desc': 'We come to you and do it all.',
+    'intake.tag.free': 'Free',
+    'intake.tag.visit': '$120/visit',
     'intake.select': 'Select…',
 
     'intake.name': 'Name',
@@ -219,6 +233,45 @@ export const ui = {
     'intake.heating.boiler': 'Boiler / radiant',
     'intake.heating.unsure': 'Not sure',
 
+    'intake.cooling': 'Air conditioning',
+    'intake.cooling.central': 'Central AC',
+    'intake.cooling.ductless': 'Ductless / mini-split',
+    'intake.cooling.window': 'Window unit(s)',
+    'intake.cooling.none': 'None',
+    'intake.cooling.unsure': 'Not sure',
+
+    'intake.water': 'Water & sewer',
+    'intake.water.city': 'City water & sewer',
+    'intake.water.well': 'Well & septic',
+    'intake.water.mixed': 'Mixed (e.g. city water + septic)',
+    'intake.water.unsure': 'Not sure',
+
+    'intake.waterheater': 'Water heater',
+    'intake.waterheater.gastank': 'Gas tank',
+    'intake.waterheater.electrictank': 'Electric tank',
+    'intake.waterheater.tankless': 'Tankless',
+    'intake.waterheater.unsure': 'Not sure',
+
+    'intake.waterheaterage': 'Water heater age',
+    'intake.waterheaterage.u5': 'Under 5 years',
+    'intake.waterheaterage.5': '5–10 years',
+    'intake.waterheaterage.10': 'Over 10 years',
+    'intake.waterheaterage.unsure': 'Not sure',
+
+    'intake.roof': 'Roof age',
+    'intake.roof.u5': 'Under 5 years',
+    'intake.roof.5': '5–15 years',
+    'intake.roof.16': '16–25 years',
+    'intake.roof.25': 'Over 25 years',
+    'intake.roof.unsure': 'Not sure',
+
+    'intake.roofmat': 'Roof material',
+    'intake.roofmat.asphalt': 'Asphalt shingle',
+    'intake.roofmat.metal': 'Metal',
+    'intake.roofmat.flat': 'Flat / membrane',
+    'intake.roofmat.other': 'Other',
+    'intake.roofmat.unsure': 'Not sure',
+
     'intake.features': 'Which of these does your home have? (select all)',
     'intake.features.gutters': 'Gutters',
     'intake.features.deck': 'Deck / patio',
@@ -241,11 +294,19 @@ export const ui = {
     'intake.mail.success.title': 'Almost done!',
     'intake.mail.success.body': "We've opened your email app with your details filled in. Attach your report and hit send — we'll reply within 5 business days. If nothing opened, email contact@vizino.ai.",
 
+    'intake.visit.lead': 'Want a hands-off start? A specialist visits your home and builds your schedule.',
+    'intake.visit.price': 'Early-access price: $120 · ~1 hour',
+    'intake.visit.note': 'Fill in your details above, then click below to arrange a time.',
+    'intake.visit.contact': 'Or email us at contact@vizino.ai',
+    'intake.visit.fineprint': 'Early-access pilot · invoiced individually',
+    'intake.submit.visit': 'Request a visit',
+    'intake.visit.success.title': 'Request ready!',
+    'intake.visit.success.body': "We've opened your email app to request your in-home visit. Send it and we'll reply to arrange a time. If nothing opened, email contact@vizino.ai.",
+
     'intake.worry': 'Your biggest home worry right now (optional)',
     'intake.submit': 'Get my free schedule',
-    'intake.privacy': "We'll only use your info to build your schedule. No spam, ever.",
     'intake.success.title': 'Got it — thank you!',
-    'intake.success.body': "We'll email your personalized maintenance schedule within 5 business days.",
+    'intake.success.body': "We'll email your personalized smart schedule within 5 business days.",
   },
 
   'zh-tw': {
@@ -258,6 +319,7 @@ export const ui = {
     'nav.how': '怎麼運作',
     'nav.pricing': '方案',
     'nav.inspectors': '服務夥伴',
+    'nav.sample': '範例時程',
     'nav.cta': '取得免費維護時程',
 
     // ── Hero ──
@@ -309,6 +371,15 @@ export const ui = {
     'plan.reminders.desc': '根據你房子的屋齡、系統和設備量身打造——不是通用建議',
     'plan.book.title': '用你的語言',
     'plan.book.desc': '中英文皆可，寫得簡單好懂、照著做就行',
+    'plan.sampleCta': '看即時範例 →',
+
+    // ── Smart Schedule (interactive sample page) ──
+    'ss.meta.title': '智慧維護時程 — 即時範例 | Well Maintained',
+    'ss.meta.description': '一眼看清你的房子每個月需要做什麼——依緊急程度排序，附上粗估費用與「自己做或找師傅」標記。調整房屋資料，再一鍵加入 Google 行事曆。',
+    'ss.eyebrow': '智慧維護時程',
+    'ss.headline': '一眼看清你的房子需要什麼——逐月，全年。',
+    'ss.intro': '這是我們為你打造成果的即時預覽：每項任務依緊急程度排序，附上大略費用與是否能自己動手。調整下方的房屋資料，看時程即時調整——再一鍵送進 Google 行事曆。',
+    'ss.demoNote': '✦ 互動示範——以一個渥太華範例房屋預載。請調整下方資料。',
 
     // ── Pricing ──
     'pricing.headline': '免費開始你的健檢。',
@@ -356,7 +427,6 @@ export const ui = {
     'cta.headline': '你的房子值得你花幾分鐘。',
     'cta.description': '告訴我們你的房子——或上傳你的驗屋報告。我們會親手為你打造個人化維護時程，免費寄到你的信箱。',
     'cta.button': '取得免費維護時程',
-    'cta.note': '早期測試階段，完全免費。',
 
     // ── Footer ──
     'footer.how': '怎麼運作',
@@ -364,16 +434,17 @@ export const ui = {
     'footer.inspectors': '服務夥伴',
     'footer.privacy': '隱私權',
     'footer.terms': '使用條款',
+    'footer.sample': '範例時程',
     'footer.copy': '© 2026 Well Maintained. 加拿大渥太華。',
     'footer.tagline': '由一位屋主親身經歷後打造。',
 
     // ── Privacy ──
     'privacy.title': '隱私權政策',
-    'privacy.intro': 'Well Maintained 致力於保護您的隱私。本政策說明我們如何收集、使用和保護您的個人資訊。',
+    'privacy.intro': 'Well Maintained 目前是由個人營運的早鳥服務。本政策說明我們如何收集、使用和保護您的個人資訊。',
     'privacy.collect.title': '我們收集的資訊',
     'privacy.collect.body': '我們收集您在建立房屋檔案時提供的資訊，包括房產細節、維護偏好和聯絡方式。我們也會收集使用數據以改善服務。',
     'privacy.use.title': '我們如何使用您的資訊',
-    'privacy.use.body': '您的資訊用於生成個人化健康分數、維護排程及相關建議。我們不會將您的個人資訊出售給第三方。',
+    'privacy.use.body': '您的資訊用於生成個人化健康分數、智慧維護時程及相關建議。我們不會將您的個人資訊出售給第三方。若您預約到府服務，我們只會將執行服務所需的資訊（例如姓名、地址與聯絡方式）提供給執行的夥伴。',
     'privacy.security.title': '資料安全',
     'privacy.security.body': '我們使用業界標準的安全措施保護您的資料。您的資訊安全存儲在加密伺服器上。',
     'privacy.contact.title': '聯絡我們',
@@ -381,13 +452,13 @@ export const ui = {
 
     // ── Terms ──
     'terms.title': '服務條款',
-    'terms.intro': '使用 Well Maintained 即表示您同意本服務條款。',
+    'terms.intro': 'Well Maintained 目前是由個人（獨資）營運的早鳥試營運服務。使用本服務即表示您同意本服務條款。',
     'terms.service.title': '服務說明',
-    'terms.service.body': 'Well Maintained 提供 AI 生成的房屋健康分數、維護排程及專業人員媒合服務。我們的建議僅供參考，不能取代專業檢查或建議。',
+    'terms.service.body': 'Well Maintained 提供房屋健康分數、智慧維護時程，以及選購的到府服務。到府服務可能由營運者本人或我們安排的合格夥伴執行。我們的分數、時程與到府服務僅供參考，不能取代合格的專業驗屋或建議。',
     'terms.account.title': '您的帳戶',
     'terms.account.body': '您有責任維護帳戶的機密性，並對帳戶下的所有活動負責。',
     'terms.liability.title': '責任限制',
-    'terms.liability.body': 'Well Maintained 根據您提供的資訊提供建議。我們不對因維護決策造成的損害承擔責任。重要維修請務必諮詢合格專業人員。',
+    'terms.liability.body': 'Well Maintained 根據您提供的資訊提供建議。我們不對因維護決策造成的損害承擔責任。重要維修請務必諮詢合格專業人員。早鳥付費到府服務於試營運期間以盡力而為的方式提供。',
     'terms.changes.title': '條款變更',
     'terms.changes.body': '我們可能會不時更新這些條款。繼續使用本服務即表示接受更新後的條款。',
 
@@ -419,6 +490,10 @@ export const ui = {
     'intake.path.a.desc': '關於你房子的快速引導問題。',
     'intake.path.b.title': '📄 上傳我的驗屋報告',
     'intake.path.b.desc': '有報告嗎？那就省去問題。',
+    'intake.path.c.title': '🧑‍🔧 專人到府服務',
+    'intake.path.c.desc': '專人到你家，全部幫你搞定。',
+    'intake.tag.free': '免費',
+    'intake.tag.visit': '$120/次',
     'intake.select': '請選擇…',
 
     'intake.name': '姓名',
@@ -461,6 +536,45 @@ export const ui = {
     'intake.heating.boiler': '鍋爐/地暖',
     'intake.heating.unsure': '不確定',
 
+    'intake.cooling': '冷氣 / 空調',
+    'intake.cooling.central': '中央空調',
+    'intake.cooling.ductless': '無管線 / 分離式',
+    'intake.cooling.window': '窗型',
+    'intake.cooling.none': '無',
+    'intake.cooling.unsure': '不確定',
+
+    'intake.water': '給水與排水',
+    'intake.water.city': '市政自來水與下水道',
+    'intake.water.well': '水井與化糞池',
+    'intake.water.mixed': '混合（例如市政水 + 化糞池）',
+    'intake.water.unsure': '不確定',
+
+    'intake.waterheater': '熱水器',
+    'intake.waterheater.gastank': '天然氣水箱式',
+    'intake.waterheater.electrictank': '電力水箱式',
+    'intake.waterheater.tankless': '即熱式',
+    'intake.waterheater.unsure': '不確定',
+
+    'intake.waterheaterage': '熱水器屋齡',
+    'intake.waterheaterage.u5': '5 年以下',
+    'intake.waterheaterage.5': '5–10 年',
+    'intake.waterheaterage.10': '10 年以上',
+    'intake.waterheaterage.unsure': '不確定',
+
+    'intake.roof': '屋頂屋齡',
+    'intake.roof.u5': '5 年以下',
+    'intake.roof.5': '5–15 年',
+    'intake.roof.16': '16–25 年',
+    'intake.roof.25': '25 年以上',
+    'intake.roof.unsure': '不確定',
+
+    'intake.roofmat': '屋頂材質',
+    'intake.roofmat.asphalt': '瀝青瓦',
+    'intake.roofmat.metal': '金屬',
+    'intake.roofmat.flat': '平頂 / 防水膜',
+    'intake.roofmat.other': '其他',
+    'intake.roofmat.unsure': '不確定',
+
     'intake.features': '你家有以下哪些？（可複選）',
     'intake.features.gutters': '排水溝',
     'intake.features.deck': '木甲板/露台',
@@ -483,9 +597,17 @@ export const ui = {
     'intake.mail.success.title': '就快完成了！',
     'intake.mail.success.body': '我們已開啟你的郵件 App 並帶入你的資料。附上報告後寄出即可，我們會在 5 個工作天內回覆。如果沒有自動開啟，請寄到 contact@vizino.ai。',
 
+    'intake.visit.lead': '想輕鬆開始？專人到府，直接幫你建立維護時程。',
+    'intake.visit.price': '早鳥價：$120 · 約一小時',
+    'intake.visit.note': '填好上方資料，點下方按鈕安排時間。',
+    'intake.visit.contact': '或直接寄信至 contact@vizino.ai',
+    'intake.visit.fineprint': '早鳥試營運 · 以個人名義開立收據',
+    'intake.submit.visit': '預約到府',
+    'intake.visit.success.title': '預約已準備好！',
+    'intake.visit.success.body': '我們已開啟你的郵件 App 來預約到府服務。寄出後我們會回覆與你約時間。如果沒有自動開啟，請寄到 contact@vizino.ai。',
+
     'intake.worry': '你現在最擔心的居家問題（選填）',
     'intake.submit': '取得我的免費維護時程',
-    'intake.privacy': '我們只會用你的資料來製作時程。絕不寄垃圾信。',
     'intake.success.title': '收到了——謝謝你！',
     'intake.success.body': '我們會在 5 個工作天內，把你的專屬維護時程寄到信箱。',
   },

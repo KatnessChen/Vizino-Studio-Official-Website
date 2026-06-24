@@ -1,0 +1,521 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { ui } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'en' } }, { params: { lang: 'zh-tw' } }];
+}
+
+const { lang } = Astro.params;
+const t = useTranslations(lang as keyof typeof ui);
+const wlang = lang === 'zh-tw' ? 'zh' : 'en';
+---
+
+<Layout title={t('ss.meta.title')} description={t('ss.meta.description')} lang={lang}>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="ss-hero">
+    <div class="ss-wrap">
+      <div class="ss-eyebrow">{t('ss.eyebrow')}</div>
+      <h1 class="ss-h1">{t('ss.headline')}</h1>
+      <p class="ss-intro">{t('ss.intro')}</p>
+      <div class="ss-demo-note">{t('ss.demoNote')}</div>
+    </div>
+  </section>
+
+  <!-- ═══ INTERACTIVE WIDGET ═══ -->
+  <section class="ss-section">
+    <div class="ss ss-wrap" data-lang={wlang}>
+      <div class="ss-panel" id="ss-panel"></div>
+      <div class="ss-summary" id="ss-summary"></div>
+      <div class="ss-cal" id="ss-out"></div>
+      <div class="ss-calcta" id="ss-calcta"></div>
+    </div>
+  </section>
+
+  <!-- detail modal -->
+  <div class="ss-modal" id="ss-modal" hidden>
+    <div class="ss-modal-backdrop" id="ss-modal-bd"></div>
+    <div class="ss-modal-card" id="ss-modal-card" role="dialog" aria-modal="true"></div>
+  </div>
+
+</Layout>
+
+<style is:global>
+  /* ===== Smart Schedule page (namespaced .ss*) ===== */
+  .ss-wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  .ss-hero{padding:128px 0 24px}
+  .ss-eyebrow{color:var(--accent);text-transform:uppercase;letter-spacing:.18em;font-size:13px;font-weight:600;margin-bottom:14px}
+  .ss-h1{font-size:clamp(32px,5vw,50px);font-weight:800;line-height:1.08;letter-spacing:-.02em;max-width:860px}
+  .ss-intro{color:var(--text-secondary);font-size:clamp(16px,2.2vw,19px);margin:20px 0 0;max-width:700px;line-height:1.7}
+  .ss-demo-note{display:inline-block;margin-top:22px;background:var(--accent-subtle);border:1px solid var(--border);color:var(--accent);font-size:13px;border-radius:10px;padding:9px 14px}
+  .ss-feats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:34px}
+  .ss-feat{background:var(--bg-secondary);border:1px solid var(--border);border-radius:12px;padding:14px 10px;text-align:center}
+  .ss-feat .ic{font-size:22px}
+  .ss-feat .ft{font-size:12.5px;font-weight:600;margin-top:8px;line-height:1.3;color:var(--text-primary)}
+
+  .ss-section{padding:24px 0 96px}
+  .ss{--ss-accent-sub:rgba(92,240,163,0.12);--ss-amber-sub:rgba(255,184,0,0.12);--ss-danger-sub:rgba(255,77,77,0.12)}
+
+  /* Panel */
+  .ss-panel{background:var(--bg-secondary);border:1px solid var(--border);border-radius:16px;padding:24px}
+  .ss-panel h2{font-size:18px;font-weight:700}
+  .ss-panel .ss-hint{color:var(--text-secondary);font-size:13px;margin-top:4px}
+  .ss-controls{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+  .ss-ctl label{display:block;font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;margin-bottom:7px}
+  .ss-ctl select{width:100%;background:var(--bg-primary);border:1px solid var(--border);border-radius:10px;padding:11px 12px;color:var(--text-primary);font-size:14px;font-family:var(--font)}
+  .ss-ctl select:focus{outline:none;border-color:var(--accent)}
+  .ss-feat-label{font-size:12px;font-weight:600;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;margin:20px 0 10px}
+  .ss-chips{display:flex;flex-wrap:wrap;gap:9px}
+  .ss-chip{display:inline-flex;align-items:center;gap:7px;background:var(--bg-primary);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-size:13.5px;color:var(--text-secondary);cursor:pointer;user-select:none;transition:.12s}
+  .ss-chip:hover{border-color:var(--accent)}
+  .ss-chip.on{background:var(--ss-accent-sub);border-color:var(--accent);color:var(--text-primary)}
+  .ss-chip .dot{width:8px;height:8px;border-radius:50%;background:var(--text-tertiary)}
+  .ss-chip.on .dot{background:var(--accent)}
+
+  /* Summary */
+  .ss-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:22px}
+  .ss-stat{background:var(--bg-secondary);border:1px solid var(--border);border-radius:14px;padding:18px}
+  .ss-stat .n{font-size:26px;font-weight:800;color:var(--accent)}
+  .ss-stat .n.amber{color:var(--amber)}
+  .ss-stat .n.plain{color:var(--text-primary)}
+  .ss-stat .l{font-size:12.5px;color:var(--text-secondary);margin-top:4px;line-height:1.35}
+
+  /* Calendar CTA */
+  .ss-calcta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;background:linear-gradient(100deg,var(--accent-subtle),transparent 80%);border:1px solid var(--border);border-radius:16px;padding:22px 24px;margin-top:22px}
+  .ss-calcta .ss-cta-txt h3{font-size:18px;font-weight:700}
+  .ss-calcta .ss-cta-txt p{color:var(--text-secondary);font-size:13.5px;margin-top:4px;max-width:560px;line-height:1.6}
+  .ss-howlink{color:var(--accent);font-size:13px;cursor:pointer;text-decoration:underline;background:none;border:none;font-family:var(--font);margin-top:10px;display:inline-block;padding:0}
+  .ss-howbox{display:none;margin-top:12px;background:var(--bg-primary);border:1px solid var(--border);border-radius:10px;padding:14px 16px;font-size:13px;color:var(--text-secondary);line-height:1.6}
+  .ss-howbox.show{display:block}
+  .ss-howbox ol{margin:6px 0 0 18px}
+
+  /* ===== Single-month calendar view ===== */
+  .ss-cal{margin-top:30px}
+  .ss-calnav{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding-bottom:16px;border-bottom:1px solid var(--border)}
+  .ss-calnav-main{display:flex;align-items:center;gap:16px}
+  .ss-navbtn{width:40px;height:40px;border-radius:10px;border:1px solid var(--border);background:var(--bg-secondary);color:var(--text-primary);font-size:20px;line-height:1;cursor:pointer;font-family:var(--font);transition:.12s}
+  .ss-navbtn:hover{border-color:var(--accent);color:var(--accent)}
+  .ss-navlabel{display:flex;align-items:baseline;gap:10px;min-width:150px;justify-content:center}
+  .ss-navlabel .m{font-size:26px;font-weight:800;letter-spacing:-.01em}
+  .ss-navlabel .season{font-size:12px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.1em}
+  .ss-calnav-side{display:flex;align-items:center;gap:14px}
+  .ss-calnav-side .count{font-size:13px;color:var(--text-tertiary)}
+  .ss-today{font-size:13px;font-weight:600;color:var(--accent);background:var(--ss-accent-sub);border:1px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;font-family:var(--font);transition:.12s}
+  .ss-today:hover{border-color:var(--accent)}
+
+  .ss-rows{display:flex;flex-direction:column;gap:10px;margin-top:18px}
+  .ss-row{display:flex;align-items:center;gap:12px;background:var(--bg-secondary);border:1px solid var(--border);border-left:3px solid var(--text-tertiary);border-radius:12px;padding:14px 16px;cursor:pointer;transition:.12s}
+  .ss-row:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .ss-row:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  .ss-row.p-high{border-left-color:var(--danger)}
+  .ss-row.p-med{border-left-color:var(--amber)}
+  .ss-row.p-low{border-left-color:var(--accent)}
+  .ss-dot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;background:var(--text-tertiary)}
+  .ss-dot.high{background:var(--danger)} .ss-dot.med{background:var(--amber)} .ss-dot.low{background:var(--accent)}
+  .ss-rowtitle{flex:1;font-size:15.5px;font-weight:600;line-height:1.35}
+  .ss-rowtags{display:flex;align-items:center;gap:8px}
+  .ss-chev{color:var(--text-tertiary);font-size:20px;line-height:1}
+  .ss-empty{color:var(--text-tertiary);font-size:15px;padding:40px 20px;text-align:center;border:1px dashed var(--border);border-radius:12px;margin-top:18px}
+
+  .ss-badge{font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:8px;white-space:nowrap}
+  .ss-badge.easy{background:var(--ss-accent-sub);color:var(--accent)}
+  .ss-badge.moderate{background:var(--ss-amber-sub);color:var(--amber)}
+  .ss-badge.pro{background:var(--ss-danger-sub);color:var(--danger)}
+  .ss-pri{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;padding:4px 10px;border-radius:999px;white-space:nowrap;display:inline-block}
+  .ss-pri.high{background:var(--ss-danger-sub);color:var(--danger)}
+  .ss-pri.med{background:var(--ss-amber-sub);color:var(--amber)}
+  .ss-pri.low{background:var(--ss-accent-sub);color:var(--accent)}
+  .ss-note{font-size:11px;color:var(--text-tertiary);font-weight:400;text-transform:none;letter-spacing:0}
+
+  /* ===== Detail modal ===== */
+  .ss-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px}
+  .ss-modal[hidden]{display:none}
+  .ss-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .ss-modal-card{position:relative;z-index:1;background:var(--bg-secondary);border:1px solid var(--border);border-radius:18px;padding:28px;width:100%;max-width:460px;box-shadow:0 24px 70px rgba(0,0,0,.5);animation:ssPop .16s ease-out}
+  @keyframes ssPop{from{opacity:0;transform:translateY(10px) scale(.98)}to{opacity:1;transform:none}}
+  .ss-modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--text-tertiary);font-size:26px;line-height:1;cursor:pointer;font-family:var(--font)}
+  .ss-modal-close:hover{color:var(--text-primary)}
+  .ss-modal-title{font-size:22px;font-weight:750;line-height:1.25;margin:12px 0 6px;padding-right:24px}
+  .ss-modal-sys{font-size:13px;color:var(--text-secondary)}
+  .ss-modal-desc{font-size:14.5px;color:var(--text-secondary);line-height:1.65;margin-top:16px}
+  .ss-modal-meta{margin-top:18px;border-top:1px solid var(--border)}
+  .ss-modal-line{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+  .ss-modal-line .k{font-size:13px;color:var(--text-tertiary)}
+  .ss-modal-line .v{font-size:14px;color:var(--text-primary);font-weight:600;text-align:right}
+  .ss-gcal{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;border:1px solid var(--border);border-radius:999px;padding:6px 12px;font-size:12.5px;transition:.12s}
+  .ss-gcal:hover{border-color:var(--accent);background:var(--ss-accent-sub)}
+  .ss-modal-gcal{width:100%;justify-content:center;margin-top:20px;padding:13px;font-size:14.5px;font-weight:600}
+
+  @media (max-width:860px){
+    .ss-feats{grid-template-columns:repeat(3,1fr)}
+    .ss-controls{grid-template-columns:repeat(2,1fr)}
+    .ss-summary{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:520px){ .ss-feats{grid-template-columns:repeat(2,1fr)} }
+</style>
+
+<script>
+  const root = document.querySelector('.ss');
+  if (root) {
+    const lang = root.getAttribute('data-lang') === 'zh' ? 'zh' : 'en';
+    const currentMonth = () => new Date().getMonth() + 1;
+
+    const STATE = {
+      month: currentMonth(),
+      climate: 'cold', age: 'older', heating: 'gas', diy: 'mix',
+      features: { gutters:true, sump:true, fireplace:true, garage:true, trees:true, deck:false, irrigation:false, pool:false }
+    };
+
+    const T = {
+      en: {
+        panelTitle:'Tailor it to your house',
+        panelHint:'The schedule below updates instantly. This is the same logic that drives your real, hand-checked plan.',
+        climate:'Climate', age:'House age', heating:'Heating system', diy:'You prefer to…',
+        featuresLabel:'Your home has… (tap to toggle)',
+        ctaTitle:'Put your whole year on autopilot',
+        ctaDesc:'Download every task as a single calendar file (Google, Apple or Outlook) — each repeats automatically with a reminder. Or open any task and add it straight to Google Calendar.',
+        howLink:'How do I import this into Google Calendar?',
+        howIntro:'On a computer:',
+        how1:'Open Google Calendar → ⚙ Settings → Import & export.',
+        how2:'Choose the file you just downloaded (well-maintained-schedule.ics).',
+        how3:'Pick which calendar to add it to, then Import. Done.',
+        download:'📅 Add all to my calendar',
+        yearly:'rough yearly cost *', highPri:'high-priority', canDiy:'you can do yourself', totalTasks:'maintenance tasks a year',
+        tasks:'tasks', prev:'Previous month', next:'Next month', thisMonth:'This month',
+        emptyMonth:'Nothing scheduled this month — enjoy the break.',
+        empty:'No tasks match — try turning on some home features above.',
+        gcal:'Add to Google Calendar', bumped:'raised for older home',
+        difficulty:'Difficulty', estCost:'Estimated cost', tapHint:'Tap any task for details',
+        diyWord:'DIY', proWord:'Pro', free:'free'
+      },
+      zh: {
+        panelTitle:'依你的房子調整',
+        panelHint:'下方時程會即時更新。這與我們為你親手核對的真實計畫採用相同邏輯。',
+        climate:'氣候', age:'屋齡', heating:'暖氣系統', diy:'你傾向…',
+        featuresLabel:'你家有…（點擊切換）',
+        ctaTitle:'讓你的一整年自動運轉',
+        ctaDesc:'把所有任務下載成一個行事曆檔（Google、Apple 或 Outlook）— 每項都會自動重複並提醒你。或點開任一任務，直接加入 Google 行事曆。',
+        howLink:'如何匯入 Google 行事曆？',
+        howIntro:'在電腦上：',
+        how1:'開啟 Google 行事曆 → ⚙ 設定 → 匯入與匯出。',
+        how2:'選擇剛下載的檔案（well-maintained-schedule.ics）。',
+        how3:'選擇要加入哪個行事曆，按匯入。完成。',
+        download:'📅 全部加入行事曆',
+        yearly:'粗估年度費用 *', highPri:'高優先（先做這些）', canDiy:'你可以自己動手', totalTasks:'維護任務 / 年',
+        tasks:'項', prev:'上個月', next:'下個月', thisMonth:'本月',
+        emptyMonth:'這個月沒有排定的維護——好好休息。',
+        empty:'沒有符合的任務 — 試著開啟上方的房屋功能。',
+        gcal:'加入 Google 行事曆', bumped:'因屋齡提高',
+        difficulty:'難度', estCost:'預估費用', tapHint:'點任一任務看詳情',
+        diyWord:'自己做', proWord:'專業', free:'免費'
+      }
+    };
+    const tt = (k) => T[lang][k];
+
+    const OPTS = {
+      climate: [['cold',{en:'Cold winters (e.g. Ottawa)',zh:'寒冷冬季（如渥太華）'}],['temperate',{en:'Mild / temperate',zh:'溫和氣候'}]],
+      age: [['new',{en:'0–5 years (new)',zh:'0–5 年（新屋）'}],['mid',{en:'6–15 years',zh:'6–15 年'}],['older',{en:'16–30 years',zh:'16–30 年'}],['old',{en:'31–50 years',zh:'31–50 年'}],['veryold',{en:'50+ years',zh:'50 年以上'}]],
+      heating: [['gas',{en:'Forced-air gas furnace',zh:'天然氣熱風爐'}],['electric',{en:'Electric',zh:'電力'}],['heatpump',{en:'Heat pump',zh:'熱泵'}],['boiler',{en:'Boiler / radiant',zh:'鍋爐 / 地暖'}]],
+      diy: [['diy',{en:'Do it myself',zh:'自己動手做'}],['mix',{en:'DIY simple, hire the rest',zh:'簡單自己做，其餘外包'}],['pro',{en:'Hire professionals',zh:'幾乎都找專業'}]]
+    };
+
+    const MONTHS = {
+      en:['January','February','March','April','May','June','July','August','September','October','November','December'],
+      zh:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月']
+    };
+    const SEASON = {
+      en:{1:'Winter',2:'Winter',3:'Spring',4:'Spring',5:'Spring',6:'Summer',7:'Summer',8:'Summer',9:'Fall',10:'Fall',11:'Fall',12:'Winter'},
+      zh:{1:'冬',2:'冬',3:'春',4:'春',5:'春',6:'夏',7:'夏',8:'夏',9:'秋',10:'秋',11:'秋',12:'冬'}
+    };
+    const FEATURE_DEFS = [
+      {key:'gutters',en:'Gutters',zh:'排水溝'},{key:'sump',en:'Sump pump',zh:'排水泵'},
+      {key:'fireplace',en:'Fireplace / chimney',zh:'壁爐 / 煙囪'},{key:'garage',en:'Garage door opener',zh:'電動車庫門'},
+      {key:'deck',en:'Deck / patio',zh:'木甲板 / 露台'},{key:'irrigation',en:'Irrigation',zh:'灑水系統'},
+      {key:'pool',en:'Pool',zh:'泳池'},{key:'trees',en:'Mature trees',zh:'屋旁大樹'}
+    ];
+
+    const TASKS = [
+      {id:'smoke',en:'Test all smoke & CO alarms',zh:'測試所有煙霧與一氧化碳警報器',sysEn:'Safety',sysZh:'安全',freq:'monthly',months:[],pri:'high',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Press the test button on each alarm; replace batteries if the sound is weak. Working alarms are your first line of defense.',descZh:'按下每個警報器的測試鈕；聲音微弱就換電池。能運作的警報器是你的第一道防線。'},
+      {id:'filtercheck',en:'Check furnace / HVAC filter',zh:'檢查暖氣 / 空調濾網',sysEn:'HVAC',sysZh:'暖通空調',freq:'monthly',months:[],pri:'med',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:"Hold the filter up to the light — if you can't see through it, it's time to change. A clogged filter strains the whole system.",descZh:'把濾網對著光看——看不透就該換了。濾網阻塞會讓整個系統更耗損。'},
+      {id:'rangehood',en:'Clean range hood filter',zh:'清潔抽油煙機濾網',sysEn:'Kitchen',sysZh:'廚房',freq:'monthly',months:[],pri:'low',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Soak the metal mesh filter in hot, soapy water to clear grease buildup and reduce kitchen fire risk.',descZh:'把金屬濾網泡在熱肥皂水中，去除油垢、降低廚房火災風險。'},
+      {id:'leakcheck',en:'Check under sinks & around toilets for leaks',zh:'檢查水槽下方與馬桶周圍是否漏水',sysEn:'Plumbing',sysZh:'水管',freq:'monthly',months:[],pri:'med',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Look and feel for drips, stains, or warped wood. Catching a slow leak early prevents rot and mold.',descZh:'檢查有無滴水、水漬或木材變形。及早發現慢漏可避免腐爛與發霉。'},
+      {id:'filterreplace',en:'Replace furnace / HVAC filter',zh:'更換暖氣 / 空調濾網',sysEn:'HVAC',sysZh:'暖通空調',freq:'quarterly',months:[1,4,7,10],pri:'med',cost:{diy:25,proLow:null,proHigh:null},diff:'easy',descEn:'Swap in a fresh filter. Clean airflow keeps heating and cooling efficient and the air healthier.',descZh:'換上全新濾網。順暢的氣流能維持冷暖效率，空氣也更健康。'},
+      {id:'gfci',en:'Test GFCI & AFCI outlets / breakers',zh:'測試 GFCI 與 AFCI 插座 / 斷路器',sysEn:'Electrical · Safety',sysZh:'電力 · 安全',freq:'quarterly',months:[1,4,7,10],pri:'high',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Press TEST then RESET on each device. These protect you from electric shock and electrical fires.',descZh:'在每個裝置上按 TEST 再 RESET。它們能防止觸電與電氣火災。'},
+      {id:'drains',en:'Run water in unused drains to fill traps',zh:'在少用的排水孔放水，補滿存水彎',sysEn:'Plumbing',sysZh:'水管',freq:'quarterly',months:[1,4,7,10],pri:'low',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Pour water into floor drains and unused sinks so the trap stays full and sewer gas cannot enter.',descZh:'在地排和少用的水槽倒水，讓存水彎保持滿水、阻隔下水道氣味。'},
+      {id:'ac',en:'A/C pre-season check',zh:'冷氣季前檢查',sysEn:'HVAC',sysZh:'暖通空調',freq:'annual',months:[4],pri:'med',cost:{diy:null,proLow:100,proHigh:180},diff:'pro',descEn:'Have a tech check refrigerant, coils, and airflow before summer so the A/C is ready when you need it.',descZh:'夏天前請技師檢查冷媒、盤管與氣流，讓冷氣在你需要時就緒。'},
+      {id:'sumptest',en:'Test sump pump & backup',zh:'測試排水泵與備援系統',sysEn:'Water · Safety',sysZh:'防水 · 安全',freq:'annual',months:[3],pri:'high',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',req:'sump',descEn:'Pour a bucket of water into the pit — the pump should switch on and drain it. Test the battery backup too.',descZh:'倒一桶水進集水坑——幫浦應啟動並排乾。也測試備援電池。'},
+      {id:'icecheck',en:'Check for winter ice / water damage',zh:'檢查冬季結冰 / 水損',sysEn:'Exterior',sysZh:'外部',freq:'seasonal',months:[4],pri:'med',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',coldOnly:true,descEn:'After the thaw, look for ice-dam stains, cracked caulk, and water marks left by winter freeze-thaw.',descZh:'融雪後，檢查冰壩水漬、裂開的填縫與冬季凍融造成的水痕。'},
+      {id:'pool_open',en:'Open & service the pool',zh:'開池與保養泳池',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[5],pri:'low',cost:{diy:150,proLow:300,proHigh:600},diff:'moderate',req:'pool',descEn:'Remove the cover, reconnect equipment, balance the water, and get the pump running for the season.',descZh:'掀開池蓋、接回設備、平衡水質，啟動幫浦迎接泳池季。'},
+      {id:'irrig_on',en:'Start up & test irrigation system',zh:'啟動並測試灑水系統',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[5],pri:'low',cost:{diy:0,proLow:80,proHigh:150},diff:'moderate',req:'irrigation',descEn:'Turn the system back on, check each zone for leaks or broken heads, and reset the timer.',descZh:'重新開啟系統，逐區檢查漏水或損壞噴頭，並重設定時器。'},
+      {id:'gutters',en:'Clean gutters & downspouts',zh:'清理排水溝與落水管',sysEn:'Exterior',sysZh:'外部',freq:'semi',months:[4,10],pri:'high',cost:{diy:0,proLow:120,proHigh:250},diff:'moderate',req:'gutters',descEn:'Clear leaves and debris so water drains away from the roof and foundation — the #1 way to prevent water damage.',descZh:'清掉落葉雜物，讓水遠離屋頂與地基排出——預防水損最關鍵的一步。'},
+      {id:'caulk',en:'Inspect exterior caulking & weatherstripping',zh:'檢查外部填縫與門窗密封條',sysEn:'Exterior',sysZh:'外部',freq:'semi',months:[5,10],pri:'med',cost:{diy:20,proLow:null,proHigh:null},diff:'easy',descEn:'Reseal gaps around windows, doors, and trim to keep water and drafts out and lower your energy bills.',descZh:'重新封住門窗與飾條周圍的縫隙，擋住水和冷風、降低能源費。'},
+      {id:'garage',en:'Test garage door auto-reverse safety',zh:'測試車庫門自動回彈安全功能',sysEn:'Safety',sysZh:'安全',freq:'semi',months:[4,10],pri:'med',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',req:'garage',descEn:'Place an object under the closing door — it should reverse on contact. A failed sensor is a safety hazard.',descZh:'在門下放個物體——關門時應碰到即回彈。感應失效是安全隱患。'},
+      {id:'grading',en:'Confirm grading slopes away from foundation',zh:'確認地面坡度遠離地基排水',sysEn:'Exterior',sysZh:'外部',freq:'semi',months:[5,9],pri:'med',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',descEn:'Make sure soil slopes away from the house so rain and snowmelt drain off — not into the basement.',descZh:'確認土壤坡度向外，讓雨水與融雪排走，而非流進地下室。'},
+      {id:'whdrain',en:'Drain sediment from water heater',zh:'排放熱水器沉積物',sysEn:'Plumbing',sysZh:'水管',freq:'semi',months:[4,10],pri:'med',cost:{diy:0,proLow:100,proHigh:150},diff:'moderate',descEn:'Drain a few litres from the tank to flush out sediment — it extends the heater’s life and efficiency.',descZh:'從水箱排出幾公升水，沖掉沉積物——可延長熱水器壽命與效率。'},
+      {id:'deck',en:'Inspect & re-seal deck',zh:'檢查並重新封塗木甲板',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[6],pri:'low',cost:{diy:40,proLow:200,proHigh:500},diff:'moderate',req:'deck',descEn:'Inspect boards and railings, then clean and re-seal to protect the wood from rot and weather.',descZh:'檢查木板與欄杆，清潔後重新封塗，保護木材免於腐爛與風化。'},
+      {id:'trees',en:'Trim trees / branches near the house',zh:'修剪屋旁樹木 / 枝條',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[7],pri:'med',cost:{diy:0,proLow:150,proHigh:400},diff:'pro',req:'trees',descEn:'Have overhanging or dead branches trimmed away from the roof and power lines before storm season.',descZh:'在暴風季前，請人修剪伸向屋頂與電線的懸垂或枯枝。'},
+      {id:'furnace',en:'Furnace professional service',zh:'暖氣專業保養',sysEn:'HVAC',sysZh:'暖通空調',freq:'annual',months:[9],pri:'high',cost:{diy:null,proLow:120,proHigh:200},diff:'pro',heating:['gas','boiler'],descEn:'A licensed tech inspects the heat exchanger, burners, and safety controls before heating season.',descZh:'持照技師在暖氣季前檢查熱交換器、燃燒器與安全控制。'},
+      {id:'heatpump',en:'Heat pump annual service',zh:'熱泵年度保養',sysEn:'HVAC',sysZh:'暖通空調',freq:'annual',months:[9],pri:'high',cost:{diy:null,proLow:120,proHigh:220},diff:'pro',heating:['heatpump'],descEn:'Annual service of coils, refrigerant, and the defrost cycle keeps the heat pump efficient year-round.',descZh:'年度保養盤管、冷媒與除霜循環，讓熱泵全年高效運作。'},
+      {id:'roof',en:'Inspect roof, flashing & attic ventilation',zh:'檢查屋頂、泛水板與閣樓通風',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[10],pri:'high',cost:{diy:0,proLow:150,proHigh:400},diff:'pro',descEn:'From the ground or by a pro: check for lifted shingles, damaged flashing, and blocked attic vents.',descZh:'從地面或請專業檢查：翹起的瓦片、損壞的泛水板與堵塞的閣樓通風口。'},
+      {id:'chimney',en:'Chimney / fireplace inspection & sweep',zh:'煙囪 / 壁爐檢查與清掃',sysEn:'Safety',sysZh:'安全',freq:'annual',months:[10],pri:'high',cost:{diy:null,proLow:150,proHigh:300},diff:'pro',req:'fireplace',descEn:'A certified sweep clears creosote and checks the flue — essential before you light the first fire.',descZh:'持證清掃員清除焦油並檢查煙道——生第一把火前的必要工作。'},
+      {id:'hosebib',en:'Disconnect & drain outdoor hose bibs',zh:'拆除並排空戶外水龍頭',sysEn:'Plumbing',sysZh:'水管',freq:'seasonal',months:[10],pri:'high',cost:{diy:0,proLow:null,proHigh:null},diff:'easy',coldOnly:true,descEn:'Shut the indoor valve, drain the outdoor tap, and store hoses so the pipe cannot freeze and burst.',descZh:'關閉室內閥門、排空戶外水龍頭並收好水管，避免水管結凍爆裂。'},
+      {id:'irrig_off',en:'Blow out & winterize irrigation',zh:'吹空並冬化灑水系統',sysEn:'Exterior',sysZh:'外部',freq:'seasonal',months:[10],pri:'med',cost:{diy:0,proLow:70,proHigh:130},diff:'pro',req:'irrigation',coldOnly:true,descEn:'Blow compressed air through the lines to clear water so a winter freeze cannot crack the pipes.',descZh:'用壓縮空氣吹空管線排水，避免冬季結凍使管線破裂。'},
+      {id:'pool_close',en:'Close & winterize the pool',zh:'關池與冬化泳池',sysEn:'Exterior',sysZh:'外部',freq:'annual',months:[9],pri:'med',cost:{diy:150,proLow:300,proHigh:600},diff:'moderate',req:'pool',descEn:'Balance water, lower the level, add winter chemicals, and cover it to protect the pool over winter.',descZh:'平衡水質、降低水位、加入冬季藥劑並蓋上池蓋，保護泳池過冬。'},
+      {id:'sealgaps',en:'Seal gaps & service heating before cold',zh:'封堵縫隙並在寒冬前保養暖氣',sysEn:'Exterior',sysZh:'外部',freq:'seasonal',months:[11],pri:'med',cost:{diy:20,proLow:null,proHigh:null},diff:'easy',descEn:'Caulk exterior gaps and book any heating service before the first cold snap so you are not caught out.',descZh:'在第一波寒流前填補外部縫隙並預約暖氣保養，免得措手不及。'},
+      {id:'hrv',en:'HRV / ERV cleaning & balancing',zh:'熱回收通風系統清潔與平衡',sysEn:'HVAC',sysZh:'暖通空調',freq:'annual',months:[2],pri:'med',cost:{diy:0,proLow:120,proHigh:200},diff:'moderate',descEn:'Clean the cores and filters of your HRV/ERV and rebalance airflow for fresh, efficient ventilation.',descZh:'清潔 HRV／ERV 的核心與濾網並重新平衡氣流，維持新鮮又高效的通風。'},
+      {id:'whflush',en:'Flush water heater; test relief valve',zh:'沖洗熱水器；測試洩壓閥',sysEn:'Plumbing',sysZh:'水管',freq:'annual',months:[3],pri:'med',cost:{diy:0,proLow:100,proHigh:150},diff:'moderate',descEn:'Fully flush the tank and test the pressure-relief valve to keep the water heater safe and efficient.',descZh:'徹底沖洗水箱並測試洩壓閥，維持熱水器安全與效率。'},
+      {id:'rekey',en:'Re-key exterior locks (new owners)',zh:'重設外門鎖（新屋主）',sysEn:'Security',sysZh:'安全',freq:'annual',months:[8],pri:'low',cost:{diy:30,proLow:80,proHigh:150},diff:'moderate',firstYearOnly:true,descEn:'New to the home? Re-key or replace exterior locks so only you hold working keys.',descZh:'剛入住？重設或更換外門鎖，確保只有你握有可用鑰匙。'},
+      {id:'ducts',en:'Professional duct cleaning',zh:'專業風管清潔',sysEn:'HVAC',sysZh:'暖通空調',freq:'multiyr',months:[3],pri:'low',cost:{diy:null,proLow:300,proHigh:500},diff:'pro',descEn:'A deep professional cleaning removes dust and allergens built up in the ductwork over the years.',descZh:'深度專業清潔可清除多年累積在風管中的灰塵與過敏原。'},
+      {id:'recaulk',en:'Re-caulk tubs, showers & sinks',zh:'重新填縫浴缸、淋浴間與水槽',sysEn:'Plumbing',sysZh:'水管',freq:'multiyr',months:[6],pri:'low',cost:{diy:15,proLow:null,proHigh:null},diff:'easy',descEn:'Strip old caulk and reseal tubs, showers, and sinks to stop water seeping behind the tiles.',descZh:'刮除舊填縫並重新封塗浴缸、淋浴間與水槽，防止水滲入磁磚後方。'},
+      {id:'paint',en:'Repaint / reseal exterior wood & trim',zh:'重新油漆 / 封塗外部木作與飾條',sysEn:'Exterior',sysZh:'外部',freq:'multiyr',months:[7],pri:'low',cost:{diy:80,proLow:800,proHigh:2500},diff:'pro',descEn:'Repaint or reseal exterior wood and trim to protect it against moisture, UV, and rot.',descZh:'重新油漆或封塗外部木作與飾條，抵禦濕氣、紫外線與腐爛。'}
+    ];
+
+    const FREQ = {
+      monthly:{en:'Every month',zh:'每月'}, quarterly:{en:'Every 3 months',zh:'每 3 個月'},
+      semi:{en:'Twice a year',zh:'每年兩次'}, annual:{en:'Once a year',zh:'每年一次'},
+      seasonal:{en:'Seasonal',zh:'季節性'}, multiyr:{en:'Every 3–5 years',zh:'每 3–5 年'}
+    };
+    const DIFF = {easy:{en:'Easy DIY',zh:'簡單 DIY'},moderate:{en:'Moderate DIY',zh:'進階 DIY'},pro:{en:'Hire a pro',zh:'建議找專業'}};
+    const PRI = {high:{en:'High',zh:'高'},med:{en:'Medium',zh:'中'},low:{en:'Low',zh:'低'}};
+    const PRI_RANK = {high:0,med:1,low:2};
+
+    const freqLabel = f => FREQ[f][lang];
+    const diffLabel = d => DIFF[d][lang];
+    const priLabel = p => PRI[p][lang];
+    const taskName = t => lang==='zh'?t.zh:t.en;
+    const taskSys = t => lang==='zh'?t.sysZh:t.sysEn;
+    const taskDesc = t => lang==='zh'?t.descZh:t.descEn;
+
+    function rruleFor(f){
+      switch(f){
+        case 'monthly': return 'FREQ=MONTHLY';
+        case 'quarterly': return 'FREQ=MONTHLY;INTERVAL=3';
+        case 'semi': return 'FREQ=MONTHLY;INTERVAL=6';
+        case 'annual': return 'FREQ=YEARLY';
+        case 'seasonal': return 'FREQ=YEARLY';
+        case 'multiyr': return 'FREQ=YEARLY;INTERVAL=4';
+      }
+      return 'FREQ=YEARLY';
+    }
+
+    function visibleTasks(){
+      return TASKS.filter(t=>{
+        if(t.req && !STATE.features[t.req]) return false;
+        if(t.heating && !t.heating.includes(STATE.heating)) return false;
+        if(t.coldOnly && STATE.climate!=='cold') return false;
+        if(t.firstYearOnly && STATE.age!=='new') return false;
+        return true;
+      }).map(t=>{
+        const c = Object.assign({}, t);
+        const oldHome = (STATE.age==='old'||STATE.age==='veryold');
+        if(oldHome && ['roof','gfci','whflush','furnace','chimney'].includes(c.id)){
+          if(c.pri==='med') c.pri='high';
+          else if(c.pri==='low') c.pri='med';
+          c.bumped = true;
+        }
+        if(STATE.age==='new' && c.id==='rekey') c.pri='med';
+        return c;
+      });
+    }
+    function monthTasks(tasks, m){
+      return tasks.filter(t=> t.freq==='monthly' || t.months.includes(m))
+                  .sort((a,b)=> PRI_RANK[a.pri]-PRI_RANK[b.pri]);
+    }
+
+    const money = n => n===0 ? tt('free') : '$'+n;
+    function costFull(c, diff){
+      const hasPro = c.proLow!=null, hasDiy = c.diy!=null;
+      const proStr = hasPro ? '$'+c.proLow+'–'+c.proHigh : null;
+      const diyLbl = tt('diyWord'), proLbl = tt('proWord');
+      if(diff==='pro' || !hasDiy) return proLbl+' '+(proStr||'—');
+      let s = diyLbl+' '+money(c.diy);
+      if(hasPro) s += ' · '+proLbl+' '+proStr;
+      return s;
+    }
+    const occPerYear = f => ({monthly:12,quarterly:4,semi:2,annual:1,seasonal:1,multiyr:0.25})[f]||1;
+    function annualEstimate(tasks){
+      let lo=0, hi=0;
+      tasks.forEach(t=>{
+        const c=t.cost, n=occPerYear(t.freq);
+        const hasPro=c.proLow!=null, hasDiy=c.diy!=null;
+        if(t.diff==='pro' || !hasDiy){ if(hasPro){ lo+=c.proLow*n; hi+=c.proHigh*n; } return; }
+        if(STATE.diy==='pro' && hasPro){ lo+=c.proLow*n; hi+=c.proHigh*n; return; }
+        lo+=c.diy*n; hi+=c.diy*n;
+      });
+      return {lo:Math.round(lo),hi:Math.round(hi)};
+    }
+
+    // Calendar helpers
+    function nextDateForMonth(m){ const now=new Date(); let y=now.getFullYear(); if(m-1<now.getMonth()) y++; return new Date(y,m-1,1); }
+    function nextDateMonthly(){ const now=new Date(); let y=now.getFullYear(), m=now.getMonth()+1; if(m>11){m=0;y++;} return new Date(y,m,1); }
+    function ymd(d){ return ''+d.getFullYear()+String(d.getMonth()+1).padStart(2,'0')+String(d.getDate()).padStart(2,'0'); }
+    function taskStartDate(t){ if(t.freq==='monthly') return nextDateMonthly(); const m=(t.months&&t.months.length)?t.months[0]:1; return nextDateForMonth(m); }
+    const plusDay = d => new Date(d.getTime()+86400000);
+    const icsEscape = s => String(s).replace(/\\/g,'\\\\').replace(/;/g,'\\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');
+
+    function googleLink(t){
+      const start=taskStartDate(t), end=plusDay(start);
+      const text=encodeURIComponent(taskName(t)+' — Well Maintained');
+      const dates=ymd(start)+'/'+ymd(end);
+      const recur=encodeURIComponent('RRULE:'+rruleFor(t.freq));
+      const plainCost = t.cost.proLow!=null ? ('Pro $'+t.cost.proLow+'–'+t.cost.proHigh) : (t.cost.diy!=null?('DIY $'+t.cost.diy):'');
+      const det=encodeURIComponent(taskSys(t)+' · '+freqLabel(t.freq)+' · '+diffLabel(t.diff)+(plainCost?(' · '+plainCost):'')+'\n\n'+taskDesc(t)+'\n\n'+(lang==='zh'?'來自你的 Well Maintained 智慧維護時程':'From your Well Maintained smart maintenance schedule'));
+      return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+text+'&dates='+dates+'&recur='+recur+'&details='+det;
+    }
+
+    function downloadICS(){
+      const tasks=visibleTasks();
+      let lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Well Maintained//Smart Schedule//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH'];
+      const stamp=ymd(new Date())+'T090000Z';
+      tasks.forEach(t=>{
+        const start=taskStartDate(t), end=plusDay(start);
+        const plainCost = t.cost.proLow!=null ? ('Pro $'+t.cost.proLow+'-'+t.cost.proHigh) : (t.cost.diy!=null?('DIY $'+t.cost.diy):'');
+        const desc=taskSys(t)+' | '+freqLabel(t.freq)+' | '+diffLabel(t.diff)+(plainCost?(' | '+plainCost):'')+' | '+taskDesc(t);
+        lines.push('BEGIN:VEVENT');
+        lines.push('UID:'+t.id+'-'+ymd(start)+'@wellmaintained');
+        lines.push('DTSTAMP:'+stamp);
+        lines.push('DTSTART;VALUE=DATE:'+ymd(start));
+        lines.push('DTEND;VALUE=DATE:'+ymd(end));
+        lines.push('RRULE:'+rruleFor(t.freq));
+        lines.push('SUMMARY:'+icsEscape(taskName(t)+' — Well Maintained'));
+        lines.push('DESCRIPTION:'+icsEscape(desc));
+        lines.push('CATEGORIES:'+icsEscape(taskSys(t)));
+        lines.push('BEGIN:VALARM');lines.push('ACTION:DISPLAY');lines.push('DESCRIPTION:'+icsEscape(taskName(t)));lines.push('TRIGGER:-P2D');lines.push('END:VALARM');
+        lines.push('END:VEVENT');
+      });
+      lines.push('END:VCALENDAR');
+      const blob=new Blob([lines.join('\r\n')],{type:'text/calendar;charset=utf-8'});
+      const url=URL.createObjectURL(blob);
+      const a=document.createElement('a'); a.href=url; a.download='well-maintained-schedule.ics';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    }
+
+    // ===== Build static UI =====
+    function optionsHTML(kind, sel){
+      return OPTS[kind].map(([v,lbl])=> '<option value="'+v+'"'+(v===sel?' selected':'')+'>'+lbl[lang]+'</option>').join('');
+    }
+    function buildStaticUI(){
+      document.getElementById('ss-panel').innerHTML =
+        '<h2>'+tt('panelTitle')+'</h2>'+
+        '<div class="ss-hint">'+tt('panelHint')+'</div>'+
+        '<div class="ss-controls">'+
+          '<div class="ss-ctl"><label>'+tt('climate')+'</label><select id="ss-climate">'+optionsHTML('climate',STATE.climate)+'</select></div>'+
+          '<div class="ss-ctl"><label>'+tt('age')+'</label><select id="ss-age">'+optionsHTML('age',STATE.age)+'</select></div>'+
+          '<div class="ss-ctl"><label>'+tt('heating')+'</label><select id="ss-heating">'+optionsHTML('heating',STATE.heating)+'</select></div>'+
+          '<div class="ss-ctl"><label>'+tt('diy')+'</label><select id="ss-diy">'+optionsHTML('diy',STATE.diy)+'</select></div>'+
+        '</div>'+
+        '<div class="ss-feat-label">'+tt('featuresLabel')+'</div>'+
+        '<div class="ss-chips" id="ss-chips"></div>';
+
+      document.getElementById('ss-calcta').innerHTML =
+        '<div class="ss-cta-txt">'+
+          '<h3>'+tt('ctaTitle')+'</h3><p>'+tt('ctaDesc')+'</p>'+
+          '<button class="ss-howlink" id="ss-howlink">'+tt('howLink')+'</button>'+
+          '<div class="ss-howbox" id="ss-howbox"><div><b>'+tt('howIntro')+'</b></div><ol><li>'+tt('how1')+'</li><li>'+tt('how2')+'</li><li>'+tt('how3')+'</li></ol></div>'+
+        '</div>'+
+        '<div class="ss-acts"><button class="btn-primary" id="ss-download">'+tt('download')+'</button></div>';
+
+      ['climate','age','heating','diy'].forEach(k=>{
+        document.getElementById('ss-'+k).addEventListener('change', e=>{ STATE[k]=e.target.value; renderAll(); });
+      });
+      document.getElementById('ss-chips').addEventListener('click', e=>{
+        const chip=e.target.closest('.ss-chip'); if(!chip) return;
+        STATE.features[chip.getAttribute('data-key')] = !STATE.features[chip.getAttribute('data-key')]; renderAll();
+      });
+      document.getElementById('ss-download').addEventListener('click', downloadICS);
+      document.getElementById('ss-howlink').addEventListener('click', ()=>{ document.getElementById('ss-howbox').classList.toggle('show'); });
+
+      // calendar interactions (delegated, container persists)
+      const outEl = document.getElementById('ss-out');
+      outEl.addEventListener('click', e=>{
+        if(e.target.closest('#ss-prev')){ STATE.month = STATE.month===1?12:STATE.month-1; renderMonth(visibleTasks()); return; }
+        if(e.target.closest('#ss-next')){ STATE.month = STATE.month===12?1:STATE.month+1; renderMonth(visibleTasks()); return; }
+        if(e.target.closest('#ss-today')){ STATE.month = currentMonth(); renderMonth(visibleTasks()); return; }
+        const row=e.target.closest('[data-id]'); if(row) openDetail(row.getAttribute('data-id'));
+      });
+      outEl.addEventListener('keydown', e=>{
+        if((e.key==='Enter'||e.key===' ')){ const row=e.target.closest('[data-id]'); if(row){ e.preventDefault(); openDetail(row.getAttribute('data-id')); } }
+      });
+
+      // modal interactions
+      document.getElementById('ss-modal-bd').addEventListener('click', closeDetail);
+      document.getElementById('ss-modal-card').addEventListener('click', e=>{ if(e.target.closest('#ss-modal-close')) closeDetail(); });
+      document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDetail(); });
+    }
+
+    function renderChips(){
+      document.getElementById('ss-chips').innerHTML = FEATURE_DEFS.map(f=>
+        '<div class="ss-chip '+(STATE.features[f.key]?'on':'')+'" data-key="'+f.key+'"><span class="dot"></span>'+f[lang]+'</div>'
+      ).join('');
+    }
+    function stat(n,l,cls){ return '<div class="ss-stat"><div class="n '+cls+'">'+n+'</div><div class="l">'+l+'</div></div>'; }
+    function renderSummary(tasks){
+      const high=tasks.filter(t=>t.pri==='high').length;
+      const diy=tasks.filter(t=>t.diff!=='pro').length;
+      const est=annualEstimate(tasks);
+      const estStr = est.hi>0 ? ('$'+est.lo+'–$'+est.hi) : '—';
+      document.getElementById('ss-summary').innerHTML =
+        stat(tasks.length, tt('totalTasks'),'plain')+
+        stat(high, tt('highPri'),'amber')+
+        stat(diy, tt('canDiy'),'')+
+        stat(estStr, tt('yearly'),'plain');
+    }
+    function rowHTML(t){
+      return '<div class="ss-row p-'+t.pri+'" data-id="'+t.id+'" role="button" tabindex="0">'+
+        '<span class="ss-dot '+t.pri+'"></span>'+
+        '<span class="ss-rowtitle">'+taskName(t)+'</span>'+
+        '<span class="ss-rowtags"><span class="ss-badge '+t.diff+'">'+diffLabel(t.diff)+'</span></span>'+
+        '<span class="ss-chev">›</span>'+
+      '</div>';
+    }
+    function renderMonth(tasks){
+      const m=STATE.month;
+      const list=monthTasks(tasks,m);
+      let html='<div class="ss-calnav">'+
+        '<div class="ss-calnav-main">'+
+          '<button class="ss-navbtn" id="ss-prev" aria-label="'+tt('prev')+'">‹</button>'+
+          '<div class="ss-navlabel"><span class="m">'+MONTHS[lang][m-1]+'</span><span class="season">'+SEASON[lang][m]+'</span></div>'+
+          '<button class="ss-navbtn" id="ss-next" aria-label="'+tt('next')+'">›</button>'+
+        '</div>'+
+        '<div class="ss-calnav-side"><span class="count">'+list.length+' '+tt('tasks')+(list.length?(' · '+tt('tapHint')):'')+'</span><button class="ss-today" id="ss-today">'+tt('thisMonth')+'</button></div>'+
+      '</div>';
+      html += list.length ? ('<div class="ss-rows">'+list.map(rowHTML).join('')+'</div>') : ('<div class="ss-empty">'+tt('emptyMonth')+'</div>');
+      document.getElementById('ss-out').innerHTML = html;
+    }
+
+    function openDetail(id){
+      const t=visibleTasks().find(x=>x.id===id); if(!t) return;
+      const bumped = t.bumped ? ' <span class="ss-note">('+tt('bumped')+')</span>' : '';
+      document.getElementById('ss-modal-card').innerHTML =
+        '<button class="ss-modal-close" id="ss-modal-close" aria-label="close">×</button>'+
+        '<span class="ss-pri '+t.pri+'">'+priLabel(t.pri)+bumped+'</span>'+
+        '<h3 class="ss-modal-title">'+taskName(t)+'</h3>'+
+        '<div class="ss-modal-sys">'+taskSys(t)+' · '+freqLabel(t.freq)+'</div>'+
+        '<p class="ss-modal-desc">'+taskDesc(t)+'</p>'+
+        '<div class="ss-modal-meta">'+
+          '<div class="ss-modal-line"><span class="k">'+tt('difficulty')+'</span><span class="ss-badge '+t.diff+'">🔧 '+diffLabel(t.diff)+'</span></div>'+
+          '<div class="ss-modal-line"><span class="k">'+tt('estCost')+'</span><span class="v">💰 '+costFull(t.cost,t.diff)+'</span></div>'+
+        '</div>'+
+        '<a class="ss-gcal ss-modal-gcal" target="_blank" rel="noopener" href="'+googleLink(t)+'">📅 '+tt('gcal')+'</a>';
+      const modal=document.getElementById('ss-modal');
+      modal.removeAttribute('hidden');
+      document.body.style.overflow='hidden';
+    }
+    function closeDetail(){
+      const modal=document.getElementById('ss-modal');
+      if(modal.hasAttribute('hidden')) return;
+      modal.setAttribute('hidden','');
+      document.body.style.overflow='';
+    }
+
+    function renderAll(){
+      const tasks=visibleTasks();
+      renderChips(); renderSummary(tasks); renderMonth(tasks);
+    }
+
+    buildStaticUI();
+    renderAll();
+  }
+</script>

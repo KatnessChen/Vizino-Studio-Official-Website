@@ -34,19 +34,27 @@ const REPORT_EMAIL = 'contact@vizino.ai';
       <!-- Path toggle -->
       <div class="path-toggle">
         <button type="button" class="path-btn active" data-path="A" id="pathA">
+          <span class="path-tag">{t('intake.tag.free')}</span>
           <span class="path-t">{t('intake.path.a.title')}</span>
           <span class="path-d">{t('intake.path.a.desc')}</span>
         </button>
         <button type="button" class="path-btn" data-path="B" id="pathB">
+          <span class="path-tag">{t('intake.tag.free')}</span>
           <span class="path-t">{t('intake.path.b.title')}</span>
           <span class="path-d">{t('intake.path.b.desc')}</span>
+        </button>
+        <button type="button" class="path-btn" data-path="C" id="pathC">
+          <span class="path-tag paid">{t('intake.tag.visit')}</span>
+          <span class="path-t">{t('intake.path.c.title')}</span>
+          <span class="path-d">{t('intake.path.c.desc')}</span>
         </button>
       </div>
 
       <form class="intake-form" id="intakeForm" data-key={WEB3FORMS_KEY}
             data-mail-to={REPORT_EMAIL}
             data-submit-a={t('intake.submit')}
-            data-submit-b={t('intake.submit.email')}>
+            data-submit-b={t('intake.submit.email')}
+            data-submit-c={t('intake.submit.visit')}>
         <!-- Web3Forms config -->
         <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
         <input type="hidden" name="subject" value="New Well Maintained schedule request" />
@@ -134,6 +142,75 @@ const REPORT_EMAIL = 'contact@vizino.ai';
               </select>
             </div>
           </div>
+          <div class="row">
+            <div class="field">
+              <label for="cooling">{t('intake.cooling')}</label>
+              <select id="cooling" name="cooling">
+                <option value="">{t('intake.select')}</option>
+                <option value="central">{t('intake.cooling.central')}</option>
+                <option value="ductless">{t('intake.cooling.ductless')}</option>
+                <option value="window">{t('intake.cooling.window')}</option>
+                <option value="none">{t('intake.cooling.none')}</option>
+                <option value="unsure">{t('intake.cooling.unsure')}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="water">{t('intake.water')}</label>
+              <select id="water" name="water">
+                <option value="">{t('intake.select')}</option>
+                <option value="city">{t('intake.water.city')}</option>
+                <option value="well">{t('intake.water.well')}</option>
+                <option value="mixed">{t('intake.water.mixed')}</option>
+                <option value="unsure">{t('intake.water.unsure')}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="waterheater">{t('intake.waterheater')}</label>
+              <select id="waterheater" name="waterheater">
+                <option value="">{t('intake.select')}</option>
+                <option value="gastank">{t('intake.waterheater.gastank')}</option>
+                <option value="electrictank">{t('intake.waterheater.electrictank')}</option>
+                <option value="tankless">{t('intake.waterheater.tankless')}</option>
+                <option value="unsure">{t('intake.waterheater.unsure')}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="waterheaterAge">{t('intake.waterheaterage')}</label>
+              <select id="waterheaterAge" name="waterheaterAge">
+                <option value="">{t('intake.select')}</option>
+                <option value="u5">{t('intake.waterheaterage.u5')}</option>
+                <option value="5-10">{t('intake.waterheaterage.5')}</option>
+                <option value="10+">{t('intake.waterheaterage.10')}</option>
+                <option value="unsure">{t('intake.waterheaterage.unsure')}</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div class="field">
+              <label for="roof">{t('intake.roof')}</label>
+              <select id="roof" name="roof">
+                <option value="">{t('intake.select')}</option>
+                <option value="u5">{t('intake.roof.u5')}</option>
+                <option value="5-15">{t('intake.roof.5')}</option>
+                <option value="16-25">{t('intake.roof.16')}</option>
+                <option value="25+">{t('intake.roof.25')}</option>
+                <option value="unsure">{t('intake.roof.unsure')}</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="roofMat">{t('intake.roofmat')}</label>
+              <select id="roofMat" name="roofMat">
+                <option value="">{t('intake.select')}</option>
+                <option value="asphalt">{t('intake.roofmat.asphalt')}</option>
+                <option value="metal">{t('intake.roofmat.metal')}</option>
+                <option value="flat">{t('intake.roofmat.flat')}</option>
+                <option value="other">{t('intake.roofmat.other')}</option>
+                <option value="unsure">{t('intake.roofmat.unsure')}</option>
+              </select>
+            </div>
+          </div>
           <div class="field">
             <label>{t('intake.features')}</label>
             <div class="checks">
@@ -167,6 +244,17 @@ const REPORT_EMAIL = 'contact@vizino.ai';
           </div>
         </div>
 
+        <!-- PATH C — in-home visit -->
+        <div id="qsC" class="hidden">
+          <div class="mail-card">
+            <div class="mail-ic">🧑‍🔧</div>
+            <p class="mail-lead">{t('intake.visit.lead')}</p>
+            <p class="visit-price">{t('intake.visit.price')}</p>
+            <p class="mail-note">{t('intake.visit.note')}</p>
+            <p class="visit-fineprint">{t('intake.visit.fineprint')}</p>
+          </div>
+        </div>
+
         <!-- Shared optional -->
         <div class="field">
           <label for="worry">{t('intake.worry')}</label>
@@ -174,12 +262,12 @@ const REPORT_EMAIL = 'contact@vizino.ai';
         </div>
 
         <button type="submit" class="btn-primary submit-btn" id="submitBtn"><span id="submitLabel">{t('intake.submit')}</span> &rarr;</button>
-        <p class="privacy">{t('intake.privacy')}</p>
       </form>
 
       <div class="success-msg" id="successMsg"
            data-title-a={t('intake.success.title')} data-body-a={t('intake.success.body')}
-           data-title-b={t('intake.mail.success.title')} data-body-b={t('intake.mail.success.body')}>
+           data-title-b={t('intake.mail.success.title')} data-body-b={t('intake.mail.success.body')}
+           data-title-c={t('intake.visit.success.title')} data-body-c={t('intake.visit.success.body')}>
         <div class="success-icon">&#10003;</div>
         <h2 class="success-title" id="successTitle">{t('intake.success.title')}</h2>
         <p id="successBody">{t('intake.success.body')}</p>
@@ -191,12 +279,12 @@ const REPORT_EMAIL = 'contact@vizino.ai';
 <style>
   .intake-page {
     min-height: 100vh;
-    padding: 140px 24px 80px;
+    padding: 160px 28px 110px;
     display: flex;
     justify-content: center;
   }
   .intake-container {
-    max-width: 640px;
+    max-width: 660px;
     width: 100%;
   }
   .intake-title {
@@ -208,27 +296,44 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   .intake-desc {
     font-size: 17px;
     color: var(--text-secondary);
-    margin-bottom: 36px;
-    line-height: 1.6;
+    margin-bottom: 44px;
+    line-height: 1.7;
   }
 
   /* Path toggle */
   .path-toggle {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 32px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 40px;
   }
   .path-btn {
+    position: relative;
     background: var(--bg-tertiary);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 18px;
+    padding: 22px 18px 18px;
     text-align: left;
     cursor: pointer;
     font-family: var(--font);
     color: var(--text-secondary);
     transition: border-color 0.2s, background 0.2s;
+  }
+  .path-tag {
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--accent);
+    color: var(--bg-primary);
+    white-space: nowrap;
+  }
+  .path-tag.paid {
+    background: var(--amber);
   }
   .path-btn .path-t {
     display: block;
@@ -240,34 +345,42 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   .path-btn .path-d {
     display: block;
     font-size: 13px;
+    line-height: 1.5;
   }
   .path-btn.active {
     border-color: var(--accent);
     background: var(--accent-subtle);
+  }
+  #pathC.active {
+    border-color: var(--amber);
+    background: rgba(255, 184, 0, 0.1);
   }
 
   /* Form */
   .intake-form {
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 40px;
+  }
+  #qsA {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
   }
   .row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 20px;
   }
   .field {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
   }
   .field label {
     font-size: 13px;
     font-weight: 600;
     color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
   }
   .req { color: var(--accent); }
   .field input[type="text"],
@@ -311,7 +424,7 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   .checks {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 8px;
+    gap: 10px;
   }
   .check {
     display: flex;
@@ -320,7 +433,7 @@ const REPORT_EMAIL = 'contact@vizino.ai';
     background: var(--bg-secondary);
     border: 1px solid var(--border);
     border-radius: 10px;
-    padding: 11px 13px;
+    padding: 13px 15px;
     font-size: 14px;
     font-weight: 400;
     color: var(--text-primary);
@@ -340,8 +453,10 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   }
   .mail-ic { font-size: 30px; }
   .mail-lead { color: var(--text-primary); font-size: 15px; font-weight: 600; margin-top: 10px; }
+  .visit-price { color: var(--accent); font-size: 16px; font-weight: 700; margin-top: 14px; }
   .mail-note { color: var(--text-secondary); font-size: 14px; line-height: 1.6; margin-top: 8px; }
-  .hidden { display: none; }
+  .visit-fineprint { color: var(--text-tertiary); font-size: 12px; margin-top: 14px; }
+  .hidden { display: none !important; }
 
   .submit-btn {
     margin-top: 4px;
@@ -398,16 +513,21 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   const pathField = document.getElementById('pathField') as HTMLInputElement;
   const qsA = document.getElementById('qsA');
   const qsB = document.getElementById('qsB');
+  const qsC = document.getElementById('qsC');
   const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement;
   const submitLabel = document.getElementById('submitLabel');
   const accessKey = form?.dataset.key || '';
   const mailTo = form?.dataset.mailTo || '';
   const labelA = form?.dataset.submitA || '';
   const labelB = form?.dataset.submitB || '';
+  const labelC = form?.dataset.submitC || '';
 
-  function showSuccess(isB: boolean) {
-    if (successTitle) successTitle.textContent = (isB ? successMsg.dataset.titleB : successMsg.dataset.titleA) || successTitle.textContent;
-    if (successBody) successBody.textContent = (isB ? successMsg.dataset.bodyB : successMsg.dataset.bodyA) || successBody.textContent;
+  function showSuccess(variant: 'a' | 'b' | 'c') {
+    const ds = successMsg.dataset;
+    const title = variant === 'a' ? ds.titleA : variant === 'b' ? ds.titleB : ds.titleC;
+    const body = variant === 'a' ? ds.bodyA : variant === 'b' ? ds.bodyB : ds.bodyC;
+    if (successTitle && title) successTitle.textContent = title;
+    if (successBody && body) successBody.textContent = body;
     form.style.display = 'none';
     pathToggle.style.display = 'none';
     successMsg.classList.add('show');
@@ -416,13 +536,15 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   // Path toggle
   document.querySelectorAll('.path-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const isA = (btn as HTMLElement).dataset.path === 'A';
-      document.getElementById('pathA')?.classList.toggle('active', isA);
-      document.getElementById('pathB')?.classList.toggle('active', !isA);
-      qsA?.classList.toggle('hidden', !isA);
-      qsB?.classList.toggle('hidden', isA);
-      if (pathField) pathField.value = isA ? 'questions' : 'report';
-      if (submitLabel) submitLabel.textContent = isA ? labelA : labelB;
+      const path = (btn as HTMLElement).dataset.path; // 'A' | 'B' | 'C'
+      document.getElementById('pathA')?.classList.toggle('active', path === 'A');
+      document.getElementById('pathB')?.classList.toggle('active', path === 'B');
+      document.getElementById('pathC')?.classList.toggle('active', path === 'C');
+      qsA?.classList.toggle('hidden', path !== 'A');
+      qsB?.classList.toggle('hidden', path !== 'B');
+      qsC?.classList.toggle('hidden', path !== 'C');
+      if (pathField) pathField.value = path === 'A' ? 'questions' : path === 'B' ? 'report' : 'visit';
+      if (submitLabel) submitLabel.textContent = path === 'A' ? labelA : path === 'B' ? labelB : labelC;
     });
   });
 
@@ -434,14 +556,18 @@ const REPORT_EMAIL = 'contact@vizino.ai';
   // Submit
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const isB = pathField?.value === 'report';
+    const mode = pathField?.value; // 'questions' | 'report' | 'visit'
 
-    // ── Path B → open the visitor's email app pre-filled; they attach the report ──
-    if (isB) {
+    // ── Path B / Path C → open the visitor's email app pre-filled ──
+    if (mode === 'report' || mode === 'visit') {
+      const isVisit = mode === 'visit';
+      const intro = isVisit
+        ? "I'd like to book an in-home visit to set up my smart schedule (early-access $120)."
+        : 'Please find my home inspection report attached.';
       const lines = [
         'Hi Well Maintained team,',
         '',
-        'Please find my home inspection report attached.',
+        intro,
         '',
         'Name: ' + val('name'),
         'Email: ' + val('email'),
@@ -450,18 +576,23 @@ const REPORT_EMAIL = 'contact@vizino.ai';
       ];
       const worry = val('worry');
       if (worry) lines.push('Biggest home worry: ' + worry);
-      lines.push('', '(Please attach your report — PDF, JPG or PNG — before sending.)');
+      lines.push('', isVisit
+        ? 'Please let me know your available times.'
+        : '(Please attach your report — PDF, JPG or PNG — before sending.)');
+      const subject = isVisit
+        ? 'Well Maintained — request an in-home visit'
+        : 'Well Maintained — my inspection report';
       const href = 'mailto:' + mailTo
-        + '?subject=' + encodeURIComponent('Well Maintained — my inspection report')
+        + '?subject=' + encodeURIComponent(subject)
         + '&body=' + encodeURIComponent(lines.join('\n'));
       window.location.href = href;
-      showSuccess(true);
+      showSuccess(isVisit ? 'c' : 'b');
       return;
     }
 
     // ── Path A → Web3Forms ──
     // DEMO mode: no access key configured yet → just show success.
-    if (!accessKey) { showSuccess(false); return; }
+    if (!accessKey) { showSuccess('a'); return; }
 
     if (submitBtn) submitBtn.disabled = true;
     try {
@@ -471,7 +602,7 @@ const REPORT_EMAIL = 'contact@vizino.ai';
       });
       const data = await res.json();
       if (data.success) {
-        showSuccess(false);
+        showSuccess('a');
       } else {
         if (submitBtn) submitBtn.disabled = false;
         alert('Something went wrong. Please email ' + (mailTo || 'contact@vizino.ai') + ' directly.');

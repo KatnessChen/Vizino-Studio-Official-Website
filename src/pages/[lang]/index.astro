@@ -115,6 +115,9 @@ const t = useTranslations(lang as keyof typeof ui);
         <div class="plan-item"><div class="plan-icon">&#128276;</div><h4>{t('plan.reminders.title')}</h4><p>{t('plan.reminders.desc')}</p></div>
         <div class="plan-item"><div class="plan-icon">&#9989;</div><h4>{t('plan.book.title')}</h4><p>{t('plan.book.desc')}</p></div>
       </div>
+      <div style="text-align:center;margin-top:44px">
+        <a href={`/${lang}/smart-schedule/`} class="btn-primary">{t('plan.sampleCta')}</a>
+      </div>
     </div>
   </section>
 
@@ -148,7 +151,6 @@ const t = useTranslations(lang as keyof typeof ui);
       <h2 class="section-headline center">{t('cta.headline')}</h2>
       <p class="section-desc center">{t('cta.description')}</p>
       <a href={`/${lang}/waitlist/`} class="btn-primary btn-lg">{t('cta.button')} &rarr;</a>
-      <p class="cta-note">{t('cta.note')}</p>
     </div>
   </section>
 
